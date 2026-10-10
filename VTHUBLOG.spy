@@ -4,7 +4,7 @@
 
 local loginOK = (function()
     local CFG = {
-        API_URL = "https://script.google.com/macros/s/AKfycbwwUWN5ZnbvjqyA35Yn5dluDZi7N_G8nAb5fpC7PHbTCCAVn6x7pYMMmjhrmRhp4373/exec",
+        API_URL = "https://script.google.com/macros/s/AKfycbzqOAHVc8kuJRKlr6w5bp6-mknBzJ5heZlJAmKapLDVw9SwXXh0xxCrPh8DKERdDvWnhQ/exec",
         SECRET = "a56ac0f4838645ea9937c6e0508085c04bd9d83f239d4cdaba868eeadc02afcf",
         KEY_FILE = "VeteranoTeam/key.txt",
         HWID_FILE = "VeteranoTeam/hwid.txt",
