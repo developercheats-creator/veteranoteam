@@ -1,13 +1,13 @@
 -- ============================================================
--- VETERANO TEAM | SINTONIA RP V2 - VERSÃO FREE
+-- VETERANO TEAM | SINTONIA RP V2 - VERSAO GRATIS
 -- ============================================================
 
 local loginOK = (function()
     local CFG = {
         API_URL = "https://script.google.com/macros/s/AKfycbydA-p6rRlevmG9WpnhVqg844dc1W1J8mZ7ZNYchzuC0SaB3DR_nzcAom1LdSwAjayGyQ/exec",
         SECRET = "a56ac0f4838645ea9937c6e0508085c04bd9d83f239d4cdaba868eeadc02afcf",
-        KEY_FILE = "VeteranoTeam/key.txt",
-        HWID_FILE = "VeteranoTeam/hwid.txt",
+        KEY_FILE = "VeteranoTeamFree/key.txt",
+        HWID_FILE = "VeteranoTeamFree/hwid.txt",
         MAX_TRIES = 5, LOCK_SECS = 15,
     }
     local v17 = "https://discord.com/invite/vNKTAtTwFu"
@@ -77,7 +77,7 @@ local loginOK = (function()
     local function saveHWID(v)
         if type(writefile)~="function" then return end
         pcall(function()
-            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeam") then makefolder("VeteranoTeam") end
+            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeamFree") then makefolder("VeteranoTeamFree") end
             writefile(CFG.HWID_FILE, v)
         end)
     end
@@ -99,7 +99,7 @@ local loginOK = (function()
     local function saveKey(k)
         if type(writefile)~="function" then return end
         pcall(function()
-            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeam") then makefolder("VeteranoTeam") end
+            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeamFree") then makefolder("VeteranoTeamFree") end
             writefile(CFG.KEY_FILE, k)
         end)
     end
@@ -108,7 +108,7 @@ local loginOK = (function()
         pcall(function() if isfile(CFG.KEY_FILE) then delfile(CFG.KEY_FILE) end end)
     end
     local function cleanKey(s) return tostring(s or ""):gsub("%s+",""):upper() end
-    local function keyLooksValid(k) return k:match("^VTRN%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil end
+    local function keyLooksValid(k) return k:match("^FREE%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil or k:match("^VTRN%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil end
 
     local function validateRemote(key)
         if CFG.API_URL:find("COLE_AQUI",1,true) then return false, "Login nao configurado." end
@@ -219,14 +219,14 @@ local loginOK = (function()
 
     local v50 = Instance.new("TextLabel")
     v50.Size = UDim2.new(1,0,0,20); v50.Position = UDim2.new(0,0,0,82)
-    v50.BackgroundTransparency = 1; v50.Text = "@VETERANO.DEV"
+    v50.BackgroundTransparency = 1; v50.Text = "@VETERANO.DEV | VERSAO GRATIS"
     v50.Font = Enum.Font.GothamBold; v50.TextSize = 13
     v50.TextColor3 = Color3.fromRGB(200,100,255); v50.Parent = v28
 
     local keyBox = Instance.new("TextBox")
     keyBox.Size = UDim2.new(0.7,0,0,40); keyBox.Position = UDim2.new(0.15,0,0,112)
     keyBox.BackgroundTransparency = 1; keyBox.Text = ""
-    keyBox.PlaceholderText = "CHAVE DE ACESSO"
+    keyBox.PlaceholderText = "CHAVE DE ACESSO (FREE)"
     keyBox.PlaceholderColor3 = Color3.fromRGB(120,110,140)
     keyBox.Font = Enum.Font.Gotham; keyBox.TextSize = 15
     keyBox.TextColor3 = Color3.new(1,1,1); keyBox.ClearTextOnFocus = false
@@ -240,14 +240,14 @@ local loginOK = (function()
     local hintLabel = Instance.new("TextLabel")
     hintLabel.Size = UDim2.new(0.9,0,0,32); hintLabel.Position = UDim2.new(0.05,0,0,162)
     hintLabel.BackgroundTransparency = 1
-    hintLabel.Text = "Cole sua chave de acesso para entrar.\nObtenha uma no nosso Discord"
+    hintLabel.Text = "Cole sua chave FREE para entrar.\nObtenha uma no nosso Discord"
     hintLabel.Font = Enum.Font.GothamMedium; hintLabel.TextSize = 14
     hintLabel.TextColor3 = Color3.fromRGB(160,150,180); hintLabel.TextWrapped = true
     hintLabel.TextYAlignment = Enum.TextYAlignment.Top; hintLabel.Parent = v28
 
     local teamLabel = Instance.new("TextLabel")
     teamLabel.Size = UDim2.new(1,0,0,18); teamLabel.Position = UDim2.new(0,0,0,195)
-    teamLabel.BackgroundTransparency = 1; teamLabel.Text = "VETERANO TEAM"
+    teamLabel.BackgroundTransparency = 1; teamLabel.Text = "VETERANO TEAM - FREE"
     teamLabel.Font = Enum.Font.GothamBold; teamLabel.TextSize = 13
     teamLabel.TextColor3 = Color3.fromRGB(200,100,255)
     teamLabel.TextXAlignment = Enum.TextXAlignment.Center; teamLabel.Parent = v28
@@ -405,18 +405,11 @@ local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local Lighting = game:GetService("Lighting")
 local PathfindingService = game:GetService("PathfindingService")
+local TeleportService = game:GetService("TeleportService")
 local LocalPlayer = Players.LocalPlayer
 
 local isMobile = UserInputService.TouchEnabled and not UserInputService.MouseEnabled
 
--- ============================================
--- FLAG DE VERSAO FREE
--- ============================================
-local IS_FREE = true
-
--- ============================================
--- CORES
--- ============================================
 local TC = Color3.fromRGB(170,70,255)
 local TCD = Color3.fromRGB(90,40,140)
 local BG = Color3.fromRGB(14,8,24)
@@ -450,47 +443,46 @@ local F = "125299131646017"
 local o = {
     connections = {}, placeMatched = tostring(game.PlaceId)==F, destroyed=false,
     itemTeleportRunId=0, farmPartesRunId=0, farmPartesColetadas=0,
-    bestWeaponRunId=0, bestWeaponLastAttempt=0, bestWeaponLastName=nil,
     garbageFarmRunId=0, garbageFarmStatus="Parado", durabilidadeRunId=0,
     relationships={}, relationshipConnections={}, staffCount=0, staffNames={},
     pescaRunId=0, pescaStatus="Parado", pescaColetados=0,
+    coletaRunId = 0,
+    coletaHudRunId = 0,
 }
 
 local T = {
-    monitorarStaff = false, sorte2xEnabled = false,
+    monitorarStaff = false,
     espEnabled=false, box=false, name=false, distance=false, heldItem=false,
     skeleton=false, highlight=false, tracer=false, arrow=false, box3d=false, teamTag=false,
     maxDistance=P, bundles={}, spoofWalkEnabled=false, spoofJumpEnabled=false,
     spoofWalkSpeed=40, spoofJumpPower=90,
     walkSpeedKeybind=Enum.KeyCode.V, menuKeybind=z,
-    antiRagdollEnabled=false, antiRagdollDelay=0,
-    antiTiroEnabled=false, rolarEnabled=false,
     noclipEnabled=false, noclipKeybind=Enum.KeyCode.N,
     flyEnabled=false, flyKeybind=Enum.KeyCode.F, flySpeed=60,
     aimbotEnabled=false, aimbotMode="Legit", aimbotFov=120, aimbotDistance=500,
     aimbotVisibleOnly=false, aimbotFovVisible=false,
-    aimbotHitChance=100, aimbotBodyPart="Cabeca", aimbotSmoothness=0.15,
+    aimbotHitChance=100, aimbotBodyPart="Cabeca", aimbotSmoothness=0.5,
     aimbotTargetMode="Closest", aimbotWallCheck=true, aimbotTeamCheck=true,
     aimbotKeybind=Enum.KeyCode.E, friendCheck=true, adminCheck=true,
-    armaNoRecoil=false, armaMunicaoInfinita=false,
-    armaReloadRapido=false, armaSemLentidao=false,
-    armaCadenciaCustom=false, armaTirosPorSegundo=10,
     armaTracer=false, armaTracerCor="Ciano",
     perfectLockpick=false,
-    bestWeaponEnabled=false, itemTeleportSpeed=65,
-    farmPartesEnabled=false,
+    itemTeleportSpeed=65,
     autoFarmLixeiroEnabled=false, autoFarmLixeiroQuantidade=20,
+    farmPartesEnabled=false,
     durabilidadeHudEnabled=false,
-    bestCarsEspEnabled=false, autoCintoEnabled=false,
+    autoCintoEnabled=false,
     noclipCarEnabled=false, vFlyEnabled=false,
     vFlyHorizontalSpeed=60, vFlyVerticalSpeed=30,
     boostFactor=1, alwaysDay=false, fullbright=false,
-    noShadow=false, noFog=false, noBlur=false,
+    noLag=false,
     autoFarmPescaEnabled=false,
+    autoColetaEnabled=false, autoColetaCooldown=0.35,
+    coletaHudEnabled=false, coletaYOffset=3, coletaReachDistance=4,
+    sorte2xEnabled = false,
 }
 
-if C.__KNWARE_SINTONIA_CLEANUP then pcall(C.__KNWARE_SINTONIA_CLEANUP) end
-if C.__KNWARE_MOBILIDADE_CLEANUP then pcall(C.__KNWARE_MOBILIDADE_CLEANUP); C.__KNWARE_MOBILIDADE_CLEANUP = nil end
+if C.__VETERANO_SINTONIA_CLEANUP then pcall(C.__VETERANO_SINTONIA_CLEANUP) end
+if C.__VETERANO_MOBILIDADE_CLEANUP then pcall(C.__VETERANO_MOBILIDADE_CLEANUP); C.__VETERANO_MOBILIDADE_CLEANUP = nil end
 
 local function handleReady(conn) table.insert(o.connections, conn); return conn end
 local GuiService = game:GetService("GuiService")
@@ -501,7 +493,7 @@ local function handleM(frame)
     local sg = frame:FindFirstAncestorWhichIsA("ScreenGui")
     local inset = GuiService:GetGuiInset()
     if sg and sg.IgnoreGuiInset then return inset, vp end
-    return Vector3.zero, Vector2.new(vp.X, vp.Y-inset.Y)
+    return Vector2.zero, Vector2.new(vp.X, vp.Y-inset.Y)
 end
 
 local function updateInstancePropertiesPosition(frame, handlePart, onEnd)
@@ -771,55 +763,104 @@ end)()
 -- MUNDO
 -- ============================================
 do
+    local function capture()
+        local L = game:GetService("Lighting")
+        return {
+            Brightness = L.Brightness,
+            ClockTime = L.ClockTime,
+            GeographicLatitude = L.GeographicLatitude,
+            FogEnd = L.FogEnd,
+            FogStart = L.FogStart,
+            GlobalShadows = L.GlobalShadows,
+            Ambient = L.Ambient,
+            OutdoorAmbient = L.OutdoorAmbient,
+            ExposureCompensation = L.ExposureCompensation,
+            EnvironmentDiffuseScale = L.EnvironmentDiffuseScale,
+            EnvironmentSpecularScale = L.EnvironmentSpecularScale,
+        }
+    end
+    local function restore()
+        local L = game:GetService("Lighting")
+        if not o.worldOriginal then return end
+        for k, v in pairs(o.worldOriginal) do
+            pcall(function() L[k] = v end)
+        end
+        for _, atm in ipairs(L:GetChildren()) do
+            if atm:IsA("Atmosphere") and o.worldAtmOriginal then
+                pcall(function() atm.Density = o.worldAtmOriginal end)
+            end
+        end
+    end
     local function applyWorld()
         local L = game:GetService("Lighting")
-        local active = T.alwaysDay or T.fullbright or T.noShadow or T.noFog or T.noBlur
-        if not o.worldOriginal and active then
-            o.worldOriginal = {
-                Brightness=L.Brightness, ClockTime=L.ClockTime, FogEnd=L.FogEnd, FogStart=L.FogStart,
-                GlobalShadows=L.GlobalShadows, Ambient=L.Ambient, OutdoorAmbient=L.OutdoorAmbient,
-                ExposureCompensation=L.ExposureCompensation,
-            }
-        end
-        local orig = o.worldOriginal
-        if not active then
-            if orig then
-                for k, v in pairs(orig) do pcall(function() L[k]=v end) end
-            end
+        local active = T.alwaysDay or T.fullbright or T.noLag
+        if active and not o.worldOriginal then
+            o.worldOriginal = capture()
+            local atm = L:FindFirstChildOfClass("Atmosphere")
+            o.worldAtmOriginal = atm and atm.Density or 0.3
+        elseif not active and o.worldOriginal then
+            restore()
+            o.worldOriginal = nil
             return
         end
-        if T.alwaysDay or T.fullbright then L.ClockTime = 14
-        elseif orig then L.ClockTime = orig.ClockTime end
-        if T.fullbright then
-            L.Brightness = 2; L.ExposureCompensation = 0
-            L.Ambient = Color3.new(1,1,1); L.OutdoorAmbient = Color3.new(1,1,1)
-        elseif orig then
-            L.Brightness = orig.Brightness; L.ExposureCompensation = orig.ExposureCompensation
-            L.Ambient = orig.Ambient; L.OutdoorAmbient = orig.OutdoorAmbient
+        if not active then return end
+        if T.alwaysDay then
+            pcall(function() L.ClockTime = 12 end)
+            pcall(function() L.GeographicLatitude = 0 end)
+        elseif o.worldOriginal then
+            pcall(function() L.ClockTime = o.worldOriginal.ClockTime end)
+            pcall(function() L.GeographicLatitude = o.worldOriginal.GeographicLatitude end)
         end
-        if T.noShadow or T.fullbright then L.GlobalShadows = false
-        elseif orig then L.GlobalShadows = orig.GlobalShadows end
-        if T.noFog or T.fullbright then
-            L.FogStart = 0; L.FogEnd = 1000000000
-            local atm = L:FindFirstChildOfClass("Atmosphere")
-            if atm then atm.Density = 0 end
-        elseif orig then L.FogStart = orig.FogStart; L.FogEnd = orig.FogEnd end
-        if T.noBlur then
-            for _, v in ipairs(L:GetDescendants()) do
-                if v:IsA("BlurEffect") then v.Enabled = false end
+        if T.fullbright then
+            pcall(function()
+                L.Brightness = 3
+                L.ExposureCompensation = 0
+                L.EnvironmentDiffuseScale = 1
+                L.EnvironmentSpecularScale = 1
+                L.Ambient = Color3.new(1,1,1)
+                L.OutdoorAmbient = Color3.new(1,1,1)
+                L.GlobalShadows = false
+                L.FogStart = 0
+                L.FogEnd = 1e9
+            end)
+            for _, atm in ipairs(L:GetChildren()) do
+                if atm:IsA("Atmosphere") then pcall(function() atm.Density = 0 end) end
             end
+        elseif T.noLag then
+            pcall(function()
+                L.GlobalShadows = false
+                L.FogStart = 0
+                L.FogEnd = 1e6
+            end)
+            for _, atm in ipairs(L:GetChildren()) do
+                if atm:IsA("Atmosphere") then pcall(function() atm.Density = 0 end) end
+            end
+            for _, v in ipairs(L:GetDescendants()) do
+                if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("BloomEffect") then
+                    pcall(function() v.Enabled = false end)
+                end
+            end
+        elseif o.worldOriginal then
+            pcall(function()
+                L.Brightness = o.worldOriginal.Brightness
+                L.ExposureCompensation = o.worldOriginal.ExposureCompensation
+                L.Ambient = o.worldOriginal.Ambient
+                L.OutdoorAmbient = o.worldOriginal.OutdoorAmbient
+                L.GlobalShadows = o.worldOriginal.GlobalShadows
+                L.FogStart = o.worldOriginal.FogStart
+                L.FogEnd = o.worldOriginal.FogEnd
+            end)
         end
     end
     o.applyWorld = applyWorld
     local acc = 0
     handleReady(RunService.Heartbeat:Connect(function(dt)
-        if T.alwaysDay or T.fullbright then
-            pcall(function() (game:GetService("Lighting")).ClockTime = 14 end)
-        end
         acc = acc + dt
-        if acc < 0.25 then return end
+        if acc < 0.2 then return end
         acc = 0
-        if T.alwaysDay or T.fullbright or T.noShadow or T.noFog or T.noBlur then pcall(applyWorld) end
+        if T.alwaysDay or T.fullbright or T.noLag then
+            pcall(applyWorld)
+        end
     end))
 end
 
@@ -957,7 +998,7 @@ local Ez, Mz, Hz, Az = 0, 0, 4, 0
 
 local function Fz(dt)
     if not T.spoofWalkEnabled then Az = 0; return end
-    if T.flyEnabled or T.farmPartesEnabled or T.autoFarmPescaEnabled then Az = 0; return end
+    if T.flyEnabled or T.autoFarmPescaEnabled or T.farmPartesEnabled then Az = 0; return end
     local root = isUpdatePlayerGetMagnitudeCValid()
     if not root then return end
     local hum = isCValid()
@@ -1006,101 +1047,7 @@ local function uz()
 end
 
 -- ============================================
--- ANTI-RAGDOLL
--- ============================================
-local qz = {
-    [Enum.HumanoidStateType.Ragdoll]=true,
-    [Enum.HumanoidStateType.FallingDown]=true,
-    [Enum.HumanoidStateType.Physics]=true,
-    [Enum.HumanoidStateType.PlatformStanding]=true,
-}
-local Pz = {recovering=false}
-local function zz()
-    local c = LocalPlayer.Character
-    return c and c:FindFirstChild("IsRagdoll")
-end
-local function oz()
-    local c = LocalPlayer.Character
-    return c and c:FindFirstChild("RagdollClient")
-end
-local function Tz(hum, disable)
-    if not hum then return end
-    hum:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, not disable)
-    hum:SetStateEnabled(Enum.HumanoidStateType.FallingDown, not disable)
-end
-local function fz(hum)
-    if not hum or hum.Health <= 0 then return end
-    if not hum:GetStateEnabled(Enum.HumanoidStateType.GettingUp) then
-        hum:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
-    end
-    if hum.PlatformStand then hum.PlatformStand = false end
-    local rag = zz()
-    if rag and rag.Value then rag.Value = false end
-    if qz[hum:GetState()] then hum:ChangeState(Enum.HumanoidStateType.GettingUp) end
-end
-local function Rz()
-    if Pz.recovering then return end
-    Pz.recovering = true
-    task.delay(T.antiRagdollDelay/1000, function()
-        Pz.recovering = false
-        if not T.antiRagdollEnabled or o.destroyed then return end
-        pcall(fz, isCValid())
-    end)
-end
-local Qz
-do
-    local irm = (game:GetService("ReplicatedStorage")):FindFirstChild("InGameRemotes")
-    Qz = irm and irm:FindFirstChild("RagdollService")
-end
-local function Vz()
-    if not (getconnections and Qz and debug and debug.getupvalues) then return {} end
-    local out = {}
-    local ok, conns = pcall(getconnections, RunService.Heartbeat)
-    if not ok then return {} end
-    for _, conn in ipairs(conns) do
-        local ok2, fn = pcall(function() return conn.Function end)
-        if ok2 and type(fn)=="function" then
-            local ok3, ups = pcall(debug.getupvalues, fn)
-            if ok3 and type(ups)=="table" then
-                for _, v in pairs(ups) do
-                    if v == Qz then table.insert(out, conn); break end
-                end
-            end
-        end
-    end
-    return out
-end
-local function pz()
-    local disable = T.antiRagdollEnabled
-    for _, conn in ipairs(Vz()) do
-        pcall(function()
-            if disable then conn:Disable() else conn:Enable() end
-        end)
-    end
-    local rc = oz()
-    if rc then rc.Disabled = disable end
-    local hum = isCValid()
-    if not hum then return end
-    Tz(hum, disable and T.antiRagdollDelay <= 0)
-    if disable then fz(hum) else hum:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true) end
-end
-local function Iz()
-    local hum = isCValid()
-    if not hum or hum.Health <= 0 then return end
-    if hum.SeatPart or LocalPlayer:GetAttribute("QuedaLivre")==true then return end
-    if not hum:GetStateEnabled(Enum.HumanoidStateType.GettingUp) then
-        hum:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
-    end
-    local instant = T.antiRagdollDelay <= 0
-    if instant then Tz(hum, true) end
-    local rag = zz()
-    local falling = hum.PlatformStand or qz[hum:GetState()] ~= nil or (rag ~= nil and rag.Value == true)
-    if not falling then return end
-    if instant then fz(hum) else Rz() end
-end
-
--- ============================================
--- NOCLIP / FLY / ROLAR
+-- NOCLIP / FLY
 -- ============================================
 local Oz = {"Head","Torso","Left Arm","Right Arm","Left Leg","Right Leg","HumanoidRootPart"}
 local Xz = {Head=true, Torso=true, ["Left Arm"]=false, ["Right Arm"]=false, ["Left Leg"]=false, ["Right Leg"]=false, HumanoidRootPart=false}
@@ -1131,7 +1078,7 @@ local function Nz()
         Bz = nil
         sz(false)
         if rag and rag.Value then rag.Value = false end
-        if rc and not T.antiRagdollEnabled then rc.Disabled = false end
+        if rc then rc.Disabled = false end
     end
 end
 
@@ -1169,7 +1116,7 @@ local function xz(dt)
             local target = hum.FloorMaterial == Enum.Material.Air and Enum.HumanoidStateType.Freefall or Enum.HumanoidStateType.Running
             pcall(hum.ChangeState, hum, target)
         end
-        if T.farmPartesEnabled or T.autoFarmPescaEnabled then yz = false; return end
+        if T.autoFarmPescaEnabled or T.farmPartesEnabled then yz = false; return end
         if isUpdateInstancePropertiesEValid() then
             yz = false
             root.AssemblyLinearVelocity = Vector3.zero
@@ -1185,10 +1132,6 @@ local function xz(dt)
         return
     end
     if hum.Health <= 0 then return end
-    if T.farmPartesEnabled then
-        o.farmPartesRunId = o.farmPartesRunId + 1
-        T.farmPartesEnabled = false
-    end
     hum:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
     hum:ChangeState(Enum.HumanoidStateType.Swimming)
     local vert = 0
@@ -1227,256 +1170,20 @@ local function xz(dt)
     root.AssemblyLinearVelocity = dir*step
 end
 
-local cz = {track=nil}
-local function lz()
-    local char = LocalPlayer.Character
-    local mc = char and char:FindFirstChild("mainClient")
-    if not mc then return nil end
-    return mc:FindFirstChild("QuedaAnim") or mc:FindFirstChild("QuedaAnim2")
-end
-local function Zz()
-    if cz.track then
-        pcall(function() cz.track:Stop(0.2) end)
-        cz.track = nil
-    end
-    if not T.rolarEnabled then return end
-    local hum = isCValid()
-    local anim = hum and hum:FindFirstChildOfClass("Animator")
-    local queda = lz()
-    if not anim or not queda then return end
-    local ok, track = pcall(function() return anim:LoadAnimation(queda) end)
-    if not ok or not track then return end
-    cz.track = track
-    track.Priority = Enum.AnimationPriority.Action4
-    track.Looped = true
-    track:Play(0.15)
-end
-
--- ============================================
--- VEICULO
--- ============================================
-local function Dz(hum)
-    if type(getconnections) ~= "function" then return nil end
-    if type(debug) ~= "table" or type(debug.getupvalue) ~= "function" then return nil end
-    for _, conn in ipairs(getconnections(RunService.Stepped)) do
-        local fn = conn.Function
-        if type(fn)=="function" then
-            local hit, carState
-            for i = 1, 8, 1 do
-                local ok, up = pcall(debug.getupvalue, fn, i)
-                if not ok then break end
-                if up == hum then hit = true end
-                if type(up)=="table" and (up.RemapMultiplier ~= nil and type(up.BuildHPCache)=="function") then
-                    carState = up
-                end
-            end
-            if hit and carState then return carState end
-        end
-    end
-    return nil
-end
-
-local function rz()
-    local hum = isCValid()
-    local seat = hum and hum.SeatPart
-    if not seat or seat.Name ~= "DriveSeat" then return nil end
-    local carros = workspace:FindFirstChild("CarrosSpawnados")
-    if not carros then return nil end
-    local p = seat
-    while p and p.Parent ~= carros do p = p.Parent end
-    return p
-end
-
-do
-    local carCfg = {
-        carro=nil, originais={}, raiz=nil, assento=nil,
-        relativoAssento=nil, altura=nil, piso=nil, raycast=nil,
-        velocidade=0, frente=nil, personagemAtivo=false,
-        altitude=nil, vFlyAtivo=false, vFlyReduzidoAte=0,
-    }
-    local function findSeat(car)
-        local seat = car:FindFirstChild("DriveSeat", true) or car:FindFirstChildWhichIsA("VehicleSeat", true)
-        return (seat and seat.AssemblyRootPart) or car.PrimaryPart or seat, seat
-    end
-    local function restaurarNoclipCar()
-        for part, v in pairs(carCfg.originais) do
-            if part.Parent then pcall(function() part.CanCollide = v end) end
-        end
-        table.clear(carCfg.originais)
-        if carCfg.personagemAtivo and not T.noclipEnabled then pcall(sz, false) end
-        carCfg.carro, carCfg.raiz, carCfg.assento = nil, nil, nil
-        carCfg.relativoAssento, carCfg.altura, carCfg.piso, carCfg.raycast = nil, nil, nil, nil
-        carCfg.velocidade, carCfg.frente, carCfg.personagemAtivo = 0, nil, false
-        carCfg.altitude, carCfg.vFlyAtivo, carCfg.vFlyReduzidoAte = nil, false, 0
-    end
-    local function prepararNoclipCar(car)
-        local raiz, seat = findSeat(car)
-        if not raiz or not seat then return end
-        local rp = RaycastParams.new()
-        rp.FilterType = Enum.RaycastFilterType.Exclude
-        rp.FilterDescendantsInstances = {car, LocalPlayer.Character}
-        local hit = workspace:Raycast(raiz.Position + Vector3.new(0, 20, 0), Vector3.new(0, -120, 0), rp)
-        carCfg.raiz = raiz
-        carCfg.assento = seat
-        carCfg.relativoAssento = ((raiz.CFrame - raiz.Position)):ToObjectSpace(seat.CFrame - seat.Position)
-        carCfg.raycast = rp
-        carCfg.piso = hit and hit.Position.Y or (raiz.Position.Y - 3)
-        carCfg.altura = hit and math.max(1, raiz.Position.Y - hit.Position.Y) or 3
-        local fwd = Vector3.new(seat.CFrame.LookVector.X, 0, seat.CFrame.LookVector.Z)
-        carCfg.frente = fwd.Magnitude > 0 and fwd.Unit or Vector3.new(0, 0, -1)
-        carCfg.altitude = raiz.Position.Y
-        carCfg.velocidade = fwd.Magnitude > 0 and raiz.AssemblyLinearVelocity:Dot(fwd.Unit) or 0
-    end
-    local function max(a, b, d)
-        if a < b then return math.min(a+d, b) end
-        return math.max(a-d, b)
-    end
-    local function tickCar(dt)
-        local raiz, seat = carCfg.raiz, carCfg.assento
-        local rp, altura, piso = carCfg.raycast, carCfg.altura, carCfg.piso
-        local rel = carCfg.relativoAssento
-        if not raiz or not raiz.Parent or not seat or not seat.Parent or not rp or not altura or not piso or not rel then return end
-        local step = math.min(dt or 0.016666, 0.1)
-        local flying = T.vFlyEnabled        local unstable = false
-        if flying and not carCfg.vFlyAtivo then
-            carCfg.altitude = raiz.Position.Y
-            carCfg.vFlyReduzidoAte = os.clock() + 0.6
-            carCfg.velocidade = math.clamp(carCfg.velocidade, -24, 36)
-        elseif not flying and carCfg.vFlyAtivo then
-            local hit = workspace:Raycast(raiz.Position + Vector3.new(0, 20, 0), Vector3.new(0, -520, 0), rp)
-            if hit then
-                piso = hit.Position.Y
-                carCfg.piso = piso
-            end
-        end
-        carCfg.vFlyAtivo = flying
-        local vertAdj = 0
-        if flying then
-            if step >= 0.05 or raiz.Anchored or raiz.AssemblyLinearVelocity.Magnitude < 12 then
-                carCfg.vFlyReduzidoAte = os.clock() + 0.6
-            end
-        else
-            local scanStart = Vector3.new(raiz.Position.X, piso+20, raiz.Position.Z)
-            local hit = workspace:Raycast(scanStart, Vector3.new(0, -60, 0), rp)
-            if hit and hit.Position.Y - piso <= 4 then
-                piso = hit.Position.Y
-                carCfg.piso = piso
-            end
-            vertAdj = (piso + altura) - raiz.Position.Y
-            unstable = math.abs(vertAdj) > 1
-            if unstable then vertAdj = math.clamp(vertAdj, -20*step, 20*step) end
-        end
-        local fwd = carCfg.frente or Vector3.new(0, 0, -1)
-        local verticalVel = 0
-        if fwd.Magnitude > 0.001 then
-            fwd = fwd.Unit
-            local throttle = seat.ThrottleFloat
-            local steer = seat.SteerFloat
-            if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then throttle = 1
-            elseif UserInputService:IsKeyDown(Enum.KeyCode.S) or UserInputService:IsKeyDown(Enum.KeyCode.Down) then throttle = -1 end
-            if UserInputService:IsKeyDown(Enum.KeyCode.A) or UserInputService:IsKeyDown(Enum.KeyCode.Left) then steer = -1
-            elseif UserInputService:IsKeyDown(Enum.KeyCode.D) or UserInputService:IsKeyDown(Enum.KeyCode.Right) then steer = 1 end
-            local unblocked = isUpdateInstancePropertiesEValid()
-            local boost = math.clamp(T.boostFactor, 1, 999)
-            local vMax
-            if flying then vMax = T.vFlyHorizontalSpeed * boost
-            else vMax = unstable and 260 or (unblocked and 999 or 180) * boost end
-            local vMin = flying and (vMax*0.65) or (unstable and 120 or (150*boost))
-            local target = throttle > 0.05 and vMax or (throttle < -0.05 and -vMin or 0)
-            local accel = (math.abs(throttle) > 0.05 and 130 or 200) * step
-            carCfg.velocidade = max(carCfg.velocidade, target, accel)
-            if math.abs(steer) > 0.05 and math.abs(carCfg.velocidade) > 0.5 then
-                local sign = carCfg.velocidade >= 0 and 1 or -1
-                local ang = ((-steer*sign) * math.rad(85)) * step
-                fwd = CFrame.Angles(0, ang, 0):VectorToWorldSpace(fwd)
-            end
-            carCfg.frente = fwd.Unit
-            if flying then
-                local vInput = 0
-                if UserInputService:IsKeyDown(Enum.KeyCode.Space) then vInput = 1
-                elseif UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then vInput = -1 end
-                local vCap = T.vFlyVerticalSpeed * boost
-                if vInput ~= 0 then
-                    verticalVel = vInput * vCap
-                    carCfg.altitude = raiz.Position.Y + verticalVel * step
-                else
-                    local diff = (carCfg.altitude or raiz.Position.Y) - raiz.Position.Y
-                    verticalVel = math.clamp(diff*10, -vCap, vCap)
-                end
-            end
-            local look = CFrame.lookAt(Vector3.zero, fwd.Unit, Vector3.yAxis)
-            local rot = look * rel:Inverse()
-            if flying then
-                raiz.CFrame = CFrame.new(raiz.Position + Vector3.new(0, vertAdj, 0)) * rot
-            elseif math.abs(vertAdj) > 0.01 then
-                raiz.CFrame = raiz.CFrame + Vector3.new(0, vertAdj, 0)
-            end
-            if fwd.Magnitude > 0.001 then
-                raiz.AssemblyLinearVelocity = fwd.Unit*carCfg.velocidade + Vector3.new(0, verticalVel, 0)
-            else
-                raiz.AssemblyLinearVelocity = Vector3.new(0, verticalVel, 0)
-            end
-            raiz.AssemblyAngularVelocity = Vector3.zero
-        end
-    end
-    local function aplicarNoclipCar()
-        if not T.noclipCarEnabled and not T.vFlyEnabled then
-            restaurarNoclipCar()
-            return
-        end
-        local car = rz()
-        if car ~= carCfg.carro then
-            restaurarNoclipCar()
-            carCfg.carro = car
-            if car then prepararNoclipCar(car) end
-        end
-        if not car then return end
-        sz(true)
-        carCfg.personagemAtivo = true
-        for _, p in ipairs(car:GetDescendants()) do
-            if p:IsA("BasePart") then
-                if carCfg.originais[p] == nil then carCfg.originais[p] = p.CanCollide end
-                if p.CanCollide then p.CanCollide = false end
-            end
-        end
-    end
-    o.aplicarNoclipCar = aplicarNoclipCar
-    o.restaurarNoclipCar = restaurarNoclipCar
-    handleReady(RunService.Stepped:Connect(function() if not o.destroyed then pcall(aplicarNoclipCar) end end))
-    handleReady(RunService.Heartbeat:Connect(function(dt)
-        if not o.destroyed and (T.noclipCarEnabled or T.vFlyEnabled) then pcall(tickCar, dt) end
-    end))
-end
-
-local function hz(hum)
-    local st = Dz(hum)
-    if not st then return false end
-    st.RemapMultiplier = math.clamp(T.boostFactor, 1, 999)
-    pcall(function() st:BuildHPCache() end)
-    pcall(function()
-        if st.SpeedLimit ~= nil then st.SpeedLimit = 999 end
-        if st.MaxSpeed ~= nil then st.MaxSpeed = 999 end
-        if st.TopSpeed ~= nil then st.TopSpeed = 999 end
-        if st.SpeedCap ~= nil then st.SpeedCap = 999 end
-    end)
-    return true
-end
-
 -- ============================================
 -- LOOP PRINCIPAL
 -- ============================================
 o.state = T
-C.__KNWARE_SINTONIA_RUNTIME = o
+C.__VETERANO_SINTONIA_RUNTIME = o
 
 local function Wz(dt)
     if o.destroyed then return end
     local hum = isCValid()
     if hum then updateInstanceProperties(hum) end
     pcall(Fz, dt)
-    if T.antiRagdollEnabled then pcall(Iz) end
     if T.noclipEnabled then
         pcall(Nz)
-        if not T.flyEnabled and not T.farmPartesEnabled then pcall(ez) end
+        if not T.flyEnabled then pcall(ez) end
     end
     if T.flyEnabled or yz then pcall(xz, dt) end
 end
@@ -1485,22 +1192,6 @@ handleReady(RunService.Stepped:Connect(function()
     if not o.destroyed and T.noclipEnabled then pcall(sz, true) end
 end))
 
-task.spawn(function()
-    local lastCar
-    while not o.destroyed do
-        local car = rz()
-        if car then o.lastDrivenCar = car end
-        if car and car ~= lastCar then
-            local hum = isCValid()
-            if hum then hz(hum) end
-            lastCar = car
-        elseif not car then
-            lastCar = nil
-        end
-        task.wait(0.5)
-    end
-end)
-
 local function vz(char)
     task.wait(0.5)
     local hum = char:WaitForChild("Humanoid", 5)
@@ -1508,12 +1199,6 @@ local function vz(char)
         updateInstanceProperties(hum)
         hum.Jumping:Connect(uz)
     end
-    task.spawn(function()
-        char:WaitForChild("RagdollClient", 5)
-        if o.destroyed then return end
-        if T.antiRagdollEnabled then pcall(pz) end
-        if T.rolarEnabled then pcall(Zz) end
-    end)
 end
 handleReady(LocalPlayer.CharacterAdded:Connect(vz))
 if LocalPlayer.Character then vz(LocalPlayer.Character) end
@@ -1546,7 +1231,7 @@ do
         return v ~= nil
     end
     local function isConfiguredStaff(plr)
-        local list = C.KNWARE_SINTONIA_STAFF_USER_IDS
+        local list = C.VETERANO_SINTONIA_STAFF_USER_IDS
         if type(list) ~= "table" then return false end
         return list[plr.UserId] == true or list[tostring(plr.UserId)] == true or table.find(list, plr.UserId) ~= nil
     end
@@ -1650,22 +1335,28 @@ do
 end
 
 -- ============================================
--- MONITOR STAFF
+-- MONITOR STAFF (corrigido)
 -- ============================================
 task.spawn(function()
     while not o.destroyed do
         if T.monitorarStaff then
             local count, nomes = 0, {}
             for _, plr in ipairs(Players:GetPlayers()) do
-                if plr ~= LocalPlayer and Jz.Admin(plr) then
-                    count = count + 1
-                    table.insert(nomes, plr.Name)
+                if plr ~= LocalPlayer then
+                    local r = o.relationships[plr]
+                    if r and r.ready and r.admin then
+                        count = count + 1
+                        table.insert(nomes, plr.Name)
+                    end
                 end
             end
             o.staffCount = count
             o.staffNames = nomes
+        else
+            o.staffCount = 0
+            o.staffNames = {}
         end
-        task.wait(1)
+        task.wait(0.5)
     end
 end)
 
@@ -1853,7 +1544,7 @@ local function RF(b2, char)
     if not hl or not hl.Parent then
         local ok, newHl = pcall(function()
             local h = Instance.new("Highlight")
-            h.Name = "KnwareESP_"..tostring(b2.player.UserId)
+            h.Name = "VeteranoESP_"..tostring(b2.player.UserId)
             h.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
             h.FillTransparency = 0.78
             h.OutlineTransparency = 0
@@ -2151,13 +1842,11 @@ handleReady(RunService.RenderStepped:Connect(function()
 end))
 
 -- ============================================
--- AIMBOT
+-- AIMBOT - LEGIT SUAVE / RAGE BRUTAL
 -- ============================================
 local SF = {
     Cabeca = {"Head"},
     Tronco = {"Torso","UpperTorso","LowerTorso","HumanoidRootPart"},
-    Bracos = {"Right Arm","Left Arm","RightUpperArm","LeftUpperArm","RightLowerArm","LeftLowerArm"},
-    Pernas = {"Right Leg","Left Leg","RightUpperLeg","LeftUpperLeg","RightLowerLeg","LeftLowerLeg"},
 }
 local function eF(char)
     local list = SF[T.aimbotBodyPart] or SF.Cabeca
@@ -2167,27 +1856,29 @@ local function eF(char)
     end
     return char:FindFirstChild("Head")
 end
+
 local function temLinhaDeVisao(cam, target, char)
     local from = cam.CFrame.Position
     local rp = RaycastParams.new()
     rp.FilterType = Enum.RaycastFilterType.Exclude
-    rp.FilterDescendantsInstances = {LocalPlayer.Character, char, cam}
-    local hit = workspace:Raycast(from, target.Position-from, rp)
+    rp.FilterDescendantsInstances = {LocalPlayer.Character, char}
+    local hit = workspace:Raycast(from, target.Position - from, rp)
     return hit == nil
 end
+
 local function getClosestTarget(cam, maxFov, maxDist)
     local myPos = cam.CFrame.Position
-    local center = cam.ViewportSize/2
+    local center = cam.ViewportSize / 2
     local best, bestD = nil, math.huge
     for _, plr in ipairs(Players:GetPlayers()) do
         if plr ~= LocalPlayer and not Jz.Protected(plr) then
             local char = plr.Character
             local part = char and eF(char)
             local hum = char and char:FindFirstChildOfClass("Humanoid")
-            if part and hum and hum.Health > 0 and (part.Position-myPos).Magnitude <= maxDist then
+            if part and hum and hum.Health > 0 and (part.Position - myPos).Magnitude <= maxDist then
                 local sp, onScreen = cam:WorldToViewportPoint(part.Position)
                 if onScreen and sp.Z > 0 then
-                    local d = (Vector2.new(sp.X, sp.Y)-center).Magnitude
+                    local d = (Vector2.new(sp.X, sp.Y) - center).Magnitude
                     if d <= maxFov and d < bestD then
                         if not T.aimbotWallCheck or temLinhaDeVisao(cam, part, char) then
                             best, bestD = part, d
@@ -2199,7 +1890,9 @@ local function getClosestTarget(cam, maxFov, maxDist)
     end
     return best
 end
+
 local aimbotConnection = nil
+
 local function aimbotLoop()
     if aimbotConnection then return end
     aimbotConnection = RunService.RenderStepped:Connect(function(dt)
@@ -2209,21 +1902,34 @@ local function aimbotLoop()
         local char = LocalPlayer.Character
         local hum = char and char:FindFirstChildOfClass("Humanoid")
         if not hum or hum.Health <= 0 then return end
+
+        if T.aimbotMode == "Legit" then
+            local tool = char:FindFirstChildOfClass("Tool")
+            if not tool then return end
+        end
+
         local target = getClosestTarget(cam, T.aimbotFov, T.aimbotDistance)
         if not target then return end
+
         local myPos = cam.CFrame.Position
         local targetPos = target.Position
+
         if T.aimbotMode == "Rage" then
             cam.CFrame = CFrame.new(myPos, targetPos)
         else
+            -- Legit suave: puxa em torno de 20% a 100% por frame
+            -- Slider 1 = 20% (suave), 100 = 100% (rapido)
+            local smoothness = math.clamp(T.aimbotSmoothness, 0.01, 1)
+            local factor = 0.2 + (smoothness * 0.8)
+
             local currentLook = cam.CFrame.LookVector
-            local desiredLook = (targetPos-myPos).Unit
-            local smooth = math.clamp(T.aimbotSmoothness, 0.01, 1)
-            local newLook = currentLook:Lerp(desiredLook, smooth*3)
-            cam.CFrame = CFrame.new(myPos, myPos+newLook)
+            local desiredLook = (targetPos - myPos).Unit
+            local newLook = currentLook:Lerp(desiredLook, factor)
+            cam.CFrame = CFrame.new(myPos, myPos + newLook)
         end
     end)
 end
+
 local function stopAimbot()
     if aimbotConnection then
         aimbotConnection:Disconnect()
@@ -2232,78 +1938,9 @@ local function stopAimbot()
 end
 
 -- ============================================
--- PERFECT LOCKPICK
+-- COLETAR ITENS
 -- ============================================
-local function bF()
-    local pg = LocalPlayer:FindFirstChild("PlayerGui")
-    if not pg then return nil end
-    local lp = pg:FindFirstChild("Lockpick")
-    if not lp then return nil end
-    local inner = lp:FindFirstChild("Lockpick") or lp
-    if not inner or not inner.Visible then return nil end
-    local bloco = inner:FindFirstChild("Bloco")
-    local obj = inner:FindFirstChild("Objetivo")
-    local btn = inner:FindFirstChild("Btn")
-    if bloco and obj and btn and bloco.Visible and obj.Visible then
-        return bloco, obj, btn
-    end
-    return nil
-end
-local function yF(bloco, obj)
-    local bp, bs = bloco.AbsolutePosition, bloco.AbsoluteSize
-    local op, os = obj.AbsolutePosition, obj.AbsoluteSize
-    if bp.X+bs.X < op.X or bp.X > op.X+os.X then return false end
-    local cy = bp.Y+bs.Y/2
-    local m = os.Y*0.25
-    return cy >= op.Y+m and cy <= op.Y+os.Y-m
-end
-local function xF(btn)
-    if not btn then return end
-    if type(getconnections) == "function" then
-        local ok, conns = pcall(getconnections, btn.MouseButton1Click)
-        if ok and type(conns) == "table" and #conns > 0 then
-            for _, c2 in ipairs(conns) do
-                if type(c2.Function) == "function" then
-                    pcall(task.spawn, c2.Function)
-                end
-            end
-            return
-        end
-    end
-    if type(firesignal) == "function" then
-        pcall(firesignal, btn.MouseButton1Click)
-        return
-    end
-    pcall(function()
-        if type(getconnections) == "function" then
-            for _, c in ipairs(getconnections(btn.Activated) or {}) do
-                pcall(task.spawn, c.Function)
-            end
-        end
-    end)
-    pcall(function() btn:InputBegan(Enum.UserInputType.MouseButton1) end)
-end
-local cF, lF = 0.35, 0
-handleReady(RunService.RenderStepped:Connect(function()
-    if not T.perfectLockpick then return end
-    local bloco, obj, btn = bF()
-    if not bloco then return end
-    if os.clock() - lF < cF then return end
-    if not yF(bloco, obj) then
-        pcall(function()
-            obj.Position = UDim2.new(0.5, 0, bloco.Position.Y.Scale, bloco.Position.Y.Offset)
-        end)
-        return
-    end
-    lF = os.clock()
-    xF(btn)
-end))
-
--- ============================================
--- ITEM TELEPORT / FARM PARTES (ORIGINAL - BLOQUEADO VIA FLAG)
--- ============================================
-local ZF, DF, rF, hF, jF, WF, JF = 20, 14, 1.5, D, 18, 65, 160
-local function wF() return workspace:FindFirstChild("DropadosInv") end
+local ZF, DF, rF, hF, jF, WF = 20, 14, 1.5, D, 18, 65
 local function aF(obj)
     if obj:IsA("BasePart") then return obj end
     if obj:IsA("Model") then return obj.PrimaryPart or obj:FindFirstChildWhichIsA("BasePart") end
@@ -2319,8 +1956,8 @@ local function dF(item)
         prompt:InputHoldEnd()
     end)
 end
+
 local function GF(target, checkDone)
-    if IS_FREE then return false end
     o.itemTeleportRunId = o.itemTeleportRunId + 1
     local runId = o.itemTeleportRunId
     local canTp = isUpdateInstancePropertiesEValid()
@@ -2328,6 +1965,12 @@ local function GF(target, checkDone)
     if not hadNoclip then T.noclipEnabled = true; pcall(Nz) end
     local reached = false
     local lastDir = Vector3.zero
+
+    local function destinoExato()
+        local yy = target.parte.Position.Y + (target.parte.Size.Y * 0.5) + 3
+        return Vector3.new(target.parte.Position.X, yy, target.parte.Position.Z)
+    end
+
     if canTp then
         local deadline = os.clock()+8
         while os.clock() < deadline do
@@ -2335,16 +1978,17 @@ local function GF(target, checkDone)
             if not target.item.Parent or not target.parte.Parent then reached = true; break end
             local root = isUpdatePlayerGetMagnitudeCValid()
             if not root then break end
-            local dest = target.parte.Position + Vector3.new(0, 3, 0)
-            if (dest-root.Position).Magnitude <= 4 then reached = true; break end
-            root.CFrame = CFrame.new(dest)*root.CFrame.Rotation
+            local dest = destinoExato()
+            if (dest-root.Position).Magnitude <= 1 then reached = true; break end
+            root.CFrame = CFrame.new(dest)
             root.AssemblyLinearVelocity = Vector3.zero
-            task.wait(0.1)
+            task.wait(0.05)
         end
     end
+
     local root = isUpdatePlayerGetMagnitudeCValid()
     local dist0 = root and (target.parte.Position-root.Position).Magnitude or 0
-    local dest = target.parte.Position + Vector3.new(0, 3, 0)
+    local dest = destinoExato()
     local maxY = math.max(root and root.Position.Y or dest.Y, dest.Y) + jF
     local spd = math.min(T.itemTeleportSpeed, l)
     local deadline = (os.clock()+20) + (dist0/math.max(spd,1))*2
@@ -2355,7 +1999,7 @@ local function GF(target, checkDone)
         if not item.Parent or not part.Parent then reached = true; break end
         local root2 = isUpdatePlayerGetMagnitudeCValid()
         if not root2 then break end
-        dest = part.Position + Vector3.new(0, 3, 0)
+        dest = destinoExato()
         local flat = Vector3.new(dest.X-root2.Position.X, 0, dest.Z-root2.Position.Z)
         local waypoint = dest
         if flat.Magnitude > 4 then
@@ -2365,7 +2009,7 @@ local function GF(target, checkDone)
         end
         local delta = waypoint-root2.Position
         local mag = delta.Magnitude
-        if (dest-root2.Position).Magnitude <= 4 then reached = true; break end
+        if (dest-root2.Position).Magnitude <= 2 then reached = true; break end
         local _, vel, phys, _, stable = handleQ(root2, dt, ZF, true)
         local spd2 = math.min(T.itemTeleportSpeed, stable and l or WF)
         local moveStep = math.min(mag, math.max(0, spd2-vel)*dt, phys)
@@ -2376,6 +2020,7 @@ local function GF(target, checkDone)
         local hum = isCValid()
         if hum then pcall(hum.ChangeState, hum, Enum.HumanoidStateType.Freefall) end
     end
+
     local root3 = isUpdatePlayerGetMagnitudeCValid()
     local hum3 = isCValid()
     local flatDir = Vector3.new(lastDir.X, 0, lastDir.Z)
@@ -2396,12 +2041,23 @@ local function GF(target, checkDone)
         end
     end
     if root3 then root3.AssemblyLinearVelocity = Vector3.zero end
+
+    if reached and runId == o.itemTeleportRunId then
+        local rootF = isUpdatePlayerGetMagnitudeCValid()
+        if rootF and target.parte and target.parte.Parent then
+            local topoY = target.parte.Position.Y + (target.parte.Size.Y * 0.5) + 3
+            rootF.CFrame = CFrame.new(target.parte.Position.X, topoY, target.parte.Position.Z)
+            rootF.AssemblyLinearVelocity = Vector3.zero
+            rootF.AssemblyAngularVelocity = Vector3.zero
+        end
+    end
+
     if reached and runId == o.itemTeleportRunId then
         local doneCheck = checkDone or function() return not target.item.Parent end
-        for _ = 1, 3, 1 do
+        for _ = 1, 5, 1 do
             if doneCheck() then break end
             dF(target.item)
-            task.wait(0.35)
+            task.wait(0.15)
         end
     end
     if not hadNoclip and runId == o.itemTeleportRunId then
@@ -2411,1426 +2067,304 @@ local function GF(target, checkDone)
     return reached
 end
 
-local function tF()
-    local folder = workspace:FindFirstChild("FarmPartesDeArma")
-    folder = folder and folder:FindFirstChild("Locais")
-    if not folder then return nil end
-    for _, obj in ipairs(folder:GetChildren()) do
-        if obj:IsA("BasePart") and obj:FindFirstChild("GUI") then return obj end
-    end
-    local root = isUpdatePlayerGetMagnitudeCValid()
-    if not root then return nil end
-    local best, bestD
-    for _, obj in ipairs(folder:GetChildren()) do
-        local prompt = obj:IsA("BasePart") and obj:FindFirstChild("Interagir")
-        if prompt and prompt.Enabled then
-            local d = (root.Position-obj.Position).Magnitude
-            if not bestD or d < bestD then best, bestD = obj, d end
-        end
-    end
-    return best
-end
+o.coletarItem = GF
 
-local function KF()
-    o.farmPartesRunId = o.farmPartesRunId + 1
-    T.farmPartesEnabled = false
-end
-
-local Cf = 15
-local function Yf()
-    if IS_FREE then T.farmPartesEnabled = false; o.farmPartesRunId = o.farmPartesRunId + 1; return 0 end
-    if T.flyEnabled then T.flyEnabled = false; pcall(xz) end
-    o.farmPartesRunId = o.farmPartesRunId + 1
-    local runId = o.farmPartesRunId
-    local count = 0
-    local hadNoclip = T.noclipEnabled
-    if not hadNoclip then T.noclipEnabled = true; pcall(Nz) end
-    while T.farmPartesEnabled and (not o.destroyed and runId == o.farmPartesRunId) do
-        local alvo = tF()
-        if not alvo then
-            task.wait(1)
-        else
-            local target = alvo
-            local reached = GF({item=target, parte=target}, function() return tF() ~= target end)
-            if runId ~= o.farmPartesRunId then break end
-            local moved = reached and tF() ~= target
-            if moved then count = count+1 end
-            local wait = moved and Cf or 1
-            local deadline = os.clock()+wait
-            while os.clock() < deadline do
-                if not T.farmPartesEnabled or o.destroyed or runId ~= o.farmPartesRunId then break end
-                task.wait(0.2)
-            end
-        end
-    end
-    if runId == o.farmPartesRunId then
-        T.farmPartesEnabled = false
-        o.farmPartesColetadas = count
-    end
-    if not hadNoclip and (not T.farmPartesEnabled or runId == o.farmPartesRunId) then
-        T.noclipEnabled = false
-        pcall(Nz)
-    end
-    return count
-end
-
-local gf = {
-    ArmaPDSecreta=720, Barret=700, ["FuzilTrovao"]=340,
-    FuzilPhantom=335, FAL=285, FALPolicial=285, AK47=275,
-    Fuzil=265, FuzilPolicial=265, G3=250, G3Policial=250,
-    Submetralhadora=120, Uzi=115, Glock=185, GlockPolicial=185,
-    Pt=155, ["Oitao"]=145,
-}
-local mf, Ef = {}, 0
-local function Mf(tool)
-    if not tool or not tool:IsA("Tool") then return nil end
-    local cfgMod = tool:FindFirstChild("Cfg")
-    if not cfgMod or not cfgMod:IsA("ModuleScript") then return nil end
-    local ok, data = pcall(require, cfgMod)
-    if not ok or type(data) ~= "table" then return nil end
-    local dmg = tonumber(data.BaseDamage)
-    local rate = tonumber(data.FireRate)
-    if not dmg or not rate then return nil end
-    local rng = tonumber(data.Range) or 0
-    local ammo = tonumber(data.AmmoPerMag) or 0
-    return (dmg/math.max(0.05, rate) + dmg*2) + rng*0.01 + ammo*0.1
-end
-local function Hf(force)
-    local now = os.clock()
-    if not force and now-Ef < 5 then return end
-    Ef = now
-    for _, plr in ipairs(Players:GetPlayers()) do
-        for _, container in ipairs({plr:FindFirstChild("Backpack"), plr.Character}) do
-            if container then
-                for _, item in ipairs(container:GetChildren()) do
-                    local score = Mf(item)
-                    if score then mf[item.Name] = score end
-                end
-            end
-        end
-    end
-end
-local function Af(name) return mf[name] or gf[name] end
-local function Ff()
-    local pg = LocalPlayer:FindFirstChild("PlayerGui")
-    local inv = pg and pg:FindFirstChild("InventoryUI")
-    local frame = inv and inv:FindFirstChild("InvFrame")
-    local pInv = frame and frame:FindFirstChild("InvPessoal")
-    return pInv and pInv:FindFirstChild("ConteudoInv")
-end
-local function uf()
-    Hf(false)
+o.listDrops = function()
     local out = {}
-    local cont = Ff()
-    if cont then
-        for _, slot in ipairs(cont:GetChildren()) do
-            local inner = slot:FindFirstChild("In")
-            if inner then
-                for _, it in ipairs(inner:GetChildren()) do
-                    if it:IsA("Frame") and Af(it.Name) then out[it.Name] = true end
+    local root = isUpdatePlayerGetMagnitudeCValid()
+    if not root then return out end
+    local pastas = {"DropadosInv","Drops","ItensDropados","ItensNoChao","ItemsDrop","DropsInv"}
+    local vistos = {}
+    local found = false
+    for _, nome in ipairs(pastas) do
+        local folder = workspace:FindFirstChild(nome)
+        if folder then
+            found = true
+            for _, obj in ipairs(folder:GetChildren()) do
+                if not vistos[obj] then
+                    vistos[obj] = true
+                    local part = aF(obj)
+                    if part then
+                        table.insert(out, {
+                            item = obj, parte = part, nome = obj.Name,
+                            distancia = (root.Position - part.Position).Magnitude,
+                        })
+                    end
                 end
             end
         end
     end
-    for _, container in ipairs({LocalPlayer:FindFirstChild("Backpack"), LocalPlayer.Character}) do
-        if container then
-            for _, tool in ipairs(container:GetChildren()) do
-                if tool:IsA("Tool") then
-                    local s = Mf(tool)
-                    if s then mf[tool.Name] = s; out[tool.Name] = true end
+    if not found then
+        for _, obj in ipairs(workspace:GetDescendants()) do
+            if not vistos[obj] and obj:IsA("BasePart") then
+                local isChar = LocalPlayer.Character and obj:IsDescendantOf(LocalPlayer.Character)
+                if not isChar then
+                    local prompt = obj:FindFirstChildWhichIsA("ProximityPrompt", true)
+                    if prompt and prompt.Enabled then
+                        vistos[obj] = true
+                        table.insert(out, {
+                            item = obj, parte = obj, nome = obj.Name,
+                            distancia = (root.Position - obj.Position).Magnitude,
+                        })
+                    end
                 end
             end
         end
     end
+    table.sort(out, function(a,b) return a.distancia < b.distancia end)
     return out
 end
-local function qf()
-    local best, bestScore = nil, -math.huge
-    for name in pairs(uf()) do
-        local s = Af(name)
-        if s and (s > bestScore or (s == bestScore and (not best or name < best))) then
-            best, bestScore = name, s
-        end
-    end
-    return best, bestScore
-end
-local function Pf(name)
-    local bp = LocalPlayer:FindFirstChild("Backpack")
-    local char = LocalPlayer.Character
-    local tool = bp and bp:FindFirstChild(name)
-    if not tool and char then tool = char:FindFirstChild(name) end
-    return tool and (tool:IsA("Tool") and tool) or nil
-end
-local function zf()
-    local out, seen = {}, {}
-    for _, container in ipairs({LocalPlayer:FindFirstChild("Backpack"), LocalPlayer.Character}) do
-        if container then
-            for _, tool in ipairs(container:GetChildren()) do
-                if tool:IsA("Tool") and not seen[tool] then
-                    seen[tool] = true
-                    table.insert(out, tool)
-                end
-            end
-        end
-    end
-    return out
-end
-local function of()
-    if IS_FREE then T.bestWeaponEnabled = false; return end
-    if not T.bestWeaponEnabled or o.destroyed then return end
-    local best, bestScore = qf()
-    if not best or Pf(best) then return end
-    local now = os.clock()
-    if o.bestWeaponLastName == best and now-o.bestWeaponLastAttempt < 2 then return end
-    o.bestWeaponLastName = best
-    o.bestWeaponLastAttempt = now
-    local rs = game:GetService("ReplicatedStorage")
-    local orph = rs:FindFirstChild("OrpheusShared")
-    local invRem = orph and orph:FindFirstChild("InvRemotes")
-    local req = invRem and invRem:FindFirstChild("InvRequest")
-    if not req or not req:IsA("RemoteFunction") then return end
-    local tools = zf()
-    local invVals = LocalPlayer:FindFirstChild("InvVals")
-    local slots = invVals and invVals:FindFirstChild("SlotsAtivos")
-    local maxSlots = slots and tonumber(slots.Value) or 3
-    if #tools >= maxSlots then
-        local worst, worstScore = nil, math.huge
-        for _, tool in ipairs(tools) do
-            if tool.Name ~= best then
-                local s = Af(tool.Name) or -1
-                if s < worstScore then worst, worstScore = tool, s end
-            end
-        end
-        if worst and worstScore < bestScore then
-            pcall(function() req:InvokeServer("desequipainv", worst) end)
-            task.wait(0.2)
-        end
-    end
-    if not Pf(best) then
-        pcall(function() req:InvokeServer("semespacoinv", best) end)
-    end
-end
-local function Tf(enable)
-    if IS_FREE and enable then T.bestWeaponEnabled = false; return end
-    T.bestWeaponEnabled = enable == true
-    o.bestWeaponRunId = o.bestWeaponRunId + 1
-    o.bestWeaponLastAttempt = 0
-    o.bestWeaponLastName = nil
-    local runId = o.bestWeaponRunId
-    if not T.bestWeaponEnabled then return end
-    task.spawn(function()
-        while T.bestWeaponEnabled and (not o.destroyed and o.bestWeaponRunId == runId) do
-            pcall(of)
-            task.wait(0.8)
-        end
-    end)
-end
 
--- ============================================
--- WEAPONS + TRACER COR
--- ============================================
 do
-    local savedProps = setmetatable({}, {__mode="k"})
-    local PROPS = {
-        "CameraShakingEnabled","Recoil","AngleX","AngleY",
-        "FireRate","ReloadTime","WalkSpeedRedutionEnabled","WalkSpeedRedution",
-        "VisualizerEnabled","BulletMaterial","BulletTransparency","FadeTime","BulletSize",
-        "ReloadSpeed","ReloadMultiplier","CooldownReload",
-        "AmmoPerMag","MaxAmmo","Ammo","Mag","MaxMag","StoredAmmo",
-    }
-    local tracerColors = {
-        {"Ciano", Color3.fromRGB(0,255,255)},
-        {"Verde", Color3.fromRGB(60,255,90)},
-        {"Rosa", Color3.fromRGB(255,60,190)},
-        {"Roxo", Color3.fromRGB(160,70,255)},
-        {"Vermelho", Color3.fromRGB(255,45,45)},
-        {"Azul", Color3.fromRGB(70,130,255)},
-        {"Laranja", Color3.fromRGB(255,145,30)},
-        {"Branco", Color3.fromRGB(240,240,240)},
-        {"Amarelo", Color3.fromRGB(255,230,60)},
-        {"VerdeLimao", Color3.fromRGB(180,255,0)},
-        {"Magenta", Color3.fromRGB(255,0,200)},
-        {"Turquesa", Color3.fromRGB(0,200,180)},
-        {"Arco-iris", nil},
-    }
-    local corBalaOriginal = nil
-    local lastArmaTick = 0
-    local ammoLastTick = 0
-
-    local function getCorBala()
-        local C = LocalPlayer:FindFirstChild("OrpheusGunCFG")
-        local Y = C and C:FindFirstChild("CorBala")
-        if Y and corBalaOriginal == nil then corBalaOriginal = Y.Color end
-        return Y
-    end
-
-    local function aplicarCorBala()
-        if IS_FREE then
-            T.armaTracer = false
-            local cor = getCorBala()
-            if cor and corBalaOriginal then pcall(function() cor.Color = corBalaOriginal end) end
-            return
-        end
-        local cor = getCorBala()
-        if not cor then return end
-        if not T.armaTracer then
-            if corBalaOriginal then pcall(function() cor.Color = corBalaOriginal end) end
-            return
-        end
-        if T.armaTracerCor == "Arco-iris" then
-            cor.Color = Color3.fromHSV((os.clock()*0.25) % 1, 1, 1)
-            return
-        end
-        for _, g in ipairs(tracerColors) do
-            if g[1] == T.armaTracerCor and g[2] then
-                cor.Color = g[2]
-                return
-            end
-        end
-    end
-
-    local function handler()
-        local char = LocalPlayer.Character
-        if not char then return nil, nil end
-        local tool = char:FindFirstChildOfClass("Tool")
-        if not tool then return nil, nil end
-        local cfg = tool:FindFirstChild("Cfg")
-        if not cfg or not cfg:IsA("ModuleScript") then return nil, tool end
-        local ok, data = pcall(require, cfg)
-        if not ok or type(data) ~= "table" then return nil, tool end
-        local valid = false
-        for _, k in ipairs(PROPS) do
-            if data[k] ~= nil then valid = true; break end
-        end
-        if not valid then return nil, tool end
-        return data, tool
-    end
-
-    local function saveOriginal(cfg)
-        if savedProps[cfg] then return savedProps[cfg] end
-        local snap = {}
-        for _, k in ipairs(PROPS) do
-            snap[k] = cfg[k]
-        end
-        savedProps[cfg] = snap
-        return snap
-    end
-
-    local function aplicarProps(cfg)
-        local orig = saveOriginal(cfg)
-        if T.armaNoRecoil then
-            cfg.CameraShakingEnabled = false
-            cfg.Recoil, cfg.AngleX, cfg.AngleY = 0, 0, 0
-        else
-            cfg.CameraShakingEnabled = orig.CameraShakingEnabled
-            cfg.Recoil, cfg.AngleX, cfg.AngleY = orig.Recoil, orig.AngleX, orig.AngleY
-        end
-        if T.armaReloadRapido then
-            cfg.ReloadTime = 0
-            if orig.ReloadSpeed ~= nil then cfg.ReloadSpeed = 0 end
-            if orig.ReloadMultiplier ~= nil then cfg.ReloadMultiplier = 0 end
-            if orig.CooldownReload ~= nil then cfg.CooldownReload = 0 end
-        else
-            cfg.ReloadTime = orig.ReloadTime
-            if orig.ReloadSpeed ~= nil then cfg.ReloadSpeed = orig.ReloadSpeed end
-            if orig.ReloadMultiplier ~= nil then cfg.ReloadMultiplier = orig.ReloadMultiplier end
-            if orig.CooldownReload ~= nil then cfg.CooldownReload = orig.CooldownReload end
-        end
-        if T.armaCadenciaCustom then
-            cfg.FireRate = 1/math.max(1, T.armaTirosPorSegundo)
-        else
-            cfg.FireRate = orig.FireRate
-        end
-        if T.armaSemLentidao then
-            cfg.WalkSpeedRedutionEnabled = false
-            cfg.WalkSpeedRedution = 0
-        else
-            cfg.WalkSpeedRedutionEnabled = orig.WalkSpeedRedutionEnabled
-            cfg.WalkSpeedRedution = orig.WalkSpeedRedution
-        end
-        if T.armaMunicaoInfinita then
-            if cfg.AmmoPerMag ~= nil then cfg.AmmoPerMag = 999 end
-            if cfg.MaxAmmo ~= nil then cfg.MaxAmmo = 999 end
-            if cfg.Ammo ~= nil then cfg.Ammo = 999 end
-            if cfg.Mag ~= nil then cfg.Mag = 999 end
-            if cfg.MaxMag ~= nil then cfg.MaxMag = 999 end
-            if cfg.StoredAmmo ~= nil then cfg.StoredAmmo = 999 end
-        end
-        aplicarCorBala()
-    end
-
-    local function aplicarMunicaoInfinita()
-        if not T.armaMunicaoInfinita then return end
-        local char = LocalPlayer.Character
-        if not char then return end
-        local tool = char:FindFirstChildOfClass("Tool")
-        if tool then
-            for _, v in ipairs(tool:GetDescendants()) do
-                if v:IsA("NumberValue") or v:IsA("IntValue") then
-                    local n = string.lower(v.Name)
-                    if n == "ammo" or n == "municao" or n == "mag" or n == "pente"
-                        or n == "storedammo" or n == "ammoincart" or n == "bullets"
-                        or n == "balas" or n == "currentammo" or n == "maxammo"
-                        or n == "maxmag" or n == "ammopermag" then
-                        if v.Value < 999 then pcall(function() v.Value = 999 end) end
-                    end
-                end
-            end
-        end
-        local bp = LocalPlayer:FindFirstChild("Backpack")
-        if bp then
-            for _, t in ipairs(bp:GetChildren()) do
-                if t:IsA("Tool") then
-                    for _, v in ipairs(t:GetDescendants()) do
-                        if v:IsA("NumberValue") or v:IsA("IntValue") then
-                            local n = string.lower(v.Name)
-                            if n == "ammo" or n == "municao" or n == "mag" or n == "pente"
-                                or n == "storedammo" or n == "ammoincart" or n == "bullets"
-                                or n == "balas" or n == "currentammo" or n == "maxammo"
-                                or n == "maxmag" or n == "ammopermag" then
-                                if v.Value < 999 then pcall(function() v.Value = 999 end) end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    o.restaurarArmas = function()
-        pcall(aplicarCorBala)
-        local cor = getCorBala()
-        if cor and corBalaOriginal then pcall(function() cor.Color = corBalaOriginal end) end
-        for cfg, snap in pairs(savedProps) do
-            for k, v in pairs(snap) do
-                pcall(function() cfg[k] = v end)
-            end
-        end
-    end
-
-    handleReady(RunService.Heartbeat:Connect(function()
-        if o.destroyed then return end
-        if os.clock() - lastArmaTick < 0.1 then return end
-        lastArmaTick = os.clock()
-        local cfg, tool = handler()
-        if not cfg then
-            pcall(aplicarCorBala)
-            return
-        end
-        pcall(aplicarProps, cfg)
-    end))
-
-    handleReady(RunService.Heartbeat:Connect(function()
-        if o.destroyed then return end
-        if not T.armaMunicaoInfinita then return end
-        if os.clock() - ammoLastTick < 0.15 then return end
-        ammoLastTick = os.clock()
-        pcall(aplicarMunicaoInfinita)
-    end))
-
-    handleReady(RunService.RenderStepped:Connect(function()
-        if o.destroyed then return end
-        if not T.armaTracer then return end
-        pcall(aplicarCorBala)
-    end))
-end
-
--- ============================================
--- GACHA 2%
--- ============================================
-do
-    local RS = game:GetService("ReplicatedStorage")
-    local CHANCE_MINIMA = 0.02
-    local MULTIPLICADOR = 3
-    local ARMAS_RARAS = {
-        Natalina=true, PtNinja=true, PtPaschoa=true,
-        FuzilPaschoa=true, FuzilNinja=true, ArmaPDSecreta=true,
-        Barret=true, FuzilTrovao=true, FuzilPhantom=true,
-    }
-    local hooked = false
-    local originalData = {}
-
-    local function snapshot(t, seen)
-        seen = seen or {}
-        if seen[t] then return seen[t] end
-        local copy = {}
-        seen[t] = copy
-        for k, v in pairs(t) do
-            if type(v)=="table" then
-                copy[k] = snapshot(v, seen)
-            else
-                copy[k] = v
-            end
-        end
-        return copy
-    end
-
-    local function ehRara(nome)
-        if not nome then return false end
-        nome = tostring(nome)
-        if ARMAS_RARAS[nome] then return true end
-        local low = string.lower(nome)
-        if string.find(low, "ninja") or string.find(low, "paschoa") or string.find(low, "secreta")
-            or string.find(low, "trovao") or string.find(low, "phantom") or string.find(low, "barret")
-            or string.find(low, "natalina") then
-            return true
-        end
-        return false
-    end
-
-    local function reescreverChances(tbl, depth)
-        depth = depth or 0
-        if depth > 12 then return end
-        for k, v in pairs(tbl) do
-            if type(v)=="table" then
-                local nome = v.Nome or v.nome or v.Name or v.name or k
-                local eraRara = ehRara(nome)
-                for _, field in ipairs({"Chance","chance","Weight","weight","Probabilidade",
-                                         "probabilidade","Rate","rate","DropChance","dropChance"}) do
-                    if type(v[field])=="number" and v[field] > 0 then
-                        if eraRara then
-                            v[field] = CHANCE_MINIMA
-                        else
-                            if v[field] < CHANCE_MINIMA then
-                                v[field] = CHANCE_MINIMA
-                            else
-                                v[field] = v[field] * MULTIPLICADOR
-                            end
-                        end
-                    end
-                end
-                reescreverChances(v, depth+1)
-            end
-        end
-    end
-
-    local function aplicarGacha()
-        if IS_FREE then T.sorte2xEnabled = false; return end
-        if hooked then return end
-        hooked = true
-        local function scanMods(container, depth)
-            if depth > 6 then return end
-            for _, mod in ipairs(container:GetChildren()) do
-                if mod:IsA("ModuleScript") then
-                    local n = string.lower(mod.Name)
-                    if string.find(n, "gacha") or string.find(n, "roleta")
-                        or string.find(n, "sorteio") or string.find(n, "spin")
-                        or string.find(n, "crate") or string.find(n, "caixa")
-                        or string.find(n, "loot") or string.find(n, "premi")
-                        or string.find(n, "reward") or string.find(n, "raridade") then
-                        local ok, data = pcall(require, mod)
-                        if ok and type(data)=="table" then
-                            if not originalData[mod] then
-                                originalData[mod] = snapshot(data)
-                            end
-                            pcall(reescreverChances, data, 0)
-                        end
-                    end
-                end
-                scanMods(mod, depth+1)
-            end
-        end
-        scanMods(RS, 0)
-        local ps = LocalPlayer:FindFirstChild("PlayerScripts")
-        if ps then scanMods(ps, 0) end
-        local pg = LocalPlayer:FindFirstChild("PlayerGui")
-        if pg then scanMods(pg, 0) end
-        print("[VT GACHA] Chances forcadas para "..(CHANCE_MINIMA*100).."%")
-    end
-
-    local function restaurarGacha()
-        for mod, snap in pairs(originalData) do
-            pcall(function()
-                local ok, data = pcall(require, mod)
-                if ok and type(data)=="table" then
-                    for k, v in pairs(snap) do
-                        if type(v)=="table" then
-                            data[k] = snapshot(v)
-                        else
-                            data[k] = v
-                        end
-                    end
-                end
-            end)
-        end
-        originalData = {}
-        hooked = false
-    end
-
-    o.aplicarGacha = aplicarGacha
-    o.restaurarGacha = restaurarGacha
-
-    task.spawn(function()
-        task.wait(2)
-        pcall(aplicarGacha)
-    end)
-
-    local ultimoEstado = false
-    handleReady(RunService.Heartbeat:Connect(function()
-        if o.destroyed then return end
-        if IS_FREE then
-            if T.sorte2xEnabled then T.sorte2xEnabled = false end
-            return
-        end
-        if T.sorte2xEnabled and not ultimoEstado then
-            pcall(aplicarGacha)
-        elseif not T.sorte2xEnabled and ultimoEstado then
-            pcall(restaurarGacha)
-        end
-        ultimoEstado = T.sorte2xEnabled
-    end))
-end
-
--- ============================================
--- AUTO FARM PESCA
--- ============================================
-do
-    local RS = game:GetService("ReplicatedStorage")
-    local PESCA_TP = Vector3.new(-1165, -33, -5055)
-
-    local function getCharacter()
-        local character = LocalPlayer.Character
-        if not character then return end
-        local humanoid = character:FindFirstChildOfClass("Humanoid")
-        local root = character:FindFirstChild("HumanoidRootPart")
-        return character, humanoid, root
-    end
-
-    local function getTrashFolder()
-        return workspace:FindFirstChild("Lixeiro")
-    end
-
-    local function collectTrashTargets()
-        local _, humanoid, root = getCharacter()
-        local trashFolder = getTrashFolder()
-        if not humanoid or not root or humanoid.Health <= 0 or not trashFolder then
-            return {}
-        end
-        local targets = {}
-        for _, object in ipairs(trashFolder:GetChildren()) do
-            if object:IsA("BasePart") and object.Name == "Lixo" then
-                local prompt = object:FindFirstChildWhichIsA("ProximityPrompt")
-                if prompt and prompt.Enabled then
-                    targets[#targets + 1] = {
-                        Part = object,
-                        Prompt = prompt,
-                        Distance = (root.Position - object.Position).Magnitude,
-                    }
-                end
-            end
-        end
-        table.sort(targets, function(a, b) return a.Distance < b.Distance end)
-        return targets
-    end
-
-    local function walkTo(targetPosition, runId)
-        local char, humanoid, root = getCharacter()
-        if not char or not humanoid or not root then return false end
-        local path = PathfindingService:CreatePath({
-            AgentRadius=2, AgentHeight=5, AgentCanJump=true,
-            AgentCanClimb=true, WaypointSpacing=5,
-        })
-        local ok = pcall(function() path:ComputeAsync(root.Position, targetPosition) end)
-        local waypoints
-        if ok and path.Status == Enum.PathStatus.Success then
-            waypoints = path:GetWaypoints()
-        else
-            waypoints = {{Position=targetPosition, Action=Enum.PathWaypointAction.Walk}}
-        end
-        for _, waypoint in ipairs(waypoints) do
-            if not isRun(runId) then return false end
-            if waypoint.Action == Enum.PathWaypointAction.Jump then
-                humanoid.Jump = true
-            end
-            humanoid:MoveTo(waypoint.Position)
-            local reached = false
-            local reachedConn = humanoid.MoveToFinished:Connect(function(finished) reached = finished end)
-            local deadline = os.clock() + 8
-            repeat
-                RunService.Heartbeat:Wait()
-                if root and (root.Position - waypoint.Position).Magnitude <= 3 then
-                    reached = true
-                end
-            until reached or os.clock() >= deadline or not isRun(runId)
-            reachedConn:Disconnect()
-            if not reached then return false end
-        end
-        return true
-    end
-
-    local function firePrompt(prompt)
-        if not prompt or not prompt.Parent or not prompt.Enabled then return false end
-        local ok = pcall(function()
-            prompt:InputHoldBegin()
-            task.wait(math.max(prompt.HoldDuration, 0.1))
-            prompt:InputHoldEnd()
-        end)
-        return ok
-    end
-
-    local function getDeliveryPrompt()
-        local deliveryFolder = workspace:FindFirstChild("EntregaLixo")
-        local bin = deliveryFolder and deliveryFolder:FindFirstChild("Lixeira")
-        if not bin then return end
-        local prompt = bin:FindFirstChildWhichIsA("ProximityPrompt")
-        return bin, prompt
-    end
-
-    local function destroyWorldParts()
-        for _, v in ipairs(workspace:GetDescendants()) do
-            if v:IsA("BasePart") and v.Name ~= "Terrain" then
-                local isOwnCharacter = LocalPlayer.Character and v:IsDescendantOf(LocalPlayer.Character)
-                local hasPrompt = v:FindFirstChildWhichIsA("ProximityPrompt", true) ~= nil
-                if not isOwnCharacter and not hasPrompt then
-                    pcall(function() v:Destroy() end)
-                end
-            end
-        end
-    end
-
-    local function isRun(runId)
-        return T.autoFarmPescaEnabled and (not o.destroyed and o.pescaRunId == runId)
-    end
-
-    local function farmLoop(session)
-        if IS_FREE then T.autoFarmPescaEnabled = false; return end
-        if T.autoFarmPescaEnabled and session == o.pescaRunId then
-            destroyWorldParts()
-        end
-        while isRun(session) do
-            local farmChar, hum, root = getCharacter()
-            if root then
-                root.CFrame = CFrame.new(PESCA_TP)
-                for _, prompt in ipairs(workspace:GetDescendants()) do
-                    if prompt:IsA("ProximityPrompt") and prompt.Enabled then
-                        local promptParent = prompt.Parent
-                        if promptParent and promptParent:IsA("BasePart") then
-                            local promptDistance = (promptParent.Position - root.Position).Magnitude
-                            if promptDistance <= (prompt.MaxActivationDistance + 10) then
-                                firePrompt(prompt)
-                            end
-                        end
-                    end
-                end
-            end
-            task.wait(0.2)
-        end
-    end
-
-    local function setFarmEnabled(enabled)
-        if IS_FREE then T.autoFarmPescaEnabled = false; o.pescaRunId = o.pescaRunId + 1; return end
-        T.autoFarmPescaEnabled = enabled
-        o.pescaRunId = o.pescaRunId + 1
-        local session = o.pescaRunId
-        if enabled then
-            task.spawn(function()
-                pcall(farmLoop, session)
-            end)
-        end
-    end
-
-    o.startPesca = setFarmEnabled
-end
-
--- ============================================
--- DURABILIDADE HUD
--- ============================================
-do
-    local MAX = 1500
-    local green = Color3.fromRGB(70,190,120)
-    local yellow = Color3.fromRGB(232,190,70)
-    local red = Color3.fromRGB(232,92,84)
-    local bg = Color3.fromRGB(22,14,34)
-    local border = Color3.fromRGB(70,45,110)
-    local track = Color3.fromRGB(40,26,60)
-    local textCol = Color3.fromRGB(240,230,255)
-    local muted = Color3.fromRGB(170,140,210)
-    local fontName = "rbxasset://fonts/families/Nunito.json"
-    local boldFont = Font.new(fontName, Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    local regFont = Font.new(fontName, Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    local W, Hh = 208, 64
-    local O = TweenInfo.new(0.25, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
-    local S = {
-        gui=nil, frame=nil, fill=nil, percentLabel=nil, valueLabel=nil,
-        carLabel=nil, uiScale=nil, vidaConn=nil, car=nil,
-        maxVida=MAX, savedPosition=nil, painel=nil,
-    }
-    o.durHUD = S
-    local function mk(kind, props, parent)
-        local obj = Instance.new(kind)
-        for k, v in pairs(props) do obj[k] = v end
-        obj.Parent = parent
-        return obj
-    end
-    local function getParent() return LocalPlayer:WaitForChild("PlayerGui") end
-    local function colorFor(pct)
-        if pct <= 20 then return red end
-        if pct <= 50 then return yellow end
-        return green
-    end
-    local function vpSize()
-        local cam = workspace.CurrentCamera
-        return cam and cam.ViewportSize or Vector2.new(800,600)
-    end
-    local function updateScale()
-        if not S.uiScale then return end
-        local vp = vpSize()
-        S.uiScale.Scale = math.clamp(vp.X/1280, 0.85, 1.1)
-    end
-    local function defaultPos()
-        local vp = vpSize()
-        local y = math.max(40, (vp.Y-Hh)-150)
-        return UDim2.fromOffset(14, y)
-    end
-    local function setVal(v)
-        if not S.frame then return end
-        if v > S.maxVida then S.maxVida = v end
-        local pct = math.clamp((v/S.maxVida)*100, 0, 100)
-        local col = colorFor(pct)
-        S.percentLabel.Text = string.format("%d%%", math.floor(pct+0.5))
-        S.percentLabel.TextColor3 = col
-        S.valueLabel.Text = string.format("%d / %d", math.floor(v+0.5), math.floor(S.maxVida+0.5))
-        TweenService:Create(S.fill, O, {Size=UDim2.new(pct/100,0,1,0), BackgroundColor3=col}):Play()
-    end
-    local function create()
-        if S.gui and S.gui.Parent then return end
-        local gui = mk("ScreenGui", {
-            Name="VeteranoDurabilidade", ResetOnSpawn=false,
-            IgnoreGuiInset=true, DisplayOrder=9999,
-            ZIndexBehavior=Enum.ZIndexBehavior.Sibling,
-        }, getParent())
-        local frame = mk("Frame", {
-            Name="HUD", Active=true, AnchorPoint=Vector2.new(0,0),
-            Position=S.savedPosition or defaultPos(),
-            Size=UDim2.fromOffset(W, Hh),
-            BackgroundColor3=bg, BackgroundTransparency=0.08,
-            BorderSizePixel=0, Visible=false,
-        }, gui)
-        S.uiScale = mk("UIScale", {Scale=1}, frame)
-        mk("UICorner", {CornerRadius=UDim.new(0,10)}, frame)
-        mk("UIStroke", {Color=border, Transparency=0.2, Thickness=1, ApplyStrokeMode=Enum.ApplyStrokeMode.Border}, frame)
-        mk("UIPadding", {
-            PaddingTop=UDim.new(0,9), PaddingBottom=UDim.new(0,9),
-            PaddingLeft=UDim.new(0,11), PaddingRight=UDim.new(0,11),
-        }, frame)
-        S.carLabel = mk("TextLabel", {
-            Name="Carro", Position=UDim2.fromOffset(0,0),
-            Size=UDim2.new(1,-46,0,15), BackgroundTransparency=1,
-            Text="Veiculo", TextColor3=textCol, TextSize=14,
-            FontFace=boldFont, TextXAlignment=Enum.TextXAlignment.Left,
-            TextTruncate=Enum.TextTruncate.AtEnd,
-        }, frame)
-        S.percentLabel = mk("TextLabel", {
-            Name="Percent", AnchorPoint=Vector2.new(1,0),
-            Position=UDim2.new(1,0,0,0), Size=UDim2.fromOffset(46,15),
-            BackgroundTransparency=1, Text="--%", TextColor3=green,
-            TextSize=15, FontFace=boldFont,
-            TextXAlignment=Enum.TextXAlignment.Right,
-        }, frame)
-        local bar = mk("Frame", {
-            Name="Barra", Position=UDim2.fromOffset(0,24),
-            Size=UDim2.new(1,0,0,9), BackgroundColor3=track,
-            BorderSizePixel=0, ClipsDescendants=true,
-        }, frame)
-        mk("UICorner", {CornerRadius=UDim.new(1,0)}, bar)
-        S.fill = mk("Frame", {Name="Fill", Size=UDim2.new(1,0,1,0), BackgroundColor3=green, BorderSizePixel=0}, bar)
-        mk("UICorner", {CornerRadius=UDim.new(1,0)}, S.fill)
-        S.valueLabel = mk("TextLabel", {
-            Name="Valor", Position=UDim2.fromOffset(0,37),
-            Size=UDim2.new(1,0,0,12), BackgroundTransparency=1,
-            Text="-- / --", TextColor3=muted, TextSize=12,
-            FontFace=regFont, TextXAlignment=Enum.TextXAlignment.Left,
-        }, frame)
-        S.gui = gui
-        S.frame = frame
-        updateScale()
-        handleReady((workspace:GetPropertyChangedSignal("CurrentCamera")):Connect(function()
-            updateScale()
-            local cam = workspace.CurrentCamera
-            if cam then
-                handleReady((cam:GetPropertyChangedSignal("ViewportSize")):Connect(updateScale))
-            end
-        end))
-        local cam = workspace.CurrentCamera
-        if cam then handleReady((cam:GetPropertyChangedSignal("ViewportSize")):Connect(updateScale)) end
-        updateInstancePropertiesPosition(frame, nil, function(pos) S.savedPosition = pos end)
-    end
-    local function vidaDoCarro(car)
-        local body = car:FindFirstChild("Body")
-        local paint = body and body:FindFirstChild("Pintura")
-        local life = paint and paint:FindFirstChild("LifeController")
-        return life and life:FindFirstChild("Vida")
-    end
-    o.vidaDoCarro = vidaDoCarro
-    local function getMeuCarro()
-        local hum = isCValid()
-        local seat = hum and hum.SeatPart
-        if not seat then return nil end
-        local carros = workspace:FindFirstChild("CarrosSpawnados")
-        if not carros then return nil end
-        local p = seat
-        while p and p.Parent do
-            if p.Parent == carros then return p end
-            p = p.Parent
-        end
-        return nil
-    end
-    local function desconectar()
-        if S.vidaConn then S.vidaConn:Disconnect(); S.vidaConn = nil end
-        S.car = nil
-        if S.painel then S.painel:SetVisible(false) end
-    end
-    local function conectar(car)
-        local vida = vidaDoCarro(car)
-        if not vida then return end
-        if S.vidaConn then S.vidaConn:Disconnect() end
-        S.car = car
-        S.maxVida = math.max(MAX, vida.Value)
-        if S.carLabel then S.carLabel.Text = car.Name end
-        if S.painel then S.painel:SetVisible(true) end
-        setVal(vida.Value)
-        S.vidaConn = vida:GetPropertyChangedSignal("Value"):Connect(function() setVal(vida.Value) end)
-    end
-    function o.ativarDurabilidade()
-        create()
-        o.durabilidadeRunId = o.durabilidadeRunId + 1
-        local runId = o.durabilidadeRunId
+    local coleta = {runId = 0}
+    local function startAutoColeta()
+        if T.autoColetaEnabled then return end
+        T.autoColetaEnabled = true
+        coleta.runId = coleta.runId + 1
+        local myId = coleta.runId
         task.spawn(function()
-            while T.durabilidadeHudEnabled and (not o.destroyed and o.durabilidadeRunId == runId) do
-                local car = getMeuCarro()
-                if car ~= S.car then
-                    if car and vidaDoCarro(car) then pcall(conectar, car)
-                    else pcall(desconectar) end
-                elseif car and not S.vidaConn then
-                    pcall(conectar, car)
+            while T.autoColetaEnabled and not o.destroyed and myId == coleta.runId do
+                local drops = o.listDrops and o.listDrops() or {}
+                local alvo = drops[1]
+                if alvo and alvo.item.Parent then
+                    pcall(GF, alvo)
                 end
-                task.wait(0.3)
+                task.wait(math.max(0.1, T.autoColetaCooldown * 0.5))
             end
         end)
     end
-    function o.desativarDurabilidade()
-        o.durabilidadeRunId = o.durabilidadeRunId + 1
-        pcall(desconectar)
-        if S.painel then S.painel:SetVisible(false) end
+    local function stopAutoColeta()
+        T.autoColetaEnabled = false
+        coleta.runId = coleta.runId + 1
     end
-    function o.destruirDurabilidade()
-        pcall(desconectar)
-        if S.gui then pcall(function() S.gui:Destroy() end) end
-        S.gui, S.frame, S.fill, S.painel = nil, nil, nil, nil
-    end
+    o.startAutoColeta = startAutoColeta
+    o.stopAutoColeta = stopAutoColeta
 end
 
--- ============================================
--- BEST CARS ESP
--- ============================================
-do
-    local INF = 1e+50
-    local TOP = 10
-    local INTERVAL = 0.1
-    local H = {bundles={}, catalogo={}, proximaAtualizacao=0}
-    local function getVal(cfg)
-        local c = cfg and cfg:FindFirstChild("Config")
-        if not c then return nil end
-        local v = c:FindFirstChild("Valor")
-        return v and tonumber(v.Value) or 0
-    end
-    local function parseCar(model)
-        local cfg = model and model:FindFirstChild("Config")
-        if not cfg then return nil end
-        return {nome=model.Name, valor=getVal(cfg)}
-    end
-    local function updateCatalogo()
-        local rs = game:GetService("ReplicatedStorage")
-        local orph = rs:FindFirstChild("OrpheusShared")
-        local conc = orph and orph:FindFirstChild("Concessionaria")
-        local vehicles = conc and conc:FindFirstChild("Veiculos")
-        if not vehicles then H.catalogo = {}; return end
-        local list = {}
-        for _, m in ipairs(vehicles:GetChildren()) do
-            if m:IsA("Model") then
-                local c = parseCar(m)
-                if c and c.valor > 0 and c.valor < INF then table.insert(list, c) end
-            end
-        end
-        table.sort(list, function(a, b2)
-            if a.valor == b2.valor then return a.nome < b2.nome end
-            return a.valor > b2.valor
-        end)
-        H.catalogo = {}
-        for i = 1, math.min(TOP, #list), 1 do
-            H.catalogo[list[i].nome] = list[i]
-        end
-    end
-    local function getPrimary(car)
-        return car.PrimaryPart or car:FindFirstChild("DriveSeat", true) or car:FindFirstChildWhichIsA("BasePart", true)
-    end
-    local function fmtNum(n)
-        return ((((tostring(math.floor(n+0.5))):reverse()):gsub("(%d%d%d)", "%1.")):reverse()):gsub("^%.", "")
-    end
-    local function esc(s)
-        return ((((tostring(s)):gsub("&","&amp;")):gsub("<","&lt;")):gsub(">","&gt;")):gsub('"',"&quot;")
-    end
-    local function getDriver(car)
-        local seat = car:FindFirstChild("DriveSeat", true) or car:FindFirstChildWhichIsA("VehicleSeat", true)
-        local occ = seat and (seat:IsA("VehicleSeat") and seat.Occupant) or nil
-        local plr = occ and Players:GetPlayerFromCharacter(occ.Parent) or nil
-        return plr and plr.Name or "Desocupado", plr ~= nil
-    end
-    local function destroyBundle(car)
-        local b2 = H.bundles[car]
-        if not b2 then return end
-        if b2.highlight then pcall(function() b2.highlight:Destroy() end) end
-        if b2.gui then pcall(function() b2.gui:Destroy() end) end
-        H.bundles[car] = nil
-    end
-    local function createBundle(car, part)
-        local col = Color3.fromRGB(170,70,255)
-        local hl = Instance.new("Highlight")
-        hl.Name = "KnwareBestCarESP"
-        hl.Adornee = car
-        hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-        hl.FillColor = col
-        hl.OutlineColor = col
-        hl.FillTransparency = 0.78
-        hl.OutlineTransparency = 0
-        hl.Parent = workspace.CurrentCamera or workspace
-        local gui = Instance.new("BillboardGui")
-        gui.Name = "KnwareBestCarLabel"
-        gui.Adornee = part
-        gui.AlwaysOnTop = true
-        gui.LightInfluence = 0
-        gui.MaxDistance = 10000
-        gui.Size = UDim2.fromOffset(260, 84)
-        gui.Parent = workspace.CurrentCamera or workspace
-        local frame = Instance.new("Frame")
-        frame.BackgroundColor3 = Color3.fromRGB(22,14,34)
-        frame.BackgroundTransparency = 0.08
-        frame.BorderSizePixel = 0
-        frame.Size = UDim2.fromScale(1,1)
-        frame.Parent = gui
-        local corner = Instance.new("UICorner")
-        corner.CornerRadius = UDim.new(0,9)
-        corner.Parent = frame
-        local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromRGB(70,45,110)
-        stroke.Transparency = 0.2
-        stroke.Thickness = 1
-        stroke.Parent = frame
-        local txt = Instance.new("TextLabel")
-        txt.BackgroundTransparency = 1
-        txt.Position = UDim2.fromOffset(10,7)
-        txt.Size = UDim2.new(1,-20,1,-14)
-        txt.Font = Enum.Font.GothamBold
-        txt.RichText = true
-        txt.TextColor3 = Color3.fromRGB(240,230,255)
-        txt.TextSize = 13
-        txt.TextWrapped = true
-        txt.TextXAlignment = Enum.TextXAlignment.Left
-        txt.TextYAlignment = Enum.TextYAlignment.Center
-        txt.Parent = frame
-        local bundle = {highlight=hl, gui=gui, texto=txt, parte=part}
-        H.bundles[car] = bundle
-        return bundle
-    end
-    local function hideAll()
-        for _, b2 in pairs(H.bundles) do
-            if b2.highlight then b2.highlight.Enabled = false end
-            if b2.gui then b2.gui.Enabled = false end
-        end
-    end
-    local function tick()
-        if not T.bestCarsEspEnabled then hideAll(); return end
-        if next(H.catalogo) == nil then updateCatalogo() end
-        local cars = workspace:FindFirstChild("CarrosSpawnados")
-        local root = isUpdatePlayerGetMagnitudeCValid()
-        if not cars or not root then hideAll(); return end
-        local seen = {}
-        for _, m in ipairs(cars:GetChildren()) do
-            if m:IsA("Model") then
-                local cat = H.catalogo[m.Name]
-                local part = getPrimary(m)
-                if part and cat then
-                    seen[m] = true
-                    local b2 = H.bundles[m] or createBundle(m, part)
-                    b2.highlight.Enabled = true
-                    b2.gui.Enabled = true
-                    if b2.parte ~= part then
-                        b2.parte = part
-                        b2.gui.Adornee = part
-                    end
-                    local driver, occupied = getDriver(m)
-                    local dCol = occupied and "#E85C54" or "#46BE78"
-                    b2.texto.Text = string.format(
-                        'Ocupante: <font color="%s">%s</font>\nVeiculo: %s\nValor: $<font color="#46BE78">%s</font>\nDistancia: %.0fm',
-                        dCol, esc(driver), esc(m.Name), fmtNum(cat.valor), (part.Position-root.Position).Magnitude
-                    )
-                else
-                    destroyBundle(m)
-                end
-            end
-        end
-        for car in pairs(H.bundles) do
-            if not seen[car] or not car.Parent then destroyBundle(car) end
-        end
-    end
-    function o.ativarBestCarsEsp() updateCatalogo(); H.proximaAtualizacao = 0; pcall(tick) end
-    function o.desativarBestCarsEsp() hideAll() end
-    function o.destruirBestCarsEsp()
-        for car in pairs(H.bundles) do destroyBundle(car) end
-        H.catalogo = {}
-    end
-    handleReady(RunService.RenderStepped:Connect(function()
-        local now = os.clock()
-        if now < H.proximaAtualizacao then return end
-        H.proximaAtualizacao = now + INTERVAL
-        pcall(tick)
-    end))
-end
+o.iniciarFarmPartes = function() return 0 end
+o.pararFarmPartes = function() end
+o.restaurarArmas = function() end
+o.aplicarGacha = function() end
+o.restaurarGacha = function() end
+o.startPesca = function(enabled) T.autoFarmPescaEnabled = false end
 
 -- ============================================
--- AUTO FARM LIXEIRO (ÚNICO FREE)
+-- HUD FLUTUANTE: ITENS NO CHÃO
 -- ============================================
 do
-    local P2 = 10
-    local function getTeam() return LocalPlayer.Team and LocalPlayer.Team.Name or nil end
-    local function getLevel()
-        local ns = LocalPlayer:FindFirstChild("NewStats")
-        local lv = ns and ns:FindFirstChild("Level")
-        return lv and tonumber(lv.Value) or 0
-    end
-    local function getEmpregos()
-        local ok, mod = pcall(function() return require((game:GetService("ReplicatedStorage")).Mercadinho.PrefModule) end)
-        if not ok or type(mod) ~= "table" or type(mod.Empregos) ~= "table" then return {} end
-        local list = {}
-        for name, data in pairs(mod.Empregos) do
-            table.insert(list, {nome=name, level=tonumber(data.Level) or 0, salario=tonumber(data.Salario) or 0})
-        end
-        table.sort(list, function(a, b2)
-            if a.level == b2.level then return a.nome < b2.nome end
-            return a.level < b2.level
-        end)
-        return list
-    end
-    local function getLixoCount()
-        local inv = LocalPlayer:FindFirstChild("Inv")
-        local count = 0
-        if inv then
-            for _, v in ipairs(inv:GetChildren()) do
-                if v.Name == "Saco de Lixo" then count = count+1 end
-            end
-        end
-        return count
-    end
-    local function getMoneySafe()
-        local ls = LocalPlayer:FindFirstChild("leaderstats")
-        local d = ls and ls:FindFirstChild("Dinheiro")
-        return d and tonumber(d.Value) or nil
-    end
-    local function getLixeiroEmp()
-        for _, e in ipairs(getEmpregos()) do
-            if string.lower(e.nome) == "lixeiro" then return e end
-        end
-        return {nome="Lixeiro", level=1, salario=0}
-    end
-    local function setFarmStatus(msg) o.garbageFarmStatus = tostring(msg or "") end
-    local function isRun(runId) return T.autoFarmLixeiroEnabled and (not o.destroyed and o.garbageFarmRunId == runId) end
-    local function wait2(t, runId)
-        local deadline = os.clock()+math.max(0, t or 0)
-        repeat
-            if not isRun(runId) then return false end
-            task.wait(math.min(0.1, math.max(0.01, deadline-os.clock())))
-        until os.clock() >= deadline
-        return isRun(runId)
-    end
-    local function handleIsValid()
-        local char = LocalPlayer.Character
-        return char, char and char:FindFirstChildOfClass("Humanoid"), char and char:FindFirstChild("HumanoidRootPart")
-    end
-    local function sendJobSelect(remote, emp)
-        remote:FireServer(emp.nome, emp.level, true)
-        local pg = LocalPlayer:FindFirstChild("PlayerGui")
-        local lx = pg and pg:FindFirstChild("LixeiroUI")
-        local frame = lx and lx:FindFirstChild("LixeiroFrame")
-        if frame and frame.Visible then frame.Visible = false end
-    end
-    local function trySelectLixeiro(runId)
-        if getTeam() == "Lixeiro" then return true end
-        local merc = (game:GetService("ReplicatedStorage")):FindFirstChild("Mercadinho")
-        local remote = merc and merc:FindFirstChild("PrefRemote")
-        if not remote or not remote:IsA("RemoteEvent") then
-            setFarmStatus("PrefRemote nao encontrado")
-            return false
-        end
-        local emp = getLixeiroEmp()
-        if getLevel() < emp.level then return false end
-        setFarmStatus("Selecionando lixeiro...")
-        remote:FireServer(emp.nome, emp.level)
-        wait2(0.25, runId)
-        if not isRun(runId) then return false end
-        sendJobSelect(remote, emp)
-        local deadline = os.clock()+P2
-        repeat
-            if not isRun(runId) then return false end
-            if getTeam() == "Lixeiro" then
-                wait2(1.2, runId)
-                return true
-            end
-            task.wait(0.15)
-        until os.clock() >= deadline
-        return false
-    end
-    local function isLixoPart(part, prompt)
-        return part and part.Parent and part:IsA("BasePart") and part.Name == "Lixo"
-            and part.Transparency < 0.95
-            and (prompt and prompt.Parent == part and prompt:IsA("ProximityPrompt") and prompt.Enabled)
-    end
-    local function scanLixos()
-        local char, hum, root = handleIsValid()
-        local folder = workspace:FindFirstChild("Lixeiro")
-        local list = {}
-        if not root or not folder then return list end
-        for _, part in ipairs(folder:GetChildren()) do
-            local prompt = part:FindFirstChild("PegarLixo")
-            if isLixoPart(part, prompt) then
-                table.insert(list, {parte=part, prompt=prompt, posicao=part.Position, distancia=(part.Position-root.Position).Magnitude})
-            end
-        end
-        table.sort(list, function(a, b3) return a.distancia < b3.distancia end)
-        return list
-    end
-    local function inRange(root, part, prompt)
-        if not root or not part or not part.Parent then return false end
-        local maxD = prompt and math.max(2.5, prompt.MaxActivationDistance-0.65) or 4.25
-        return (root.Position-part.Position).Magnitude <= maxD
-    end
-    local function walkTo(part, prompt, runId)
-        local char, hum, root = handleIsValid()
-        if not char or not hum or not root or hum.Health <= 0 then return false end
-        if inRange(root, part, prompt) then return true end
-        for attempt = 1, 4, 1 do
-            if not isRun(runId) or not part.Parent then return false end
-            char, hum, root = handleIsValid()
-            if not char or not hum or not root or hum.Health <= 0 then return false end
-            if inRange(root, part, prompt) then return true end
-            local maxD = prompt and math.max(2.5, prompt.MaxActivationDistance-0.8) or 4
-            local flat = Vector3.new(root.Position.X-part.Position.X, 0, root.Position.Z-part.Position.Z)
-            local dir = flat.Magnitude > 0.1 and flat.Unit or Vector3.new(0,0,1)
-            local radius = math.max(part.Size.X, part.Size.Z)*0.5
-            local safe = math.clamp(radius+1.25, 1.25, math.max(1.25, maxD-0.35))
-            local goal = part.Position + dir*safe
-            local path = PathfindingService:CreatePath({
-                AgentRadius=2, AgentHeight=5, AgentCanJump=true,
-                AgentCanClimb=true, WaypointSpacing=5,
-            })
-            local ok = pcall(function() path:ComputeAsync(root.Position, goal) end)
-            local waypoints = ok and (path.Status == Enum.PathStatus.Success and path:GetWaypoints())
-                or {{Position=goal, Action=Enum.PathWaypointAction.Walk}}
-            local idx = 0
-            local blocked = false
-            local blockConn = path.Blocked:Connect(function(wp) if wp <= idx+1 then blocked = true end end)
-            for i, wp in ipairs(waypoints) do
-                idx = i
-                if not isRun(runId) or blocked then break end
-                char, hum, root = handleIsValid()
-                if not char or not hum or not root or hum.Health <= 0 then break end
-                if inRange(root, part, prompt) then blockConn:Disconnect(); return true end
-                if wp.Action == Enum.PathWaypointAction.Jump then
-                    hum.Jump = true
-                    pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
-                end
-                hum:MoveTo(wp.Position)
-                local last = root.Position
-                local lastMove = os.clock()
-                local lastJump = 0
-                local deadline = os.clock()+8
-                repeat
-                    RunService.Heartbeat:Wait()
-                    if not isRun(runId) then blockConn:Disconnect(); return false end
-                    char, hum, root = handleIsValid()
-                    if not char or not hum or not root then break end
-                    if inRange(root, part, prompt) then blockConn:Disconnect(); return true end
-                    local now = os.clock()
-                    if (root.Position-last).Magnitude >= 0.8 then
-                        last = root.Position
-                        lastMove = now
-                    elseif now-lastMove >= 1.25 and now-lastJump >= 1 then
-                        lastJump = now
-                        hum.Jump = true
-                        pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
-                        hum:MoveTo(wp.Position)
-                    end
-                    if now-lastMove >= 3 then blocked = true end
-                until blocked or os.clock() >= deadline or (root.Position-wp.Position).Magnitude <= 3
-            end
-            blockConn:Disconnect()
-            char, hum, root = handleIsValid()
-            if root and inRange(root, part, prompt) then return true end
-            wait2(0.2, runId)
-        end
-        return false
-    end
-    local function firePrompt(prompt, force)
-        if not prompt or not prompt.Parent or not prompt.Enabled then return false end
-        if not force and type(fireproximityprompt) == "function" then
-            return pcall(fireproximityprompt, prompt, 0)
-        end
-        return pcall(function()
-            prompt:InputHoldBegin()
-            task.wait(math.max(0.15, prompt.HoldDuration+0.1))
-            prompt:InputHoldEnd()
-        end)
-    end
-    local function collectOne(part, prompt, runId)
-        local before = getLixoCount()
-        for attempt = 1, 3, 1 do
-            if not isRun(runId) or not isLixoPart(part, prompt) then
-                return not part.Parent or part.Transparency >= 0.95
-            end
-            local _, _, root = handleIsValid()
-            if not inRange(root, part, prompt) then return false end
-            firePrompt(prompt, attempt > 1)
-            local deadline = os.clock()+2.75
-            repeat
-                if not isRun(runId) then return false end
-                if not part.Parent or part.Transparency >= 0.95 or getLixoCount() > before then return true end
-                task.wait(0.1)
-            until os.clock() >= deadline
-        end
-        return false
-    end
-    local function findDelivery()
-        local folder = workspace:FindFirstChild("EntregaLixo")
-        local lixeira = folder and folder:FindFirstChild("Lixeira")
-        local prompt = lixeira and lixeira:FindFirstChild("EntregarLixo")
-        if lixeira and lixeira:IsA("BasePart") and prompt and prompt:IsA("ProximityPrompt") then
-            return lixeira, prompt
-        end
-        return nil, nil
-    end
-    local function deliverLixos(count, runId)
-        local part, prompt = findDelivery()
-        if not part or not prompt then return false end
-        setFarmStatus(string.format("%d/%d coletados; indo entregar...", count, count))
-        if not walkTo(part, prompt, runId) then
-            if not isRun(runId) then return false end
-            return false
-        end
-        local beforeCount = getLixoCount()
-        local beforeMoney = getMoneySafe()
-        for attempt = 1, 3, 1 do
-            if not isRun(runId) then return false end
-            firePrompt(prompt, attempt > 1)
-            local deadline = os.clock()+4
-            repeat
-                if not isRun(runId) then return false end
-                local nowCount = getLixoCount()
-                local nowMoney = getMoneySafe()
-                if (beforeCount > 0 and nowCount < beforeCount) or (beforeMoney and nowMoney and nowMoney > beforeMoney) then
-                    return true
-                end
-                task.wait(0.15)
-            until os.clock() >= deadline
-        end
-        return false
-    end
-    local function farmLoop(runId)
-        while isRun(runId) do
-            if not trySelectLixeiro(runId) then
-                wait2(2, runId)
-            else
-                local goal = math.clamp(math.floor(tonumber(T.autoFarmLixeiroQuantidade) or 20), 1, 20)
-                local collected = 0
-                while isRun(runId) and (getTeam() == "Lixeiro" and collected < goal) do
-                    local list = scanLixos()
-                    if #list == 0 then
-                        setFarmStatus(string.format("Coletados %d/%d; aguardando...", collected, goal))
-                        wait2(1.25, runId)
-                    else
-                        local target = list[1]
-                        if walkTo(target.parte, target.prompt, runId) then
-                            if collectOne(target.parte, target.prompt, runId) then
-                                collected = collected + 1
-                                wait2(0.45, runId)
-                            else
-                                if not isRun(runId) then break end
-                                wait2(0.35, runId)
-                            end
-                        else
-                            if not isRun(runId) then break end
-                            wait2(0.4, runId)
-                        end
-                    end
-                end
-                if not isRun(runId) then break end
-                if getTeam() ~= "Lixeiro" then
-                    setFarmStatus("Emprego alterado; retomando...")
-                elseif collected >= goal then
-                    while isRun(runId) and not deliverLixos(collected, runId) do
-                        wait2(1, runId)
-                    end
-                    if isRun(runId) then wait2(1.25, runId) end
-                end
-            end
-        end
-    end
-    local function startLixeiro(enable)
-        T.autoFarmLixeiroEnabled = enable == true
-        o.garbageFarmRunId = o.garbageFarmRunId + 1
-        local runId = o.garbageFarmRunId
-        if T.autoFarmLixeiroEnabled then
-            setFarmStatus("Verificando emprego...")
-            task.spawn(function()
-                local ok, err = pcall(farmLoop, runId)
-                if not ok and isRun(runId) then
-                    setFarmStatus("Erro: "..tostring(err))
-                    T.autoFarmLixeiroEnabled = false
-                    o.garbageFarmRunId = o.garbageFarmRunId + 1
+    local hudGui = Instance.new("ScreenGui")
+    hudGui.Name = "VeteranoColetaHUD"
+    hudGui.ResetOnSpawn = false
+    hudGui.IgnoreGuiInset = true
+    hudGui.DisplayOrder = 9997
+    if protect_gui then pcall(protect_gui, hudGui) end
+    hudGui.Parent = parentGui
+    o.coletaHudGui = hudGui
+
+    local frame = Instance.new("Frame")
+    frame.Name = "ColetaHUD"
+    frame.AnchorPoint = Vector2.new(1, 0)
+    frame.Position = UDim2.new(1, -20, 0, 100)
+    frame.Size = UDim2.fromOffset(280, 320)
+    frame.BackgroundColor3 = BG2
+    frame.BorderSizePixel = 0
+    frame.Active = true
+    frame.Visible = false
+    frame.ZIndex = 5
+    frame.Parent = hudGui
+    local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0, 12); fc.Parent = frame
+    local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
+
+    local header = Instance.new("Frame")
+    header.Size = UDim2.new(1, 0, 0, 30)
+    header.BackgroundTransparency = 1
+    header.ZIndex = 6
+    header.Parent = frame
+
+    local title = Instance.new("TextLabel")
+    title.BackgroundTransparency = 1
+    title.Position = UDim2.fromOffset(14, 0)
+    title.Size = UDim2.new(1, -90, 1, 0)
+    title.Font = Enum.Font.GothamBold
+    title.Text = "Itens no chão"
+    title.TextColor3 = WH
+    title.TextSize = 13
+    title.TextXAlignment = Enum.TextXAlignment.Left
+    title.ZIndex = 6
+    title.Parent = header
+
+    local countLbl = Instance.new("TextLabel")
+    countLbl.AnchorPoint = Vector2.new(1, 0.5)
+    countLbl.Position = UDim2.new(1, -14, 0.5, 0)
+    countLbl.Size = UDim2.fromOffset(80, 20)
+    countLbl.BackgroundTransparency = 1
+    countLbl.Font = Enum.Font.Gotham
+    countLbl.Text = "0"
+    countLbl.TextColor3 = DIM
+    countLbl.TextSize = 11
+    countLbl.TextXAlignment = Enum.TextXAlignment.Right
+    countLbl.ZIndex = 6
+    countLbl.Parent = header
+
+    local drag = {dragging=false, startPos=nil, startMouse=nil, touchInput=nil}
+    header.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            drag.dragging = true
+            drag.startPos = frame.Position
+            drag.startMouse = input.Position
+        elseif input.UserInputType == Enum.UserInputType.Touch then
+            drag.dragging = true
+            drag.startPos = frame.Position
+            drag.startMouse = input.Position
+            drag.touchInput = input
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    drag.dragging = false; drag.touchInput = nil
                 end
             end)
-        else
-            setFarmStatus("Auto Farm parado.")
-            local char, hum, root = handleIsValid()
-            if hum and root then hum:MoveTo(root.Position) end
         end
+    end)
+    UserInputService.InputChanged:Connect(function(input)
+        if not drag.dragging then return end
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = input.Position - drag.startMouse
+            frame.Position = UDim2.new(drag.startPos.X.Scale, drag.startPos.X.Offset + delta.X, drag.startPos.Y.Scale, drag.startPos.Y.Offset + delta.Y)
+        elseif input.UserInputType == Enum.UserInputType.Touch then
+            if drag.touchInput and input ~= drag.touchInput then return end
+            local delta = input.Position - drag.startMouse
+            frame.Position = UDim2.new(drag.startPos.X.Scale, drag.startPos.X.Offset + delta.X, drag.startPos.Y.Scale, drag.startPos.Y.Offset + delta.Y)
+        end
+    end)
+    UserInputService.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            drag.dragging = false; drag.touchInput = nil
+        end
+    end)
+
+    local div = Instance.new("Frame")
+    div.Position = UDim2.new(0, 12, 0, 30)
+    div.Size = UDim2.new(1, -24, 0, 1)
+    div.BackgroundColor3 = LINE
+    div.BorderSizePixel = 0
+    div.ZIndex = 6
+    div.Parent = frame
+
+    local list = Instance.new("ScrollingFrame")
+    list.BackgroundTransparency = 1
+    list.BorderSizePixel = 0
+    list.Position = UDim2.fromOffset(10, 38)
+    list.Size = UDim2.new(1, -20, 1, -48)
+    list.ScrollBarThickness = 3
+    list.ScrollBarImageColor3 = TC
+    list.CanvasSize = UDim2.new(0, 0, 0, 0)
+    list.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    list.ScrollingDirection = Enum.ScrollingDirection.Y
+    list.ZIndex = 5
+    list.Parent = frame
+    local ll = Instance.new("UIListLayout")
+    ll.Padding = UDim.new(0, 5)
+    ll.SortOrder = Enum.SortOrder.LayoutOrder
+    ll.Parent = list
+
+    local emptyMsg = Instance.new("TextLabel")
+    emptyMsg.Name = "EmptyMsg"
+    emptyMsg.BackgroundTransparency = 1
+    emptyMsg.Size = UDim2.new(1, 0, 0, 30)
+    emptyMsg.Font = Enum.Font.Gotham
+    emptyMsg.Text = "Nenhum item dropado"
+    emptyMsg.TextColor3 = DIM
+    emptyMsg.TextSize = 12
+    emptyMsg.ZIndex = 5
+    emptyMsg.Visible = true
+    emptyMsg.Parent = list
+
+    local function buildRow(idx, entry)
+        local row = Instance.new("Frame")
+        row.Name = "Row_" .. idx
+        row.BackgroundColor3 = BG3
+        row.BorderSizePixel = 0
+        row.Size = UDim2.new(1, -4, 0, 34)
+        row.LayoutOrder = idx
+        row.ZIndex = 5
+        row.Parent = list
+        local rc = Instance.new("UICorner"); rc.CornerRadius = UDim.new(0, 6); rc.Parent = row
+
+        local label = Instance.new("TextLabel")
+        label.Name = "Label"
+        label.BackgroundTransparency = 1
+        label.Position = UDim2.fromOffset(9, 0)
+        label.Size = UDim2.new(1, -62, 1, 0)
+        label.Font = Enum.Font.Gotham
+        label.Text = string.format("%s  -  %dm", entry.nome, math.floor(entry.distancia + 0.5))
+        label.TextColor3 = WH
+        label.TextSize = 11
+        label.TextTruncate = Enum.TextTruncate.AtEnd
+        label.TextXAlignment = Enum.TextXAlignment.Left
+        label.ZIndex = 6
+        label.Parent = row
+
+        local tp = Instance.new("TextButton")
+        tp.Name = "TP"
+        tp.AnchorPoint = Vector2.new(1, 0.5)
+        tp.Position = UDim2.new(1, -5, 0.5, 0)
+        tp.Size = UDim2.fromOffset(42, 24)
+        tp.BackgroundColor3 = TC
+        tp.BorderSizePixel = 0
+        tp.Font = Enum.Font.GothamBold
+        tp.Text = "TP"
+        tp.TextColor3 = BG
+        tp.TextSize = 11
+        tp.AutoButtonColor = false
+        tp.ZIndex = 6
+        tp.Parent = row
+        local tc = Instance.new("UICorner"); tc.CornerRadius = UDim.new(0, 5); tc.Parent = tp
+
+        row:SetAttribute("ItemIdx", idx)
+        tp.MouseButton1Click:Connect(function()
+            local curIdx = row:GetAttribute("ItemIdx")
+            local drops = o.listDrops and o.listDrops() or {}
+            local cur = drops[curIdx]
+            if cur and cur.item and cur.item.Parent then
+                task.spawn(function() pcall(o.coletarItem, cur) end)
+            end
+        end)
     end
-    o.startLixeiro = startLixeiro
+
+    local function refresh()
+        local drops = o.listDrops and o.listDrops() or {}
+        local maxShow = math.min(#drops, 20)
+        for _, ch in ipairs(list:GetChildren()) do
+            if ch:IsA("GuiObject") and ch.Name ~= "EmptyMsg" then
+                ch:Destroy()
+            end
+        end
+        if maxShow == 0 then
+            emptyMsg.Visible = true
+            countLbl.Text = "0"
+            return
+        end
+        emptyMsg.Visible = false
+        for i = 1, maxShow do
+            buildRow(i, drops[i])
+        end
+        countLbl.Text = tostring(#drops)
+    end
+
+    function o.setColetaHudVisible(v)
+        frame.Visible = v == true
+        if frame.Visible then pcall(refresh) end
+    end
+
+    task.spawn(function()
+        while not o.destroyed do
+            if frame.Visible then pcall(refresh) end
+            task.wait(0.6)
+        end
+    end)
 end
 
 -- ============================================
--- ACOES RAPIDAS
--- ============================================
-local function curar()
-    local hum = isCValid()
-    if hum then hum.Health = hum.MaxHealth end
-end
-local function destravar()
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if obj:IsA("BasePart") then
-            local n = string.lower(obj.Name)
-            if string.find(n,"door") or string.find(n,"porta") or string.find(n,"gate") then
-                obj.CanCollide = false
-            end
-        end
-    end
-end
-local function encherMunicao()
-    local char = LocalPlayer.Character
-    local bp = LocalPlayer:FindFirstChild("Backpack")
-    for _, cont in ipairs({char, bp}) do
-        if cont then
-            for _, tool in ipairs(cont:GetChildren()) do
-                if tool:IsA("Tool") then
-                    for _, v in ipairs(tool:GetDescendants()) do
-                        if v:IsA("NumberValue") and (v.Name == "Ammo" or v.Name == "Mag") then v.Value = 999 end
-                    end
-                end
-            end
-        end
-    end
-end
-
--- ============================================
--- STAFF MONITOR HUD
+-- STAFF MONITOR
 -- ============================================
 do
     local hudGui = Instance.new("ScreenGui")
@@ -3873,13 +2407,13 @@ do
             else
                 hudLbl.Visible = false
             end
-            task.wait(1)
+            task.wait(0.5)
         end
     end)
 end
 
 -- ============================================
--- UI
+-- UI PRINCIPAL
 -- ============================================
 local W = isMobile and 440 or 640
 local H = isMobile and 500 or 580
@@ -3950,7 +2484,7 @@ local subLbl = Instance.new("TextLabel")
 subLbl.Size = UDim2.new(0, 300, 0, 14)
 subLbl.Position = UDim2.new(0, isMobile and 60 or 52, 0, isMobile and 34 or 32)
 subLbl.BackgroundTransparency = 1
-subLbl.Text = isMobile and "@veterano.dev | Mobile" or "@VETERANO.DEV | PC + Mobile"
+subLbl.Text = "@VETERANO.DEV | VERSAO GRATIS"
 subLbl.TextColor3 = TC
 subLbl.Font = Enum.Font.GothamMedium
 subLbl.TextSize = 10
@@ -3975,7 +2509,7 @@ end
 local closeBtn = mkTopBtn(isMobile and -52 or -42, Color3.fromRGB(130,25,10), "X")
 local minBtn = mkTopBtn(isMobile and -102 or -82, BG2, "-")
 
-local TAB_NAMES = {"PLAYER","ESP","AIMBOT","WEAPONS","MISC","VEICULO","CONFIG"}
+local TAB_NAMES = {"PLAYER","ESP","AIMBOT","WEAPONS","MISC","VEICULO","GARAGEM","CONFIG"}
 local activeTab = "PLAYER"
 local tabButtons, tabStrokes = {}, {}
 
@@ -4094,7 +2628,42 @@ local function criarLayout()
     p.Parent = leftPanel
 end
 
-local function criarToggle(texto, getter, setter)
+local function criarToggle(texto, getter, setter, bloqueado)
+    if bloqueado then
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
+        frame.BackgroundColor3 = BG3
+        frame.BorderSizePixel = 0
+        frame.Parent = leftPanel
+        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
+        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
+        local lbl = Instance.new("TextLabel")
+        lbl.Size = UDim2.new(0, isMobile and 130 or 210, 1, 0)
+        lbl.Position = UDim2.new(0, 22, 0, 0)
+        lbl.BackgroundTransparency = 1
+        lbl.Text = texto
+        lbl.TextColor3 = DIM
+        lbl.Font = Enum.Font.GothamSemibold
+        lbl.TextSize = isMobile and 11 or 12
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.Parent = frame
+        local tBg = Instance.new("Frame")
+        tBg.Size = UDim2.new(0, isMobile and 42 or 38, 0, isMobile and 24 or 20)
+        tBg.Position = UDim2.new(1, isMobile and -50 or -46, 0.5, isMobile and -12 or -10)
+        tBg.BackgroundColor3 = LINE
+        tBg.BorderSizePixel = 0
+        tBg.Parent = frame
+        local tbc = Instance.new("UICorner"); tbc.CornerRadius = UDim.new(1,0); tbc.Parent = tBg
+        local knob = Instance.new("Frame")
+        knob.Size = UDim2.new(0, isMobile and 20 or 16, 0, isMobile and 20 or 16)
+        knob.Position = UDim2.new(0, 3, 0.5, isMobile and -10 or -8)
+        knob.BackgroundColor3 = WH
+        knob.BorderSizePixel = 0
+        knob.Parent = tBg
+        local kc = Instance.new("UICorner"); kc.CornerRadius = UDim.new(1,0); kc.Parent = knob
+        return
+    end
+
     local on = getter()
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
@@ -4157,7 +2726,26 @@ local function criarToggle(texto, getter, setter)
     btn.TouchTap:Connect(doToggle)
 end
 
-local function criarBotao(texto, cb)
+local function criarBotao(texto, cb, bloqueado)
+    if bloqueado then
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
+        frame.BackgroundColor3 = BG3
+        frame.BorderSizePixel = 0
+        frame.Parent = leftPanel
+        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
+        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
+        local lbl = Instance.new("TextLabel")
+        lbl.Size = UDim2.new(1, 0, 1, 0)
+        lbl.BackgroundTransparency = 1
+        lbl.Text = texto
+        lbl.TextColor3 = DIM
+        lbl.Font = Enum.Font.GothamSemibold
+        lbl.TextSize = isMobile and 11 or 12
+        lbl.Parent = frame
+        return
+    end
+
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
     frame.BackgroundColor3 = BG3
@@ -4199,7 +2787,7 @@ local function criarBotao(texto, cb)
     btn.TouchTap:Connect(acao)
 end
 
-local function criarSlider(texto, min, max, getter, setter, step)
+local function criarSlider(texto, min, max, getter, setter, step, bloqueado)
     step = step or 1
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 76 or 70)
@@ -4223,7 +2811,7 @@ local function criarSlider(texto, min, max, getter, setter, step)
     inputBox.Position = UDim2.new(1, -72, 0, 3)
     inputBox.BackgroundColor3 = BG2
     inputBox.Text = tostring(getter())
-    inputBox.TextColor3 = TC
+    inputBox.TextColor3 = WH
     inputBox.Font = Enum.Font.GothamBold
     inputBox.TextSize = isMobile and 11 or 12
     inputBox.ClearTextOnFocus = false
@@ -4231,7 +2819,7 @@ local function criarSlider(texto, min, max, getter, setter, step)
     inputBox.BorderSizePixel = 0
     inputBox.Parent = frame
     local ibc = Instance.new("UICorner"); ibc.CornerRadius = UDim.new(0,6); ibc.Parent = inputBox
-    local ibs = Instance.new("UIStroke"); ibs.Color = TC; ibs.Thickness = 1; ibs.Parent = inputBox
+    local ibs = Instance.new("UIStroke"); ibs.Color = LINE; ibs.Thickness = 1; ibs.Parent = inputBox
     local hintLbl = Instance.new("TextLabel")
     hintLbl.Size = UDim2.new(1, -20, 0, 14)
     hintLbl.Position = UDim2.new(0, 10, 0, 30)
@@ -4255,6 +2843,7 @@ local function criarSlider(texto, min, max, getter, setter, step)
     fill.BorderSizePixel = 0
     fill.Parent = track
     local fcc = Instance.new("UICorner"); fcc.CornerRadius = UDim.new(1,0); fcc.Parent = fill
+    if bloqueado then return end
     local function aplicarValor(raw, mostrarErro)
         if raw == "" or raw == "-" then return end
         local num = tonumber(raw)
@@ -4262,7 +2851,7 @@ local function criarSlider(texto, min, max, getter, setter, step)
             if mostrarErro then
                 inputBox.Text = tostring(getter())
                 inputBox.TextColor3 = Color3.fromRGB(255,100,125)
-                task.delay(0.8, function() inputBox.TextColor3 = TC end)
+                task.delay(0.8, function() inputBox.TextColor3 = WH end)
             end
             return
         end
@@ -4288,15 +2877,48 @@ local function criarSep(txt)
     l.Parent = leftPanel
 end
 
-local function criarDropdown(texto, options, getter, setter)
+local function criarDropdown(texto, options, default, onChange, bloqueado)
+    if bloqueado then
+        local frame = Instance.new("Frame")
+        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
+        frame.BackgroundColor3 = BG3
+        frame.BorderSizePixel = 0
+        frame.Parent = leftPanel
+        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
+        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
+        local lbl = Instance.new("TextLabel")
+        lbl.Size = UDim2.new(0, isMobile and 90 or 140, 1, 0)
+        lbl.Position = UDim2.new(0, 10, 0, 0)
+        lbl.BackgroundTransparency = 1
+        lbl.Text = texto
+        lbl.TextColor3 = WH
+        lbl.Font = Enum.Font.GothamSemibold
+        lbl.TextSize = isMobile and 11 or 12
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.Parent = frame
+        local cur = Instance.new("TextLabel")
+        cur.Size = UDim2.new(0, isMobile and 90 or 130, 1, 0)
+        cur.Position = UDim2.new(1, isMobile and -100 or -140, 0, 0)
+        cur.BackgroundTransparency = 1
+        cur.Text = tostring(default)
+        cur.TextColor3 = TC
+        cur.Font = Enum.Font.GothamBold
+        cur.TextSize = isMobile and 10 or 11
+        cur.TextXAlignment = Enum.TextXAlignment.Right
+        cur.Parent = frame
+        return
+    end
+
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
     frame.BackgroundColor3 = BG3
     frame.BorderSizePixel = 0
     frame.Parent = leftPanel
-    frame.ClipsDescendants = true
+    frame.ClipsDescendants = false
+    frame.ZIndex = 5
     local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
     local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
+
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(0, isMobile and 90 or 140, 1, 0)
     lbl.Position = UDim2.new(0, 10, 0, 0)
@@ -4307,59 +2929,89 @@ local function criarDropdown(texto, options, getter, setter)
     lbl.TextSize = isMobile and 11 or 12
     lbl.TextXAlignment = Enum.TextXAlignment.Left
     lbl.Parent = frame
+    lbl.ZIndex = 6
+
     local cur = Instance.new("TextLabel")
-    cur.Size = UDim2.new(0, isMobile and 70 or 110, 1, 0)
-    cur.Position = UDim2.new(1, isMobile and -80 or -120, 0, 0)
+    cur.Size = UDim2.new(0, isMobile and 90 or 130, 1, 0)
+    cur.Position = UDim2.new(1, isMobile and -100 or -140, 0, 0)
     cur.BackgroundTransparency = 1
-    cur.Text = tostring(getter())
+    cur.Text = tostring(default)
     cur.TextColor3 = TC
     cur.Font = Enum.Font.GothamBold
     cur.TextSize = isMobile and 10 or 11
     cur.TextXAlignment = Enum.TextXAlignment.Right
     cur.Parent = frame
+    cur.ZIndex = 6
+
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1,0,1,0)
     btn.BackgroundTransparency = 1
     btn.Text = ""
     btn.Parent = frame
+    btn.ZIndex = 7
+
     local list = Instance.new("Frame")
-    list.Size = UDim2.new(1,0,0,0)
-    list.Position = UDim2.new(0,0,1,0)
+    list.Size = UDim2.new(1, 0, 0, 0)
+    list.Position = UDim2.new(0, 0, 1, 4)
     list.BackgroundColor3 = BG2
     list.BorderSizePixel = 0
     list.ClipsDescendants = true
+    list.Visible = false
+    list.ZIndex = 50
     list.Parent = frame
     local lc = Instance.new("UICorner"); lc.CornerRadius = UDim.new(0,8); lc.Parent = list
-    local ll = Instance.new("UIListLayout"); ll.Padding = UDim.new(0,2); ll.Parent = list
+    local ls = Instance.new("UIStroke"); ls.Color = TC; ls.Thickness = 1; ls.Transparency = 0.4; ls.Parent = list
+    local ll = Instance.new("UIListLayout"); ll.Padding = UDim.new(0,2); ll.SortOrder = Enum.SortOrder.LayoutOrder; ll.Parent = list
+    local lpad = Instance.new("UIPadding")
+    lpad.PaddingTop = UDim.new(0, 4)
+    lpad.PaddingBottom = UDim.new(0, 4)
+    lpad.PaddingLeft = UDim.new(0, 4)
+    lpad.PaddingRight = UDim.new(0, 4)
+    lpad.Parent = list
+
     local open = false
-    for _, opt in ipairs(options) do
+    local rowH = 28
+    for i, opt in ipairs(options) do
         local o = Instance.new("TextButton")
-        o.Size = UDim2.new(1, -8, 0, 30)
-        o.Position = UDim2.new(0, 4, 0, 0)
+        o.Size = UDim2.new(1, 0, 0, rowH)
         o.BackgroundColor3 = BG3
         o.Text = opt
-        o.TextColor3 = DIM
+        o.TextColor3 = WH
         o.Font = Enum.Font.GothamSemibold
         o.TextSize = 11
         o.BorderSizePixel = 0
+        o.LayoutOrder = i
+        o.ZIndex = 51
+        o.AutoButtonColor = false
         o.Parent = list
         local oc = Instance.new("UICorner"); oc.CornerRadius = UDim.new(0,6); oc.Parent = o
+        o.MouseEnter:Connect(function()
+            TweenService:Create(o, TweenInfo.new(0.1), {BackgroundColor3=Color3.fromRGB(60,35,100)}):Play()
+        end)
+        o.MouseLeave:Connect(function()
+            TweenService:Create(o, TweenInfo.new(0.1), {BackgroundColor3=BG3}):Play()
+        end)
         local function sel()
-            setter(opt)
             cur.Text = tostring(opt)
+            cur.TextColor3 = TC
             open = false
-            TweenService:Create(list, TweenInfo.new(0.2), {Size=UDim2.new(1,0,0,0)}):Play()
+            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
+            task.delay(0.16, function() list.Visible = false end)
+            if onChange then pcall(onChange, opt) end
         end
         o.MouseButton1Click:Connect(sel)
         o.TouchTap:Connect(sel)
     end
+
     local function toggleList()
         open = not open
         if open then
-            local total = #options*32+6
-            TweenService:Create(list, TweenInfo.new(0.2), {Size=UDim2.new(1,0,0,total)}):Play()
+            local total = (#options * (rowH + 2)) + 8
+            list.Visible = true
+            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,total)}):Play()
         else
-            TweenService:Create(list, TweenInfo.new(0.2), {Size=UDim2.new(1,0,0,0)}):Play()
+            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
+            task.delay(0.16, function() list.Visible = false end)
         end
     end
     btn.MouseButton1Click:Connect(toggleList)
@@ -4395,19 +3047,10 @@ local updateContent = function()
                 pcall(Nz)
             end)
             criarToggle("Fly", function() return T.flyEnabled end, function(v)
-                if v and T.farmPartesEnabled then KF() end
                 T.flyEnabled = v
                 pcall(xz)
             end)
             criarSlider("Vel. Fly", 16, 250, function() return T.flySpeed end, function(v) T.flySpeed = v end, 1)
-            criarToggle("Rolar", function() return T.rolarEnabled end, function(v)
-                T.rolarEnabled = v
-                pcall(Zz)
-            end)
-            criarToggle("Anti Ragdoll", function() return T.antiRagdollEnabled end, function(v)
-                T.antiRagdollEnabled = v
-                pcall(pz)
-            end)
             criarSep("MUNDO")
             criarToggle("Sempre Dia", function() return T.alwaysDay end, function(v)
                 T.alwaysDay = v
@@ -4417,11 +3060,11 @@ local updateContent = function()
                 T.fullbright = v
                 pcall(o.applyWorld)
             end)
-            criarToggle("Sem Nevoa", function() return T.noFog end, function(v)
-                T.noFog = v
+            criarToggle("No Lag", function() return T.noLag end, function(v)
+                T.noLag = v
                 pcall(o.applyWorld)
             end)
-            rTextLbl.Text = "PLAYER\n\n- WalkSpeed\n- JumpPower\n- Noclip\n- Fly: WASD + Space + Ctrl\n- Rolar\n- Anti Ragdoll\n- Fullbright/Dia/Sem Nevoa"
+            rTextLbl.Text = "PLAYER - Jogador\n\nWalkSpeed, JumpPower,\nNoclip, Fly,\nMundo."
 
         elseif activeTab == "ESP" then
             rTitle.Text = "ESP"
@@ -4441,7 +3084,7 @@ local updateContent = function()
             criarToggle("Seta fora da tela", function() return T.arrow end, function(v) T.arrow = v end)
             criarToggle("Times", function() return T.teamTag end, function(v) T.teamTag = v end)
             criarSlider("Distancia maxima", 100, 5000, function() return T.maxDistance end, function(v) T.maxDistance = v end, 50)
-            rTextLbl.Text = "ESP\n\nStaff = VERMELHO VIVO (255,20,40)\nAmigos = AZUL\nNormais = ROXO\nTime STAFF = AMARELO"
+            rTextLbl.Text = "ESP - Ver Jogadores\n\nStaff = VERMELHO\nAmigos = AZUL\nNormais = ROXO"
 
         elseif activeTab == "AIMBOT" then
             rTitle.Text = "AIMBOT"
@@ -4450,29 +3093,26 @@ local updateContent = function()
                 if v then aimbotLoop() else stopAimbot() end
             end)
             criarSep("MODO")
-            criarDropdown("Modo", {"Legit","Rage"}, function() return T.aimbotMode end, function(v) T.aimbotMode = v end)
+            criarDropdown("Modo", {"Legit", "Rage"}, T.aimbotMode, function(v)
+                T.aimbotMode = v
+            end)
             criarSep("MIRA")
             criarSlider("FOV", 10, 600, function() return T.aimbotFov end, function(v) T.aimbotFov = v end, 5)
             criarSlider("Distancia", 50, 1000, function() return T.aimbotDistance end, function(v) T.aimbotDistance = v end, 10)
             criarSlider("Suavidade", 1, 100, function() return math.floor(T.aimbotSmoothness*100) end, function(v) T.aimbotSmoothness = v/100 end, 1)
-            criarDropdown("Parte corpo", {"Cabeca","Tronco","Bracos","Pernas"}, function() return T.aimbotBodyPart end, function(v) T.aimbotBodyPart = v end)
+            criarDropdown("Parte corpo", {"Cabeca", "Torso"}, T.aimbotBodyPart, function(v)
+                T.aimbotBodyPart = v
+            end)
             criarSep("FILTROS")
             criarToggle("Wall Check", function() return T.aimbotWallCheck end, function(v) T.aimbotWallCheck = v end)
             criarToggle("Friend Check", function() return T.friendCheck end, function(v) T.friendCheck = v end)
             criarToggle("Staff Check", function() return T.adminCheck end, function(v) T.adminCheck = v end)
-            rTextLbl.Text = "AIMBOT\n\nRage = trava instantaneo\nLegit = suave\n\nAjustes por teclado"
+            rTextLbl.Text = "AIMBOT - Mira Automatica\n\nLegit: puxa suave.\nRage: trava brutal.\n\nWall Check: nao puxa atras de parede.\n\nSuavidade:\n  1 = bem leve\n  50 = medio (recomendado)\n  100 = quase rage"
 
         elseif activeTab == "WEAPONS" then
             rTitle.Text = "WEAPONS"
-            criarToggle("Sem Recuo", function() return T.armaNoRecoil end, function(v) T.armaNoRecoil = v end)
-            criarToggle("Municao Infinita", function() return T.armaMunicaoInfinita end, function(v) T.armaMunicaoInfinita = v end)
-            criarToggle("Recarga Instantanea", function() return T.armaReloadRapido end, function(v) T.armaReloadRapido = v end)
-            criarToggle("Sem Lentidao", function() return T.armaSemLentidao end, function(v) T.armaSemLentidao = v end)
-            criarSep("CADENCIA")
-            criarToggle("Cadencia Custom", function() return T.armaCadenciaCustom end, function(v) T.armaCadenciaCustom = v end)
-            criarSlider("Tiros/seg", 1, 30, function() return T.armaTirosPorSegundo end, function(v) T.armaTirosPorSegundo = v end, 1)
             criarSep("TRACER")
-            criarToggle("Tracer Neon", function() return T.armaTracer end, function(v) T.armaTracer = v end)
+            criarToggle("Tracer Neon", function() return T.armaTracer end, function(v) T.armaTracer = v end, true)
             local coresTracer = {
                 {"Ciano", Color3.fromRGB(0,255,255)},
                 {"Verde", Color3.fromRGB(60,255,90)},
@@ -4515,99 +3155,85 @@ local updateContent = function()
                 btn.Parent = corGrid
                 local bc = Instance.new("UICorner"); bc.CornerRadius = UDim.new(0,6); bc.Parent = btn
                 local bs = Instance.new("UIStroke"); bs.Color = LINE; bs.Thickness = 1; bs.Parent = btn
-                local function aplicar()
-                    T.armaTracerCor = nome
-                    T.armaTracer = true
-                    for _, other in ipairs(corGrid:GetChildren()) do
-                        if other:IsA("TextButton") then
-                            local s = other:FindFirstChildOfClass("UIStroke")
-                            if s then s.Color = LINE; s.Thickness = 1 end
-                        end
-                    end
-                    bs.Color = TC
-                    bs.Thickness = 2
-                    Xz("Cor do tracer: "..nome)
-                end
-                btn.MouseButton1Click:Connect(aplicar)
-                btn.TouchTap:Connect(aplicar)
             end
-            criarSep("MELHOR ARMA")
-            criarToggle("Equipar Melhor", function() return T.bestWeaponEnabled end, function(v) Tf(v) end)
-            rTextLbl.Text = "WEAPONS\n\n- Sem Recuo\n- Municao 999\n- Recarga Instantanea\n- Sem Lentidao\n- Cadencia Custom\n- Tracer Neon (12 cores)\n- Melhor Arma"
+
+            criarSep("COLETAR ITENS")
+            criarToggle("Ativar Coleta Auto", function() return T.autoColetaEnabled end, function(v)
+                if v then
+                    if o.startAutoColeta then o.startAutoColeta() end
+                else
+                    if o.stopAutoColeta then o.stopAutoColeta() end
+                end
+            end)
+            criarSlider("Velocidade TP", 20, 160, function() return T.itemTeleportSpeed end, function(v) T.itemTeleportSpeed = v end, 5)
+            criarSlider("Cooldown (ms)", 10, 200, function() return math.floor(T.autoColetaCooldown * 100) end, function(v) T.autoColetaCooldown = v / 100 end, 5)
+            criarToggle("Mostrar HUD de itens", function() return T.coletaHudEnabled end, function(v)
+                T.coletaHudEnabled = v
+                if o.setColetaHudVisible then o.setColetaHudVisible(v) end
+            end)
+            rTextLbl.Text = "WEAPONS - Armas\n\nColetar Itens: auto + HUD."
 
         elseif activeTab == "MISC" then
             rTitle.Text = "MISC"
-            criarToggle("Perfect Lockpick", function() return T.perfectLockpick end, function(v) T.perfectLockpick = v end)
+            criarToggle("Perfect Lockpick", function() return T.perfectLockpick end, function(v) T.perfectLockpick = v end, true)
             criarToggle("2x Sorte (Gacha 2%)", function() return T.sorte2xEnabled end, function(v)
                 T.sorte2xEnabled = v
-                if v then
-                    if o.aplicarGacha then pcall(o.aplicarGacha) end
-                else
-                    if o.restaurarGacha then pcall(o.restaurarGacha) end
-                end
-            end)
+            end, true)
             criarSep("AUTO FARM")
-            criarToggle("Auto Farm Partes", function() return T.farmPartesEnabled end, function(v)
-                if v and T.flyEnabled then T.flyEnabled = false; pcall(xz) end
+            criarToggle("Auto Farm Partes de Arma", function() return T.farmPartesEnabled end, function(v)
                 T.farmPartesEnabled = v
-                if not v then KF(); return end
-                task.spawn(function()
-                    local count = Yf()
-                    Xz(string.format("Farm encerrado. Pecas: %d", count))
-                end)
-            end)
+            end, true)
             criarToggle("Auto Farm Lixeiro", function() return T.autoFarmLixeiroEnabled end, function(v)
                 if o.startLixeiro then o.startLixeiro(v) end
             end)
             criarSlider("Lixos por entrega", 1, 20, function() return T.autoFarmLixeiroQuantidade end, function(v) T.autoFarmLixeiroQuantidade = v end, 1)
             criarToggle("Auto Farm Pesca", function() return T.autoFarmPescaEnabled end, function(v)
                 if o.startPesca then o.startPesca(v) end
-            end)
+            end, true)
             criarSep("ACOES")
             criarBotao("Curar", curar)
             criarBotao("Destravar Portas", destravar)
             criarBotao("Encher Municao", encherMunicao)
-            rTextLbl.Text = "MISC\n\n- Perfect Lockpick\n- 2x Sorte Gacha 2%\n- Auto Farm Partes\n- Auto Farm Lixeiro\n- Auto Farm Pesca\n- Curar / Destravar / Municao"
+            rTextLbl.Text = "MISC - Diversos\n\nAuto Lixeiro liberado."
 
         elseif activeTab == "VEICULO" then
             rTitle.Text = "VEICULO"
-            criarToggle("Durabilidade HUD", function() return T.durabilidadeHudEnabled end, function(v)
-                T.durabilidadeHudEnabled = v
-                if v then pcall(o.ativarDurabilidade) else pcall(o.desativarDurabilidade) end
-            end)
-            criarToggle("Cinto Automatico", function() return T.autoCintoEnabled end, function(v) T.autoCintoEnabled = v end)
-            criarSep("MOVIMENTO")
-            criarToggle("Noclip Car", function() return T.noclipCarEnabled end, function(v)
-                T.noclipCarEnabled = v
-                pcall(o.aplicarNoclipCar)
-            end)
-            criarToggle("VFly", function() return T.vFlyEnabled end, function(v)
-                T.vFlyEnabled = v
-                pcall(o.aplicarNoclipCar)
-            end)
-            criarSlider("VFly Horiz", 20, 500, function() return T.vFlyHorizontalSpeed end, function(v) T.vFlyHorizontalSpeed = v end, 5)
-            criarSlider("VFly Vert", 10, 300, function() return T.vFlyVerticalSpeed end, function(v) T.vFlyVerticalSpeed = v end, 5)
-            criarSlider("Boost (%)", 100, 99900, function() return math.floor(T.boostFactor*100) end, function(v)
-                T.boostFactor = v/100
-                pcall(function()
-                    local hum = isCValid()
-                    if hum then hz(hum) end
-                end)
-            end, 100)
-            criarSep("VISUAL")
-            criarToggle("Melhores Carros", function() return T.bestCarsEspEnabled end, function(v)
-                T.bestCarsEspEnabled = v
-                if v then pcall(o.ativarBestCarsEsp) else pcall(o.desativarBestCarsEsp) end
-            end)
-            rTextLbl.Text = "VEICULO\n\n- Durabilidade HUD\n- Cinto Auto\n- Noclip Car\n- VFly: W/S move, A/D vira, Space/Ctrl sobe/desce\n- Boost ate 999 km/h\n- ESP Melhores Carros"
+            criarSep("FUNCAO BLOQUEADA")
+            local infoLbl = Instance.new("TextLabel")
+            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 100 or 80)
+            infoLbl.BackgroundColor3 = BG3
+            infoLbl.Text = "Essa aba e da versao completa."
+            infoLbl.TextColor3 = DIM
+            infoLbl.Font = Enum.Font.Gotham
+            infoLbl.TextSize = isMobile and 10 or 11
+            infoLbl.TextWrapped = true
+            infoLbl.TextYAlignment = Enum.TextYAlignment.Top
+            infoLbl.Parent = leftPanel
+            local infoCorner = Instance.new("UICorner"); infoCorner.CornerRadius = UDim.new(0,8); infoCorner.Parent = infoLbl
+            rTextLbl.Text = "VEICULO\n\nBloqueado."
+
+        elseif activeTab == "GARAGEM" then
+            rTitle.Text = "GARAGEM"
+            criarSep("EM BREVE")
+            local infoLbl = Instance.new("TextLabel")
+            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 60 or 50)
+            infoLbl.BackgroundColor3 = BG3
+            infoLbl.Text = "Em breve."
+            infoLbl.TextColor3 = DIM
+            infoLbl.Font = Enum.Font.Gotham
+            infoLbl.TextSize = isMobile and 10 or 11
+            infoLbl.TextWrapped = true
+            infoLbl.Parent = leftPanel
+            local infoCorner = Instance.new("UICorner"); infoCorner.CornerRadius = UDim.new(0,8); infoCorner.Parent = infoLbl
+            rTextLbl.Text = "GARAGEM\n\nEm breve."
 
         elseif activeTab == "CONFIG" then
             rTitle.Text = "CONFIG"
-            criarSep("SOBRE A VETERANO TEAM")
+            criarSep("SOBRE")
             local infoLbl = Instance.new("TextLabel")
-            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 240 or 220)
+            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 150 or 130)
             infoLbl.BackgroundColor3 = BG3
-            infoLbl.Text = "VETERANO TEAM\n\nSomos uma equipe focada em cheats para jogos de RP, com scripts otimizados para diversos jogos (SintonIA RP, Brookhaven RP, entre outros).\n\nTambem trabalhamos com venda e desenvolvimento de projetos personalizados (menus/scripts) para outras equipes de Roblox, com sistemas exclusivos, bypass anti-cheat avancado e design profissional.\n\nOferecemos:\n- Scripts sob encomenda\n- Sistemas de login com HWID\n- Menus personalizados\n- Bypass de anti-cheat\n- Suporte tecnico\n\nPara adquirir ou saber mais:\nDiscord: @veterano.dev\nOu entre no nosso servidor (link na tela de login)"
+            infoLbl.Text = "VETERANO TEAM\n\nDiscord: @veterano.dev"
             infoLbl.TextColor3 = DIM
             infoLbl.Font = Enum.Font.Gotham
             infoLbl.TextSize = isMobile and 9 or 10
@@ -4616,38 +3242,18 @@ local updateContent = function()
             infoLbl.Parent = leftPanel
             local infoCorner = Instance.new("UICorner"); infoCorner.CornerRadius = UDim.new(0,8); infoCorner.Parent = infoLbl
             local infoPad = Instance.new("UIPadding")
-            infoPad.PaddingTop = UDim.new(0,6)
-            infoPad.PaddingLeft = UDim.new(0,8)
-            infoPad.PaddingRight = UDim.new(0,8)
-            infoPad.PaddingBottom = UDim.new(0,6)
+            infoPad.PaddingTop = UDim.new(0,8); infoPad.PaddingLeft = UDim.new(0,10)
+            infoPad.PaddingRight = UDim.new(0,10); infoPad.PaddingBottom = UDim.new(0,8)
             infoPad.Parent = infoLbl
             local infoStroke = Instance.new("UIStroke"); infoStroke.Color = TC; infoStroke.Thickness = 1; infoStroke.Transparency = 0.5; infoStroke.Parent = infoLbl
 
             criarSep("MONITORAR STAFF")
             criarToggle("Ativar Monitor Staff", function() return T.monitorarStaff end, function(v)
                 T.monitorarStaff = v
-                if v then
-                    Xz("Monitor Staff ATIVADO")
-                else
-                    Xz("Monitor Staff desativado")
-                end
             end)
-            local avisoLbl = Instance.new("TextLabel")
-            avisoLbl.Size = UDim2.new(1, 0, 0, 40)
-            avisoLbl.BackgroundColor3 = Color3.fromRGB(30,20,50)
-            avisoLbl.Text = "Quando ativado, aparece uma mensagem\nno centro inferior da tela mostrando\na contagem de staff online."
-            avisoLbl.TextColor3 = DIM
-            avisoLbl.Font = Enum.Font.Gotham
-            avisoLbl.TextSize = isMobile and 9 or 10
-            avisoLbl.TextWrapped = true
-            avisoLbl.TextYAlignment = Enum.TextYAlignment.Top
-            avisoLbl.Parent = leftPanel
-            local avCorner = Instance.new("UICorner"); avCorner.CornerRadius = UDim.new(0,8); avCorner.Parent = avisoLbl
 
-            criarSep("INFO")
-            criarBotao("Place: "..tostring(game.PlaceId), function() end)
-            criarBotao("Fechar Menu", function() screenGui.Enabled = false end)
-            criarBotao("Reset Estado", function()
+            criarSep("GERENCIAR")
+            criarBotao("Resetar Menu", function()
                 for k, v in pairs(T) do
                     if type(v) == "boolean" then T[k] = false end
                 end
@@ -4656,22 +3262,31 @@ local updateContent = function()
                 T.spoofJumpPower = 90
                 T.flySpeed = 60
                 T.maxDistance = P
-                T.vFlyHorizontalSpeed = 60
-                T.vFlyVerticalSpeed = 30
+                T.itemTeleportSpeed = 65
+                T.autoColetaCooldown = 0.35
+                T.aimbotMode = "Legit"
+                T.aimbotBodyPart = "Cabeca"
                 pcall(o.applyWorld)
                 pcall(Nz)
                 pcall(xz)
-                pcall(Zz)
-                pcall(pz)
                 stopAimbot()
-                if o.restaurarArmas then pcall(o.restaurarArmas) end
-                if o.desativarDurabilidade then pcall(o.desativarDurabilidade) end
-                if o.desativarBestCarsEsp then pcall(o.desativarBestCarsEsp) end
-                if o.restaurarNoclipCar then pcall(o.restaurarNoclipCar) end
-                if o.restaurarGacha then pcall(o.restaurarGacha) end
-                if o.startLixeiro then pcall(o.startLixeiro, false) end
+                if o.stopAutoColeta then pcall(o.stopAutoColeta) end
+                if o.setColetaHudVisible then pcall(o.setColetaHudVisible, false) end
+                updateContent()
             end)
-            rTextLbl.Text = "CONFIG\n\n- Sobre a Veterano Team\n- Monitor Staff (linha no centro inferior)\n- Place ID\n- Reset Estado\n\nK: abrir/fechar menu"
+            criarBotao("Rejoin (Servidor)", function()
+                pcall(function()
+                    TeleportService:Teleport(game.PlaceId, LocalPlayer)
+                end)
+            end)
+            criarBotao("Rejoin (Place)", function()
+                pcall(function()
+                    TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+                end)
+            end)
+            criarBotao("Fechar Menu", function() screenGui.Enabled = false end)
+
+            rTextLbl.Text = "CONFIG\n\nMonitor Staff, Resetar, Rejoin."
         end
     end)
 end
@@ -4762,27 +3377,6 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
-function Xz(msg)
-    local toast = Instance.new("TextLabel")
-    toast.Size = UDim2.new(0, 260, 0, 30)
-    toast.Position = UDim2.new(0.5, -130, 1, -50)
-    toast.BackgroundColor3 = BG3
-    toast.TextColor3 = TC
-    toast.Font = Enum.Font.GothamBold
-    toast.TextSize = 11
-    toast.Text = tostring(msg)
-    toast.BorderSizePixel = 0
-    toast.ZIndex = 999
-    toast.Parent = container
-    local tc = Instance.new("UICorner"); tc.CornerRadius = UDim.new(0,8); tc.Parent = toast
-    local ts = Instance.new("UIStroke"); ts.Color = TC; ts.Thickness = 1; ts.Parent = toast
-    task.delay(4, function()
-        TweenService:Create(toast, TweenInfo.new(0.3), {BackgroundTransparency=1, TextTransparency=1}):Play()
-        task.wait(0.4)
-        toast:Destroy()
-    end)
-end
-
 UserInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == T.menuKeybind then
@@ -4801,20 +3395,17 @@ end)
 updateContent()
 
 C.__VETERANO_SINTONIA_WINDOW = screenGui
-C.__VETERANO_SINTONIA_BUILD = "vt-team-v2-free"
-C.__KNWARE_SINTONIA_CLEANUP = function()
+C.__VETERANO_SINTONIA_BUILD = "vt-team-v7-free"
+C.__VETERANO_SINTONIA_CLEANUP = function()
     o.destroyed = true
-    C.__KNWARE_SINTONIA_RUNTIME = nil
+    C.__VETERANO_SINTONIA_RUNTIME = nil
+    T.autoColetaEnabled = false
+    if o.stopAutoColeta then pcall(o.stopAutoColeta) end
+    if o.coletaHudGui then pcall(function() o.coletaHudGui:Destroy() end) end
     for _, conn in ipairs(o.connections) do pcall(function() conn:Disconnect() end) end
     o.connections = {}
     for plr in pairs(T.bundles) do qF(T.bundles[plr]); T.bundles[plr] = nil end
     stopAimbot()
-    if o.restaurarArmas then pcall(o.restaurarArmas) end
-    if o.destruirDurabilidade then pcall(o.destruirDurabilidade) end
-    if o.destruirBestCarsEsp then pcall(o.destruirBestCarsEsp) end
-    if o.restaurarNoclipCar then pcall(o.restaurarNoclipCar) end
-    if o.restaurarGacha then pcall(o.restaurarGacha) end
-    if o.startLixeiro then pcall(o.startLixeiro, false) end
     pcall(function() screenGui:Destroy() end)
     pcall(function()
         local g = parentGui:FindFirstChild("VeteranoStaffHUD")
@@ -4822,4 +3413,4 @@ C.__KNWARE_SINTONIA_CLEANUP = function()
     end)
 end
 
-print("[VETERANO TEAM | SINTONIA RP V2] Carregado com sucesso")
+print("[VETERANO TEAM] Versao GRATIS carregada")
