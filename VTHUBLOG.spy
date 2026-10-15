@@ -451,7 +451,7 @@ local FUNCOES_BLOQUEADAS = {
     noclipCar = true,
     vFly = true,
     boost = true,
-    weaponsTudo = true, -- TODA a aba WEAPONS bloqueada
+    weaponsTudo = true,
 }
 local function estaBloqueado(nome) return FUNCOES_BLOQUEADAS[nome] == true end
 
@@ -563,7 +563,6 @@ end
         return
     end
     local P2 = {}
-    -- (restante do bypass original permanece igual)
     local function secondaryZ(C, isEValid2, g2)
         g2 = g2 or 0
         if g2 > 8 then return false end
@@ -990,7 +989,6 @@ do
     local acc = 0
     handleReady(RunService.Heartbeat:Connect(function(dt)
         if not T.autoCintoEnabled then return end
-        -- bloqueado: nao faz nada
         acc = acc + dt
         if acc < 0.3 then return end
         acc = 0
@@ -1963,7 +1961,7 @@ handleReady(RunService.RenderStepped:Connect(function()
 end))
 
 -- ============================================
--- AIMBOT
+-- AIMBOT (CORRIGIDO - LEGIT SO COM ARMA)
 -- ============================================
 local SF = {
     Cabeca = {"Head"},
@@ -2009,7 +2007,9 @@ local function getClosestTarget(cam, maxFov, maxDist)
     end
     return best
 end
+
 local aimbotConnection = nil
+
 local function aimbotLoop()
     if aimbotConnection then return end
     aimbotConnection = RunService.RenderStepped:Connect(function(dt)
@@ -2019,25 +2019,39 @@ local function aimbotLoop()
         local char = LocalPlayer.Character
         local hum = char and char:FindFirstChildOfClass("Humanoid")
         if not hum or hum.Health <= 0 then return end
+
+        -- MODO LEGIT: só funciona com arma equipada
         if T.aimbotMode == "Legit" then
             local tool = char:FindFirstChildOfClass("Tool")
             if not tool then return end
         end
+
         local target = getClosestTarget(cam, T.aimbotFov, T.aimbotDistance)
         if not target then return end
         local myPos = cam.CFrame.Position
         local targetPos = target.Position
+
         if T.aimbotMode == "Rage" then
+            -- Rage: trava instantâneo
             cam.CFrame = CFrame.new(myPos, targetPos)
         else
+            -- Legit: puxa suavemente
             local currentLook = cam.CFrame.LookVector
-            local desiredLook = (targetPos-myPos).Unit
+            local desiredLook = (targetPos - myPos).Unit
             local smooth = math.clamp(T.aimbotSmoothness, 0.01, 1)
-            local newLook = currentLook:Lerp(desiredLook, smooth*3)
-            cam.CFrame = CFrame.new(myPos, myPos+newLook)
+            -- Aplica suavidade mais agressiva para "puxar" a mira
+            local factor = math.clamp(smooth * 8, 0.02, 0.35)
+            -- Se o alvo está muito perto da mira, não suavizar tanto (evita micro-tremor)
+            local dot = currentLook:Dot(desiredLook)
+            if dot > 0.998 then
+                factor = 0.6
+            end
+            local newLook = currentLook:Lerp(desiredLook, factor)
+            cam.CFrame = CFrame.new(myPos, myPos + newLook)
         end
     end)
 end
+
 local function stopAimbot()
     if aimbotConnection then
         aimbotConnection:Disconnect()
@@ -3201,9 +3215,6 @@ local function criarSep(txt)
     l.Parent = leftPanel
 end
 
--- ============================================
--- DROPDOWN CORRIGIDO PARA MOBILE
--- ============================================
 local function criarDropdown(texto, options, default, onChange)
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
@@ -3354,7 +3365,6 @@ local updateContent = function()
                 pcall(xz)
             end)
             criarSlider("Vel. Fly", 16, 250, function() return T.flySpeed end, function(v) T.flySpeed = v end, 1)
-            -- GHOST BLOQUEADO
             criarToggle("Ghost Mode (Bloqueado)", function() return false end, function(v)
                 T.ghostEnabled = false
             end)
@@ -3410,7 +3420,7 @@ local updateContent = function()
             criarToggle("Wall Check", function() return T.aimbotWallCheck end, function(v) T.aimbotWallCheck = v end)
             criarToggle("Friend Check", function() return T.friendCheck end, function(v) T.friendCheck = v end)
             criarToggle("Staff Check", function() return T.adminCheck end, function(v) T.adminCheck = v end)
-            rTextLbl.Text = "AIMBOT - Mira Automatica\n\nModo Legit:\n  So mira quando voce tem arma equipada.\n\nModo Rage:\n  Mira SEMPRE, mesmo sem arma na mao.\n\nFOV:\n  Distancia maxima do centro da tela.\n\nSuavidade:\n  Menor = trava rapido.\n\nParte do Corpo:\n  Cabeca = headshot\n  Torso = body shot\n\nWall Check:\n  So mira em quem tem linha de visao.\n\nFriend/Staff Check:\n  Ignora amigos/staff."
+            rTextLbl.Text = "AIMBOT - Mira Automatica\n\nModo Legit:\n  So mira quando voce tem arma equipada.\n  Puxa a mira suavemente.\n\nModo Rage:\n  Mira SEMPRE, mesmo sem arma na mao.\n  Trava instantaneamente.\n\nFOV:\n  Distancia maxima do centro da tela.\n\nSuavidade:\n  Menor = trava rapido.\n  Maior = movimento natural.\n\nParte do Corpo:\n  Cabeca = headshot\n  Torso = body shot\n\nWall Check:\n  So mira em quem tem linha de visao.\n\nFriend/Staff Check:\n  Ignora amigos/staff."
 
         elseif activeTab == "WEAPONS" then
             rTitle.Text = "WEAPONS"
@@ -3475,7 +3485,6 @@ local updateContent = function()
                 btn.Parent = corGrid
                 local bc = Instance.new("UICorner"); bc.CornerRadius = UDim.new(0,6); bc.Parent = btn
                 local bs = Instance.new("UIStroke"); bs.Color = LINE; bs.Thickness = 1; bs.Parent = btn
-                -- BLOQUEADO
                 local function aplicar()
                     T.armaTracer = false
                 end
