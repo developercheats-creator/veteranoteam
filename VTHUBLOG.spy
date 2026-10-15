@@ -1,13 +1,13 @@
 -- ============================================================
--- VETERANO TEAM | SINTONIA RP V2 - VERSAO GRATIS
+-- VETERANO TEAM | SINTONIA RP V2
 -- ============================================================
 
 local loginOK = (function()
     local CFG = {
-        API_URL = "https://script.google.com/macros/s/AKfycbydA-p6rRlevmG9WpnhVqg844dc1W1J8mZ7ZNYchzuC0SaB3DR_nzcAom1LdSwAjayGyQ/exec",
+        API_URL = "https://script.google.com/macros/s/AKfycbwjzMMUp1l5-zBUtthP7QGWmdaEOQeStphsf3_1TXifJEzHUNaPhH_G8W51DBKcrBI27w/exec",
         SECRET = "a56ac0f4838645ea9937c6e0508085c04bd9d83f239d4cdaba868eeadc02afcf",
-        KEY_FILE = "VeteranoTeamFree/key.txt",
-        HWID_FILE = "VeteranoTeamFree/hwid.txt",
+        KEY_FILE = "VeteranoTeam/key.txt",
+        HWID_FILE = "VeteranoTeam/hwid.txt",
         MAX_TRIES = 5, LOCK_SECS = 15,
     }
     local v17 = "https://discord.com/invite/vNKTAtTwFu"
@@ -77,7 +77,7 @@ local loginOK = (function()
     local function saveHWID(v)
         if type(writefile)~="function" then return end
         pcall(function()
-            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeamFree") then makefolder("VeteranoTeamFree") end
+            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeam") then makefolder("VeteranoTeam") end
             writefile(CFG.HWID_FILE, v)
         end)
     end
@@ -99,7 +99,7 @@ local loginOK = (function()
     local function saveKey(k)
         if type(writefile)~="function" then return end
         pcall(function()
-            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeamFree") then makefolder("VeteranoTeamFree") end
+            if type(makefolder)=="function" and type(isfolder)=="function" and not isfolder("VeteranoTeam") then makefolder("VeteranoTeam") end
             writefile(CFG.KEY_FILE, k)
         end)
     end
@@ -108,7 +108,7 @@ local loginOK = (function()
         pcall(function() if isfile(CFG.KEY_FILE) then delfile(CFG.KEY_FILE) end end)
     end
     local function cleanKey(s) return tostring(s or ""):gsub("%s+",""):upper() end
-    local function keyLooksValid(k) return k:match("^FREE%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil or k:match("^VTRN%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil end
+    local function keyLooksValid(k) return k:match("^VTRN%-[A-Z0-9]+%-[A-Z0-9]+$")~=nil end
 
     local function validateRemote(key)
         if CFG.API_URL:find("COLE_AQUI",1,true) then return false, "Login nao configurado." end
@@ -219,14 +219,14 @@ local loginOK = (function()
 
     local v50 = Instance.new("TextLabel")
     v50.Size = UDim2.new(1,0,0,20); v50.Position = UDim2.new(0,0,0,82)
-    v50.BackgroundTransparency = 1; v50.Text = "@VETERANO.DEV | VERSAO GRATIS"
+    v50.BackgroundTransparency = 1; v50.Text = "@VETERANO.DEV"
     v50.Font = Enum.Font.GothamBold; v50.TextSize = 13
     v50.TextColor3 = Color3.fromRGB(200,100,255); v50.Parent = v28
 
     local keyBox = Instance.new("TextBox")
     keyBox.Size = UDim2.new(0.7,0,0,40); keyBox.Position = UDim2.new(0.15,0,0,112)
     keyBox.BackgroundTransparency = 1; keyBox.Text = ""
-    keyBox.PlaceholderText = "CHAVE DE ACESSO (FREE)"
+    keyBox.PlaceholderText = "CHAVE DE ACESSO"
     keyBox.PlaceholderColor3 = Color3.fromRGB(120,110,140)
     keyBox.Font = Enum.Font.Gotham; keyBox.TextSize = 15
     keyBox.TextColor3 = Color3.new(1,1,1); keyBox.ClearTextOnFocus = false
@@ -240,14 +240,14 @@ local loginOK = (function()
     local hintLabel = Instance.new("TextLabel")
     hintLabel.Size = UDim2.new(0.9,0,0,32); hintLabel.Position = UDim2.new(0.05,0,0,162)
     hintLabel.BackgroundTransparency = 1
-    hintLabel.Text = "Cole sua chave FREE para entrar.\nObtenha uma no nosso Discord"
+    hintLabel.Text = "Cole sua chave de acesso para entrar.\nObtenha uma no nosso Discord"
     hintLabel.Font = Enum.Font.GothamMedium; hintLabel.TextSize = 14
     hintLabel.TextColor3 = Color3.fromRGB(160,150,180); hintLabel.TextWrapped = true
     hintLabel.TextYAlignment = Enum.TextYAlignment.Top; hintLabel.Parent = v28
 
     local teamLabel = Instance.new("TextLabel")
     teamLabel.Size = UDim2.new(1,0,0,18); teamLabel.Position = UDim2.new(0,0,0,195)
-    teamLabel.BackgroundTransparency = 1; teamLabel.Text = "VETERANO TEAM - FREE"
+    teamLabel.BackgroundTransparency = 1; teamLabel.Text = "VETERANO TEAM"
     teamLabel.Font = Enum.Font.GothamBold; teamLabel.TextSize = 13
     teamLabel.TextColor3 = Color3.fromRGB(200,100,255)
     teamLabel.TextXAlignment = Enum.TextXAlignment.Center; teamLabel.Parent = v28
@@ -436,6 +436,25 @@ screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 if protect_gui then pcall(protect_gui, screenGui) end
 screenGui.Parent = parentGui
 
+-- ============================================
+-- LISTA DE FUNCOES BLOQUEADAS
+-- ============================================
+local FUNCOES_BLOQUEADAS = {
+    ghost = true,
+    perfectLockpick = true,
+    sorte2x = true,
+    autoFarmPartes = true,
+    autoFarmPesca = true,
+    veiculoTudo = true,
+    durabilidadeHud = true,
+    autoCinto = true,
+    noclipCar = true,
+    vFly = true,
+    boost = true,
+    weaponsTudo = true, -- TODA a aba WEAPONS bloqueada
+}
+local function estaBloqueado(nome) return FUNCOES_BLOQUEADAS[nome] == true end
+
 local P = 1500
 local z = Enum.KeyCode.K
 local F = "125299131646017"
@@ -451,7 +470,7 @@ local o = {
 }
 
 local T = {
-    monitorarStaff = false,
+    monitorarStaff = false, sorte2xEnabled = false,
     espEnabled=false, box=false, name=false, distance=false, heldItem=false,
     skeleton=false, highlight=false, tracer=false, arrow=false, box3d=false, teamTag=false,
     maxDistance=P, bundles={}, spoofWalkEnabled=false, spoofJumpEnabled=false,
@@ -459,9 +478,10 @@ local T = {
     walkSpeedKeybind=Enum.KeyCode.V, menuKeybind=z,
     noclipEnabled=false, noclipKeybind=Enum.KeyCode.N,
     flyEnabled=false, flyKeybind=Enum.KeyCode.F, flySpeed=60,
+    ghostEnabled=false,
     aimbotEnabled=false, aimbotMode="Legit", aimbotFov=120, aimbotDistance=500,
     aimbotVisibleOnly=false, aimbotFovVisible=false,
-    aimbotHitChance=100, aimbotBodyPart="Cabeca", aimbotSmoothness=0.5,
+    aimbotHitChance=100, aimbotBodyPart="Cabeca", aimbotSmoothness=0.15,
     aimbotTargetMode="Closest", aimbotWallCheck=true, aimbotTeamCheck=true,
     aimbotKeybind=Enum.KeyCode.E, friendCheck=true, adminCheck=true,
     armaTracer=false, armaTracerCor="Ciano",
@@ -473,12 +493,12 @@ local T = {
     autoCintoEnabled=false,
     noclipCarEnabled=false, vFlyEnabled=false,
     vFlyHorizontalSpeed=60, vFlyVerticalSpeed=30,
-    boostFactor=1, alwaysDay=false, fullbright=false,
+    boostFactor=1, fullbright=false,
     noLag=false,
     autoFarmPescaEnabled=false,
     autoColetaEnabled=false, autoColetaCooldown=0.35,
     coletaHudEnabled=false, coletaYOffset=3, coletaReachDistance=4,
-    sorte2xEnabled = false,
+    camuflarNickEnabled=false,
 }
 
 if C.__VETERANO_SINTONIA_CLEANUP then pcall(C.__VETERANO_SINTONIA_CLEANUP) end
@@ -543,6 +563,7 @@ end
         return
     end
     local P2 = {}
+    -- (restante do bypass original permanece igual)
     local function secondaryZ(C, isEValid2, g2)
         g2 = g2 or 0
         if g2 > 8 then return false end
@@ -760,7 +781,7 @@ end
 end)()
 
 -- ============================================
--- MUNDO
+-- MUNDO (Fullbright / No Lag)
 -- ============================================
 do
     local function capture()
@@ -793,7 +814,7 @@ do
     end
     local function applyWorld()
         local L = game:GetService("Lighting")
-        local active = T.alwaysDay or T.fullbright or T.noLag
+        local active = T.fullbright or T.noLag
         if active and not o.worldOriginal then
             o.worldOriginal = capture()
             local atm = L:FindFirstChildOfClass("Atmosphere")
@@ -804,13 +825,6 @@ do
             return
         end
         if not active then return end
-        if T.alwaysDay then
-            pcall(function() L.ClockTime = 12 end)
-            pcall(function() L.GeographicLatitude = 0 end)
-        elseif o.worldOriginal then
-            pcall(function() L.ClockTime = o.worldOriginal.ClockTime end)
-            pcall(function() L.GeographicLatitude = o.worldOriginal.GeographicLatitude end)
-        end
         if T.fullbright then
             pcall(function()
                 L.Brightness = 3
@@ -858,38 +872,128 @@ do
         acc = acc + dt
         if acc < 0.2 then return end
         acc = 0
-        if T.alwaysDay or T.fullbright or T.noLag then
+        if T.fullbright or T.noLag then
             pcall(applyWorld)
         end
     end))
 end
 
 -- ============================================
--- AUTO CINTO
+-- GHOST MODE (BLOQUEADO)
+-- ============================================
+do
+    local isGhost = false
+    local function stopGhost() isGhost = false end
+    local function startGhost()
+        isGhost = false
+        T.ghostEnabled = false
+    end
+    o.startGhost = startGhost
+    o.stopGhost = stopGhost
+    o.isGhostActive = function() return false end
+end
+
+-- ============================================
+-- CAMUFLAR NICK (FUNCIONA)
+-- ============================================
+do
+    local NOME_FAKE = "VETERANO.DEV"
+    local CAMINHOS_NOME = {
+        {"InventoryUI", "InvFrame", "InvPessoal", "BTxt"},
+    }
+    local nomesReais = { LocalPlayer.Name, LocalPlayer.DisplayName }
+    if nomesReais[1] == nomesReais[2] then nomesReais = { nomesReais[1] } end
+    local nickAtivo = false
+    local cacheNick = {}
+
+    local function pegarPorCaminho(caminho)
+        local atual = parentGui
+        for _, nome in ipairs(caminho) do
+            if not atual then return nil end
+            atual = atual:FindFirstChild(nome)
+        end
+        return atual
+    end
+
+    local function substituirNome(texto)
+        if not texto then return nil end
+        local novo = texto
+        local mudou = false
+        for _, nome in ipairs(nomesReais) do
+            if nome and #nome > 1 then
+                local t = novo:lower()
+                local n = nome:lower()
+                local s, e = t:find(n, 1, true)
+                while s do
+                    novo = novo:sub(1, s - 1) .. NOME_FAKE .. novo:sub(e + 1)
+                    mudou = true
+                    t = novo:lower()
+                    s, e = t:find(n, (s + #NOME_FAKE), true)
+                end
+            end
+        end
+        if mudou then return novo end
+        return nil
+    end
+
+    local function aplicarNick()
+        local total = 0
+        for _, caminho in ipairs(CAMINHOS_NOME) do
+            local obj = pegarPorCaminho(caminho)
+            if obj and (obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox")) then
+                local ok, txt = pcall(function() return obj.Text end)
+                if ok and txt then
+                    local novo = substituirNome(txt)
+                    if novo then
+                        if not cacheNick[obj] then cacheNick[obj] = txt end
+                        obj.Text = novo
+                        total = total + 1
+                    end
+                end
+            end
+        end
+        return total
+    end
+
+    local function restaurarNick()
+        for obj, txt in pairs(cacheNick) do
+            if obj and obj.Parent then
+                pcall(function() obj.Text = txt end)
+            end
+        end
+        cacheNick = {}
+    end
+
+    local function loopNick()
+        while nickAtivo and not o.destroyed do
+            task.wait(0.5)
+            if nickAtivo then pcall(aplicarNick) end
+        end
+    end
+
+    o.setCamuflarNick = function(v)
+        nickAtivo = v == true
+        T.camuflarNickEnabled = nickAtivo
+        if nickAtivo then
+            pcall(aplicarNick)
+            task.spawn(loopNick)
+        else
+            pcall(restaurarNick)
+        end
+    end
+end
+
+-- ============================================
+-- AUTO CINTO (BLOQUEADO)
 -- ============================================
 do
     local acc = 0
-    local function autoCinto()
-        local st = LocalPlayer:FindFirstChild("Status")
-        local cinto = st and st:FindFirstChild("Cinto")
-        if not cinto or cinto.Value then return end
-        local char = LocalPlayer.Character
-        local hum = char and char:FindFirstChildOfClass("Humanoid")
-        local seat = hum and hum.SeatPart
-        if not seat or seat.Name ~= "DriveSeat" then return end
-        cinto.Value = true
-        pcall(function() LocalPlayer.PlayerGui.OrpheusCarInterface.Velocimetro.Icons.Cinto.Visible = true end)
-        pcall(function()
-            local sound = seat:FindFirstChild("ColocaCinto")
-            if sound then sound:Play() end
-        end)
-    end
     handleReady(RunService.Heartbeat:Connect(function(dt)
         if not T.autoCintoEnabled then return end
+        -- bloqueado: nao faz nada
         acc = acc + dt
         if acc < 0.3 then return end
         acc = 0
-        pcall(autoCinto)
     end))
 end
 
@@ -1171,6 +1275,29 @@ local function xz(dt)
 end
 
 -- ============================================
+-- VEICULO (BLOQUEADO)
+-- ============================================
+local function rz()
+    local hum = isCValid()
+    local seat = hum and hum.SeatPart
+    if not seat or seat.Name ~= "DriveSeat" then return nil end
+    local carros = workspace:FindFirstChild("CarrosSpawnados")
+    if not carros then return nil end
+    local p = seat
+    while p and p.Parent ~= carros do p = p.Parent end
+    return p
+end
+
+do
+    local function restaurarNoclipCar() return end
+    local function aplicarNoclipCar() return end
+    o.aplicarNoclipCar = aplicarNoclipCar
+    o.restaurarNoclipCar = restaurarNoclipCar
+end
+
+local function hz(hum) return false end
+
+-- ============================================
 -- LOOP PRINCIPAL
 -- ============================================
 o.state = T
@@ -1335,28 +1462,22 @@ do
 end
 
 -- ============================================
--- MONITOR STAFF (corrigido)
+-- MONITOR STAFF
 -- ============================================
 task.spawn(function()
     while not o.destroyed do
         if T.monitorarStaff then
             local count, nomes = 0, {}
             for _, plr in ipairs(Players:GetPlayers()) do
-                if plr ~= LocalPlayer then
-                    local r = o.relationships[plr]
-                    if r and r.ready and r.admin then
-                        count = count + 1
-                        table.insert(nomes, plr.Name)
-                    end
+                if plr ~= LocalPlayer and Jz.Admin(plr) then
+                    count = count + 1
+                    table.insert(nomes, plr.Name)
                 end
             end
             o.staffCount = count
             o.staffNames = nomes
-        else
-            o.staffCount = 0
-            o.staffNames = {}
         end
-        task.wait(0.5)
+        task.wait(1)
     end
 end)
 
@@ -1842,7 +1963,7 @@ handleReady(RunService.RenderStepped:Connect(function()
 end))
 
 -- ============================================
--- AIMBOT - LEGIT SUAVE / RAGE BRUTAL
+-- AIMBOT
 -- ============================================
 local SF = {
     Cabeca = {"Head"},
@@ -1856,29 +1977,27 @@ local function eF(char)
     end
     return char:FindFirstChild("Head")
 end
-
 local function temLinhaDeVisao(cam, target, char)
     local from = cam.CFrame.Position
     local rp = RaycastParams.new()
     rp.FilterType = Enum.RaycastFilterType.Exclude
-    rp.FilterDescendantsInstances = {LocalPlayer.Character, char}
-    local hit = workspace:Raycast(from, target.Position - from, rp)
+    rp.FilterDescendantsInstances = {LocalPlayer.Character, char, cam}
+    local hit = workspace:Raycast(from, target.Position-from, rp)
     return hit == nil
 end
-
 local function getClosestTarget(cam, maxFov, maxDist)
     local myPos = cam.CFrame.Position
-    local center = cam.ViewportSize / 2
+    local center = cam.ViewportSize/2
     local best, bestD = nil, math.huge
     for _, plr in ipairs(Players:GetPlayers()) do
         if plr ~= LocalPlayer and not Jz.Protected(plr) then
             local char = plr.Character
             local part = char and eF(char)
             local hum = char and char:FindFirstChildOfClass("Humanoid")
-            if part and hum and hum.Health > 0 and (part.Position - myPos).Magnitude <= maxDist then
+            if part and hum and hum.Health > 0 and (part.Position-myPos).Magnitude <= maxDist then
                 local sp, onScreen = cam:WorldToViewportPoint(part.Position)
                 if onScreen and sp.Z > 0 then
-                    local d = (Vector2.new(sp.X, sp.Y) - center).Magnitude
+                    local d = (Vector2.new(sp.X, sp.Y)-center).Magnitude
                     if d <= maxFov and d < bestD then
                         if not T.aimbotWallCheck or temLinhaDeVisao(cam, part, char) then
                             best, bestD = part, d
@@ -1890,9 +2009,7 @@ local function getClosestTarget(cam, maxFov, maxDist)
     end
     return best
 end
-
 local aimbotConnection = nil
-
 local function aimbotLoop()
     if aimbotConnection then return end
     aimbotConnection = RunService.RenderStepped:Connect(function(dt)
@@ -1902,34 +2019,25 @@ local function aimbotLoop()
         local char = LocalPlayer.Character
         local hum = char and char:FindFirstChildOfClass("Humanoid")
         if not hum or hum.Health <= 0 then return end
-
         if T.aimbotMode == "Legit" then
             local tool = char:FindFirstChildOfClass("Tool")
             if not tool then return end
         end
-
         local target = getClosestTarget(cam, T.aimbotFov, T.aimbotDistance)
         if not target then return end
-
         local myPos = cam.CFrame.Position
         local targetPos = target.Position
-
         if T.aimbotMode == "Rage" then
             cam.CFrame = CFrame.new(myPos, targetPos)
         else
-            -- Legit suave: puxa em torno de 20% a 100% por frame
-            -- Slider 1 = 20% (suave), 100 = 100% (rapido)
-            local smoothness = math.clamp(T.aimbotSmoothness, 0.01, 1)
-            local factor = 0.2 + (smoothness * 0.8)
-
             local currentLook = cam.CFrame.LookVector
-            local desiredLook = (targetPos - myPos).Unit
-            local newLook = currentLook:Lerp(desiredLook, factor)
-            cam.CFrame = CFrame.new(myPos, myPos + newLook)
+            local desiredLook = (targetPos-myPos).Unit
+            local smooth = math.clamp(T.aimbotSmoothness, 0.01, 1)
+            local newLook = currentLook:Lerp(desiredLook, smooth*3)
+            cam.CFrame = CFrame.new(myPos, myPos+newLook)
         end
     end)
 end
-
 local function stopAimbot()
     if aimbotConnection then
         aimbotConnection:Disconnect()
@@ -1938,7 +2046,16 @@ local function stopAimbot()
 end
 
 -- ============================================
--- COLETAR ITENS
+-- PERFECT LOCKPICK (BLOQUEADO)
+-- ============================================
+local cF, lF = 0.35, 0
+handleReady(RunService.RenderStepped:Connect(function()
+    if not T.perfectLockpick then return end
+    -- bloqueado: nao faz nada
+end))
+
+-- ============================================
+-- COLETAR ITENS (BLOQUEADO)
 -- ============================================
 local ZF, DF, rF, hF, jF, WF = 20, 14, 1.5, D, 18, 65
 local function aF(obj)
@@ -1947,124 +2064,11 @@ local function aF(obj)
     return nil
 end
 local function dF(item)
-    local prompt = item:FindFirstChildWhichIsA("ProximityPrompt", true)
-    if not prompt or not prompt.Enabled then return false end
-    if type(fireproximityprompt) == "function" then return pcall(fireproximityprompt, prompt, 0) end
-    return pcall(function()
-        prompt:InputHoldBegin()
-        task.wait(math.max(0.15, prompt.HoldDuration+0.1))
-        prompt:InputHoldEnd()
-    end)
+    return false
 end
 
 local function GF(target, checkDone)
-    o.itemTeleportRunId = o.itemTeleportRunId + 1
-    local runId = o.itemTeleportRunId
-    local canTp = isUpdateInstancePropertiesEValid()
-    local hadNoclip = T.noclipEnabled
-    if not hadNoclip then T.noclipEnabled = true; pcall(Nz) end
-    local reached = false
-    local lastDir = Vector3.zero
-
-    local function destinoExato()
-        local yy = target.parte.Position.Y + (target.parte.Size.Y * 0.5) + 3
-        return Vector3.new(target.parte.Position.X, yy, target.parte.Position.Z)
-    end
-
-    if canTp then
-        local deadline = os.clock()+8
-        while os.clock() < deadline do
-            if o.destroyed or runId ~= o.itemTeleportRunId then break end
-            if not target.item.Parent or not target.parte.Parent then reached = true; break end
-            local root = isUpdatePlayerGetMagnitudeCValid()
-            if not root then break end
-            local dest = destinoExato()
-            if (dest-root.Position).Magnitude <= 1 then reached = true; break end
-            root.CFrame = CFrame.new(dest)
-            root.AssemblyLinearVelocity = Vector3.zero
-            task.wait(0.05)
-        end
-    end
-
-    local root = isUpdatePlayerGetMagnitudeCValid()
-    local dist0 = root and (target.parte.Position-root.Position).Magnitude or 0
-    local dest = destinoExato()
-    local maxY = math.max(root and root.Position.Y or dest.Y, dest.Y) + jF
-    local spd = math.min(T.itemTeleportSpeed, l)
-    local deadline = (os.clock()+20) + (dist0/math.max(spd,1))*2
-    while not canTp and os.clock() < deadline do
-        local dt = RunService.RenderStepped:Wait()
-        if o.destroyed or runId ~= o.itemTeleportRunId then break end
-        local item, part = target.item, target.parte
-        if not item.Parent or not part.Parent then reached = true; break end
-        local root2 = isUpdatePlayerGetMagnitudeCValid()
-        if not root2 then break end
-        dest = destinoExato()
-        local flat = Vector3.new(dest.X-root2.Position.X, 0, dest.Z-root2.Position.Z)
-        local waypoint = dest
-        if flat.Magnitude > 4 then
-            waypoint = root2.Position.Y < maxY-1
-                and Vector3.new(root2.Position.X, maxY, root2.Position.Z)
-                or Vector3.new(dest.X, maxY, dest.Z)
-        end
-        local delta = waypoint-root2.Position
-        local mag = delta.Magnitude
-        if (dest-root2.Position).Magnitude <= 2 then reached = true; break end
-        local _, vel, phys, _, stable = handleQ(root2, dt, ZF, true)
-        local spd2 = math.min(T.itemTeleportSpeed, stable and l or WF)
-        local moveStep = math.min(mag, math.max(0, spd2-vel)*dt, phys)
-        local dir = delta.Unit
-        lastDir = dir
-        if moveStep > 0 then root2.CFrame = root2.CFrame + dir*moveStep end
-        root2.AssemblyLinearVelocity = dir*vel
-        local hum = isCValid()
-        if hum then pcall(hum.ChangeState, hum, Enum.HumanoidStateType.Freefall) end
-    end
-
-    local root3 = isUpdatePlayerGetMagnitudeCValid()
-    local hum3 = isCValid()
-    local flatDir = Vector3.new(lastDir.X, 0, lastDir.Z)
-    if not canTp and root3 and hum3 then
-        if flatDir.Magnitude <= 0 then
-            local lv = root3.CFrame.LookVector
-            flatDir = Vector3.new(lv.X, 0, lv.Z)
-        end
-        flatDir = flatDir.Magnitude > 0 and flatDir.Unit or Vector3.new(0,0,-1)
-        local deadline2 = os.clock()+rF
-        while os.clock() < deadline2 and (not o.destroyed and runId == o.itemTeleportRunId) do
-            local dt = RunService.RenderStepped:Wait()
-            local _, vel, _, moved, _ = handleQ(root3, dt, DF, true)
-            if moved <= hF then break end
-            local frac = math.clamp(vel/math.max(hum3.WalkSpeed,1), 0, 1)
-            pcall(hum3.Move, hum3, flatDir*frac, false)
-            root3.AssemblyLinearVelocity = flatDir*vel
-        end
-    end
-    if root3 then root3.AssemblyLinearVelocity = Vector3.zero end
-
-    if reached and runId == o.itemTeleportRunId then
-        local rootF = isUpdatePlayerGetMagnitudeCValid()
-        if rootF and target.parte and target.parte.Parent then
-            local topoY = target.parte.Position.Y + (target.parte.Size.Y * 0.5) + 3
-            rootF.CFrame = CFrame.new(target.parte.Position.X, topoY, target.parte.Position.Z)
-            rootF.AssemblyLinearVelocity = Vector3.zero
-            rootF.AssemblyAngularVelocity = Vector3.zero
-        end
-    end
-
-    if reached and runId == o.itemTeleportRunId then
-        local doneCheck = checkDone or function() return not target.item.Parent end
-        for _ = 1, 5, 1 do
-            if doneCheck() then break end
-            dF(target.item)
-            task.wait(0.15)
-        end
-    end
-    if not hadNoclip and runId == o.itemTeleportRunId then
-        T.noclipEnabled = false
-        pcall(Nz)
-    end
-    return reached
+    return false
 end
 
 o.coletarItem = GF
@@ -2118,20 +2122,7 @@ end
 do
     local coleta = {runId = 0}
     local function startAutoColeta()
-        if T.autoColetaEnabled then return end
-        T.autoColetaEnabled = true
-        coleta.runId = coleta.runId + 1
-        local myId = coleta.runId
-        task.spawn(function()
-            while T.autoColetaEnabled and not o.destroyed and myId == coleta.runId do
-                local drops = o.listDrops and o.listDrops() or {}
-                local alvo = drops[1]
-                if alvo and alvo.item.Parent then
-                    pcall(GF, alvo)
-                end
-                task.wait(math.max(0.1, T.autoColetaCooldown * 0.5))
-            end
-        end)
+        T.autoColetaEnabled = false
     end
     local function stopAutoColeta()
         T.autoColetaEnabled = false
@@ -2141,15 +2132,403 @@ do
     o.stopAutoColeta = stopAutoColeta
 end
 
-o.iniciarFarmPartes = function() return 0 end
-o.pararFarmPartes = function() end
-o.restaurarArmas = function() end
-o.aplicarGacha = function() end
-o.restaurarGacha = function() end
-o.startPesca = function(enabled) T.autoFarmPescaEnabled = false end
+-- ============================================
+-- AUTO FARM PARTES DE ARMA (BLOQUEADO)
+-- ============================================
+do
+    local function KF()
+        o.farmPartesRunId = o.farmPartesRunId + 1
+        T.farmPartesEnabled = false
+    end
+    local function Yf()
+        T.farmPartesEnabled = false
+        return 0
+    end
+    o.iniciarFarmPartes = Yf
+    o.pararFarmPartes = KF
+end
 
 -- ============================================
--- HUD FLUTUANTE: ITENS NO CHÃO
+-- WEAPONS (TUDO BLOQUEADO)
+-- ============================================
+do
+    o.restaurarArmas = function() return end
+    handleReady(RunService.RenderStepped:Connect(function()
+        -- bloqueado: nao faz nada
+    end))
+end
+
+-- ============================================
+-- GACHA 2% (BLOQUEADO)
+-- ============================================
+do
+    o.aplicarGacha = function() return end
+    o.restaurarGacha = function() return end
+end
+
+-- ============================================
+-- AUTO FARM PESCA (BLOQUEADO)
+-- ============================================
+do
+    local function setFarmEnabled(enabled)
+        T.autoFarmPescaEnabled = false
+    end
+    o.startPesca = setFarmEnabled
+end
+
+-- ============================================
+-- DURABILIDADE HUD (BLOQUEADO)
+-- ============================================
+do
+    function o.ativarDurabilidade() T.durabilidadeHudEnabled = false end
+    function o.desativarDurabilidade() T.durabilidadeHudEnabled = false end
+    function o.destruirDurabilidade() return end
+end
+
+-- ============================================
+-- AUTO FARM LIXEIRO (FUNCIONA)
+-- ============================================
+do
+    local P2 = 10
+    local function getTeam() return LocalPlayer.Team and LocalPlayer.Team.Name or nil end
+    local function getLevel()
+        local ns = LocalPlayer:FindFirstChild("NewStats")
+        local lv = ns and ns:FindFirstChild("Level")
+        return lv and tonumber(lv.Value) or 0
+    end
+    local function getEmpregos()
+        local ok, mod = pcall(function() return require((game:GetService("ReplicatedStorage")).Mercadinho.PrefModule) end)
+        if not ok or type(mod) ~= "table" or type(mod.Empregos) ~= "table" then return {} end
+        local list = {}
+        for name, data in pairs(mod.Empregos) do
+            table.insert(list, {nome=name, level=tonumber(data.Level) or 0, salario=tonumber(data.Salario) or 0})
+        end
+        table.sort(list, function(a, b2)
+            if a.level == b2.level then return a.nome < b2.nome end
+            return a.level < b2.level
+        end)
+        return list
+    end
+    local function getLixoCount()
+        local inv = LocalPlayer:FindFirstChild("Inv")
+        local count = 0
+        if inv then
+            for _, v in ipairs(inv:GetChildren()) do
+                if v.Name == "Saco de Lixo" then count = count+1 end
+            end
+        end
+        return count
+    end
+    local function getMoneySafe()
+        local ls = LocalPlayer:FindFirstChild("leaderstats")
+        local d = ls and ls:FindFirstChild("Dinheiro")
+        return d and tonumber(d.Value) or nil
+    end
+    local function getLixeiroEmp()
+        for _, e in ipairs(getEmpregos()) do
+            if string.lower(e.nome) == "lixeiro" then return e end
+        end
+        return {nome="Lixeiro", level=1, salario=0}
+    end
+    local function setFarmStatus(msg) o.garbageFarmStatus = tostring(msg or "") end
+    local function isRun(runId) return T.autoFarmLixeiroEnabled and (not o.destroyed and o.garbageFarmRunId == runId) end
+    local function wait2(t, runId)
+        local deadline = os.clock()+math.max(0, t or 0)
+        repeat
+            if not isRun(runId) then return false end
+            task.wait(math.min(0.1, math.max(0.01, deadline-os.clock())))
+        until os.clock() >= deadline
+        return isRun(runId)
+    end
+    local function handleIsValid()
+        local char = LocalPlayer.Character
+        return char, char and char:FindFirstChildOfClass("Humanoid"), char and char:FindFirstChild("HumanoidRootPart")
+    end
+    local function sendJobSelect(remote, emp)
+        remote:FireServer(emp.nome, emp.level, true)
+        local pg = LocalPlayer:FindFirstChild("PlayerGui")
+        local lx = pg and pg:FindFirstChild("LixeiroUI")
+        local frame = lx and lx:FindFirstChild("LixeiroFrame")
+        if frame and frame.Visible then frame.Visible = false end
+    end
+    local function trySelectLixeiro(runId)
+        if getTeam() == "Lixeiro" then return true end
+        local merc = (game:GetService("ReplicatedStorage")):FindFirstChild("Mercadinho")
+        local remote = merc and merc:FindFirstChild("PrefRemote")
+        if not remote or not remote:IsA("RemoteEvent") then
+            setFarmStatus("PrefRemote nao encontrado")
+            return false
+        end
+        local emp = getLixeiroEmp()
+        if getLevel() < emp.level then return false end
+        setFarmStatus("Selecionando lixeiro...")
+        remote:FireServer(emp.nome, emp.level)
+        wait2(0.25, runId)
+        if not isRun(runId) then return false end
+        sendJobSelect(remote, emp)
+        local deadline = os.clock()+P2
+        repeat
+            if not isRun(runId) then return false end
+            if getTeam() == "Lixeiro" then
+                wait2(1.2, runId)
+                return true
+            end
+            task.wait(0.15)
+        until os.clock() >= deadline
+        return false
+    end
+    local function isLixoPart(part, prompt)
+        return part and part.Parent and part:IsA("BasePart") and part.Name == "Lixo"
+            and part.Transparency < 0.95
+            and (prompt and prompt.Parent == part and prompt:IsA("ProximityPrompt") and prompt.Enabled)
+    end
+    local function scanLixos()
+        local char, hum, root = handleIsValid()
+        local folder = workspace:FindFirstChild("Lixeiro")
+        local list = {}
+        if not root or not folder then return list end
+        for _, part in ipairs(folder:GetChildren()) do
+            local prompt = part:FindFirstChild("PegarLixo")
+            if isLixoPart(part, prompt) then
+                table.insert(list, {parte=part, prompt=prompt, posicao=part.Position, distancia=(part.Position-root.Position).Magnitude})
+            end
+        end
+        table.sort(list, function(a, b3) return a.distancia < b3.distancia end)
+        return list
+    end
+    local function inRange(root, part, prompt)
+        if not root or not part or not part.Parent then return false end
+        local maxD = prompt and math.max(2.5, prompt.MaxActivationDistance-0.65) or 4.25
+        return (root.Position-part.Position).Magnitude <= maxD
+    end
+    local function walkTo(part, prompt, runId)
+        local char, hum, root = handleIsValid()
+        if not char or not hum or not root or hum.Health <= 0 then return false end
+        if inRange(root, part, prompt) then return true end
+        for attempt = 1, 4, 1 do
+            if not isRun(runId) or not part.Parent then return false end
+            char, hum, root = handleIsValid()
+            if not char or not hum or not root or hum.Health <= 0 then return false end
+            if inRange(root, part, prompt) then return true end
+            local maxD = prompt and math.max(2.5, prompt.MaxActivationDistance-0.8) or 4
+            local flat = Vector3.new(root.Position.X-part.Position.X, 0, root.Position.Z-part.Position.Z)
+            local dir = flat.Magnitude > 0.1 and flat.Unit or Vector3.new(0,0,1)
+            local radius = math.max(part.Size.X, part.Size.Z)*0.5
+            local safe = math.clamp(radius+1.25, 1.25, math.max(1.25, maxD-0.35))
+            local goal = part.Position + dir*safe
+            local path = PathfindingService:CreatePath({
+                AgentRadius=2, AgentHeight=5, AgentCanJump=true,
+                AgentCanClimb=true, WaypointSpacing=5,
+            })
+            local ok = pcall(function() path:ComputeAsync(root.Position, goal) end)
+            local waypoints = ok and (path.Status == Enum.PathStatus.Success and path:GetWaypoints())
+                or {{Position=goal, Action=Enum.PathWaypointAction.Walk}}
+            local idx = 0
+            local blocked = false
+            local blockConn = path.Blocked:Connect(function(wp) if wp <= idx+1 then blocked = true end end)
+            for i, wp in ipairs(waypoints) do
+                idx = i
+                if not isRun(runId) or blocked then break end
+                char, hum, root = handleIsValid()
+                if not char or not hum or not root or hum.Health <= 0 then break end
+                if inRange(root, part, prompt) then blockConn:Disconnect(); return true end
+                if wp.Action == Enum.PathWaypointAction.Jump then
+                    hum.Jump = true
+                    pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
+                end
+                hum:MoveTo(wp.Position)
+                local last = root.Position
+                local lastMove = os.clock()
+                local lastJump = 0
+                local deadline = os.clock()+8
+                repeat
+                    RunService.Heartbeat:Wait()
+                    if not isRun(runId) then blockConn:Disconnect(); return false end
+                    char, hum, root = handleIsValid()
+                    if not char or not hum or not root then break end
+                    if inRange(root, part, prompt) then blockConn:Disconnect(); return true end
+                    local now = os.clock()
+                    if (root.Position-last).Magnitude >= 0.8 then
+                        last = root.Position
+                        lastMove = now
+                    elseif now-lastMove >= 1.25 and now-lastJump >= 1 then
+                        lastJump = now
+                        hum.Jump = true
+                        pcall(function() hum:ChangeState(Enum.HumanoidStateType.Jumping) end)
+                        hum:MoveTo(wp.Position)
+                    end
+                    if now-lastMove >= 3 then blocked = true end
+                until blocked or os.clock() >= deadline or (root.Position-wp.Position).Magnitude <= 3
+            end
+            blockConn:Disconnect()
+            char, hum, root = handleIsValid()
+            if root and inRange(root, part, prompt) then return true end
+            wait2(0.2, runId)
+        end
+        return false
+    end
+    local function firePrompt(prompt, force)
+        if not prompt or not prompt.Parent or not prompt.Enabled then return false end
+        if not force and type(fireproximityprompt) == "function" then
+            return pcall(fireproximityprompt, prompt, 0)
+        end
+        return pcall(function()
+            prompt:InputHoldBegin()
+            task.wait(math.max(0.15, prompt.HoldDuration+0.1))
+            prompt:InputHoldEnd()
+        end)
+    end
+    local function collectOne(part, prompt, runId)
+        local before = getLixoCount()
+        for attempt = 1, 3, 1 do
+            if not isRun(runId) or not isLixoPart(part, prompt) then
+                return not part.Parent or part.Transparency >= 0.95
+            end
+            local _, _, root = handleIsValid()
+            if not inRange(root, part, prompt) then return false end
+            firePrompt(prompt, attempt > 1)
+            local deadline = os.clock()+2.75
+            repeat
+                if not isRun(runId) then return false end
+                if not part.Parent or part.Transparency >= 0.95 or getLixoCount() > before then return true end
+                task.wait(0.1)
+            until os.clock() >= deadline
+        end
+        return false
+    end
+    local function findDelivery()
+        local folder = workspace:FindFirstChild("EntregaLixo")
+        local lixeira = folder and folder:FindFirstChild("Lixeira")
+        local prompt = lixeira and lixeira:FindFirstChild("EntregarLixo")
+        if lixeira and lixeira:IsA("BasePart") and prompt and prompt:IsA("ProximityPrompt") then
+            return lixeira, prompt
+        end
+        return nil, nil
+    end
+    local function deliverLixos(count, runId)
+        local part, prompt = findDelivery()
+        if not part or not prompt then return false end
+        setFarmStatus(string.format("%d/%d coletados; indo entregar...", count, count))
+        if not walkTo(part, prompt, runId) then
+            if not isRun(runId) then return false end
+            return false
+        end
+        local beforeCount = getLixoCount()
+        local beforeMoney = getMoneySafe()
+        for attempt = 1, 3, 1 do
+            if not isRun(runId) then return false end
+            firePrompt(prompt, attempt > 1)
+            local deadline = os.clock()+4
+            repeat
+                if not isRun(runId) then return false end
+                local nowCount = getLixoCount()
+                local nowMoney = getMoneySafe()
+                if (beforeCount > 0 and nowCount < beforeCount) or (beforeMoney and nowMoney and nowMoney > beforeMoney) then
+                    return true
+                end
+                task.wait(0.15)
+            until os.clock() >= deadline
+        end
+        return false
+    end
+    local function farmLoop(runId)
+        while isRun(runId) do
+            if not trySelectLixeiro(runId) then
+                wait2(2, runId)
+            else
+                local goal = math.clamp(math.floor(tonumber(T.autoFarmLixeiroQuantidade) or 20), 1, 20)
+                local collected = 0
+                while isRun(runId) and (getTeam() == "Lixeiro" and collected < goal) do
+                    local list = scanLixos()
+                    if #list == 0 then
+                        setFarmStatus(string.format("Coletados %d/%d; aguardando...", collected, goal))
+                        wait2(1.25, runId)
+                    else
+                        local target = list[1]
+                        if walkTo(target.parte, target.prompt, runId) then
+                            if collectOne(target.parte, target.prompt, runId) then
+                                collected = collected + 1
+                                wait2(0.45, runId)
+                            else
+                                if not isRun(runId) then break end
+                                wait2(0.35, runId)
+                            end
+                        else
+                            if not isRun(runId) then break end
+                            wait2(0.4, runId)
+                        end
+                    end
+                end
+                if not isRun(runId) then break end
+                if getTeam() ~= "Lixeiro" then
+                    setFarmStatus("Emprego alterado; retomando...")
+                elseif collected >= goal then
+                    while isRun(runId) and not deliverLixos(collected, runId) do
+                        wait2(1, runId)
+                    end
+                    if isRun(runId) then wait2(1.25, runId) end
+                end
+            end
+        end
+    end
+    local function startLixeiro(enable)
+        T.autoFarmLixeiroEnabled = enable == true
+        o.garbageFarmRunId = o.garbageFarmRunId + 1
+        local runId = o.garbageFarmRunId
+        if T.autoFarmLixeiroEnabled then
+            setFarmStatus("Verificando emprego...")
+            task.spawn(function()
+                local ok, err = pcall(farmLoop, runId)
+                if not ok and isRun(runId) then
+                    setFarmStatus("Erro: "..tostring(err))
+                    T.autoFarmLixeiroEnabled = false
+                    o.garbageFarmRunId = o.garbageFarmRunId + 1
+                end
+            end)
+        else
+            setFarmStatus("Auto Farm parado.")
+            local char, hum, root = handleIsValid()
+            if hum and root then hum:MoveTo(root.Position) end
+        end
+    end
+    o.startLixeiro = startLixeiro
+end
+
+-- ============================================
+-- ACOES RAPIDAS
+-- ============================================
+local function curar()
+    local hum = isCValid()
+    if hum then hum.Health = hum.MaxHealth end
+end
+local function destravar()
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj:IsA("BasePart") then
+            local n = string.lower(obj.Name)
+            if string.find(n,"door") or string.find(n,"porta") or string.find(n,"gate") then
+                obj.CanCollide = false
+            end
+        end
+    end
+end
+local function encherMunicao()
+    local char = LocalPlayer.Character
+    local bp = LocalPlayer:FindFirstChild("Backpack")
+    for _, cont in ipairs({char, bp}) do
+        if cont then
+            for _, tool in ipairs(cont:GetChildren()) do
+                if tool:IsA("Tool") then
+                    for _, v in ipairs(tool:GetDescendants()) do
+                        if v:IsA("NumberValue") and (v.Name == "Ammo" or v.Name == "Mag") then v.Value = 999 end
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- ============================================
+-- HUD FLUTUANTE: ITENS NO CHAO
 -- ============================================
 do
     local hudGui = Instance.new("ScreenGui")
@@ -2186,7 +2565,7 @@ do
     title.Position = UDim2.fromOffset(14, 0)
     title.Size = UDim2.new(1, -90, 1, 0)
     title.Font = Enum.Font.GothamBold
-    title.Text = "Itens no chão"
+    title.Text = "Itens no chao"
     title.TextColor3 = WH
     title.TextSize = 13
     title.TextXAlignment = Enum.TextXAlignment.Left
@@ -2321,12 +2700,10 @@ do
 
         row:SetAttribute("ItemIdx", idx)
         tp.MouseButton1Click:Connect(function()
-            local curIdx = row:GetAttribute("ItemIdx")
-            local drops = o.listDrops and o.listDrops() or {}
-            local cur = drops[curIdx]
-            if cur and cur.item and cur.item.Parent then
-                task.spawn(function() pcall(o.coletarItem, cur) end)
-            end
+            -- BLOQUEADO (aba WEAPONS)
+        end)
+        tp.TouchTap:Connect(function()
+            -- BLOQUEADO (aba WEAPONS)
         end)
     end
 
@@ -2351,8 +2728,8 @@ do
     end
 
     function o.setColetaHudVisible(v)
-        frame.Visible = v == true
-        if frame.Visible then pcall(refresh) end
+        -- BLOQUEADO (aba WEAPONS)
+        frame.Visible = false
     end
 
     task.spawn(function()
@@ -2407,7 +2784,7 @@ do
             else
                 hudLbl.Visible = false
             end
-            task.wait(0.5)
+            task.wait(1)
         end
     end)
 end
@@ -2484,7 +2861,7 @@ local subLbl = Instance.new("TextLabel")
 subLbl.Size = UDim2.new(0, 300, 0, 14)
 subLbl.Position = UDim2.new(0, isMobile and 60 or 52, 0, isMobile and 34 or 32)
 subLbl.BackgroundTransparency = 1
-subLbl.Text = "@VETERANO.DEV | VERSAO GRATIS"
+subLbl.Text = "@VETERANO.DEV"
 subLbl.TextColor3 = TC
 subLbl.Font = Enum.Font.GothamMedium
 subLbl.TextSize = 10
@@ -2556,6 +2933,7 @@ leftPanel.ScrollBarThickness = 4
 leftPanel.ScrollBarImageColor3 = TC
 leftPanel.CanvasSize = UDim2.new(0,0,0,0)
 leftPanel.AutomaticCanvasSize = Enum.AutomaticSize.Y
+leftPanel.ClipsDescendants = true
 leftPanel.Parent = container
 local lpCorner = Instance.new("UICorner"); lpCorner.CornerRadius = UDim.new(0,10); lpCorner.Parent = leftPanel
 local lpStr = Instance.new("UIStroke"); lpStr.Color = LINE; lpStr.Thickness = 1; lpStr.Parent = leftPanel
@@ -2628,42 +3006,7 @@ local function criarLayout()
     p.Parent = leftPanel
 end
 
-local function criarToggle(texto, getter, setter, bloqueado)
-    if bloqueado then
-        local frame = Instance.new("Frame")
-        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
-        frame.BackgroundColor3 = BG3
-        frame.BorderSizePixel = 0
-        frame.Parent = leftPanel
-        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
-        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
-        local lbl = Instance.new("TextLabel")
-        lbl.Size = UDim2.new(0, isMobile and 130 or 210, 1, 0)
-        lbl.Position = UDim2.new(0, 22, 0, 0)
-        lbl.BackgroundTransparency = 1
-        lbl.Text = texto
-        lbl.TextColor3 = DIM
-        lbl.Font = Enum.Font.GothamSemibold
-        lbl.TextSize = isMobile and 11 or 12
-        lbl.TextXAlignment = Enum.TextXAlignment.Left
-        lbl.Parent = frame
-        local tBg = Instance.new("Frame")
-        tBg.Size = UDim2.new(0, isMobile and 42 or 38, 0, isMobile and 24 or 20)
-        tBg.Position = UDim2.new(1, isMobile and -50 or -46, 0.5, isMobile and -12 or -10)
-        tBg.BackgroundColor3 = LINE
-        tBg.BorderSizePixel = 0
-        tBg.Parent = frame
-        local tbc = Instance.new("UICorner"); tbc.CornerRadius = UDim.new(1,0); tbc.Parent = tBg
-        local knob = Instance.new("Frame")
-        knob.Size = UDim2.new(0, isMobile and 20 or 16, 0, isMobile and 20 or 16)
-        knob.Position = UDim2.new(0, 3, 0.5, isMobile and -10 or -8)
-        knob.BackgroundColor3 = WH
-        knob.BorderSizePixel = 0
-        knob.Parent = tBg
-        local kc = Instance.new("UICorner"); kc.CornerRadius = UDim.new(1,0); kc.Parent = knob
-        return
-    end
-
+local function criarToggle(texto, getter, setter)
     local on = getter()
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
@@ -2712,7 +3055,8 @@ local function criarToggle(texto, getter, setter, bloqueado)
     local function doToggle()
         if deb then return end
         deb = true
-        setter(not getter())
+        local novo = not getter()
+        pcall(setter, novo)
         local now = getter()
         TweenService:Create(frame, TweenInfo.new(0.15), {BackgroundColor3=now and Color3.fromRGB(70,30,110) or BG3}):Play()
         TweenService:Create(fs, TweenInfo.new(0.15), {Color=now and TC or LINE}):Play()
@@ -2726,26 +3070,7 @@ local function criarToggle(texto, getter, setter, bloqueado)
     btn.TouchTap:Connect(doToggle)
 end
 
-local function criarBotao(texto, cb, bloqueado)
-    if bloqueado then
-        local frame = Instance.new("Frame")
-        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
-        frame.BackgroundColor3 = BG3
-        frame.BorderSizePixel = 0
-        frame.Parent = leftPanel
-        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
-        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
-        local lbl = Instance.new("TextLabel")
-        lbl.Size = UDim2.new(1, 0, 1, 0)
-        lbl.BackgroundTransparency = 1
-        lbl.Text = texto
-        lbl.TextColor3 = DIM
-        lbl.Font = Enum.Font.GothamSemibold
-        lbl.TextSize = isMobile and 11 or 12
-        lbl.Parent = frame
-        return
-    end
-
+local function criarBotao(texto, cb)
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
     frame.BackgroundColor3 = BG3
@@ -2787,7 +3112,7 @@ local function criarBotao(texto, cb, bloqueado)
     btn.TouchTap:Connect(acao)
 end
 
-local function criarSlider(texto, min, max, getter, setter, step, bloqueado)
+local function criarSlider(texto, min, max, getter, setter, step)
     step = step or 1
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 76 or 70)
@@ -2843,7 +3168,6 @@ local function criarSlider(texto, min, max, getter, setter, step, bloqueado)
     fill.BorderSizePixel = 0
     fill.Parent = track
     local fcc = Instance.new("UICorner"); fcc.CornerRadius = UDim.new(1,0); fcc.Parent = fill
-    if bloqueado then return end
     local function aplicarValor(raw, mostrarErro)
         if raw == "" or raw == "-" then return end
         local num = tonumber(raw)
@@ -2857,7 +3181,7 @@ local function criarSlider(texto, min, max, getter, setter, step, bloqueado)
         end
         local v = math.floor(num/step+0.5)*step
         v = math.clamp(v, min, max)
-        setter(v)
+        pcall(setter, v)
         inputBox.Text = tostring(v)
         fill.Size = UDim2.new((v-min)/(max-min), 0, 1, 0)
     end
@@ -2877,38 +3201,10 @@ local function criarSep(txt)
     l.Parent = leftPanel
 end
 
-local function criarDropdown(texto, options, default, onChange, bloqueado)
-    if bloqueado then
-        local frame = Instance.new("Frame")
-        frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
-        frame.BackgroundColor3 = BG3
-        frame.BorderSizePixel = 0
-        frame.Parent = leftPanel
-        local fc = Instance.new("UICorner"); fc.CornerRadius = UDim.new(0,10); fc.Parent = frame
-        local fs = Instance.new("UIStroke"); fs.Color = LINE; fs.Thickness = 1; fs.Parent = frame
-        local lbl = Instance.new("TextLabel")
-        lbl.Size = UDim2.new(0, isMobile and 90 or 140, 1, 0)
-        lbl.Position = UDim2.new(0, 10, 0, 0)
-        lbl.BackgroundTransparency = 1
-        lbl.Text = texto
-        lbl.TextColor3 = WH
-        lbl.Font = Enum.Font.GothamSemibold
-        lbl.TextSize = isMobile and 11 or 12
-        lbl.TextXAlignment = Enum.TextXAlignment.Left
-        lbl.Parent = frame
-        local cur = Instance.new("TextLabel")
-        cur.Size = UDim2.new(0, isMobile and 90 or 130, 1, 0)
-        cur.Position = UDim2.new(1, isMobile and -100 or -140, 0, 0)
-        cur.BackgroundTransparency = 1
-        cur.Text = tostring(default)
-        cur.TextColor3 = TC
-        cur.Font = Enum.Font.GothamBold
-        cur.TextSize = isMobile and 10 or 11
-        cur.TextXAlignment = Enum.TextXAlignment.Right
-        cur.Parent = frame
-        return
-    end
-
+-- ============================================
+-- DROPDOWN CORRIGIDO PARA MOBILE
+-- ============================================
+local function criarDropdown(texto, options, default, onChange)
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(1, 0, 0, isMobile and 50 or 44)
     frame.BackgroundColor3 = BG3
@@ -2944,78 +3240,85 @@ local function criarDropdown(texto, options, default, onChange, bloqueado)
     cur.ZIndex = 6
 
     local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1,0,1,0)
+    btn.Size = UDim2.new(1, 0, 1, 0)
     btn.BackgroundTransparency = 1
     btn.Text = ""
-    btn.Parent = frame
     btn.ZIndex = 7
+    btn.Parent = frame
 
-    local list = Instance.new("Frame")
-    list.Size = UDim2.new(1, 0, 0, 0)
-    list.Position = UDim2.new(0, 0, 1, 4)
-    list.BackgroundColor3 = BG2
-    list.BorderSizePixel = 0
-    list.ClipsDescendants = true
-    list.Visible = false
-    list.ZIndex = 50
-    list.Parent = frame
-    local lc = Instance.new("UICorner"); lc.CornerRadius = UDim.new(0,8); lc.Parent = list
-    local ls = Instance.new("UIStroke"); ls.Color = TC; ls.Thickness = 1; ls.Transparency = 0.4; ls.Parent = list
-    local ll = Instance.new("UIListLayout"); ll.Padding = UDim.new(0,2); ll.SortOrder = Enum.SortOrder.LayoutOrder; ll.Parent = list
+    local overlay = Instance.new("Frame")
+    overlay.Name = "DropdownOverlay"
+    overlay.Size = UDim2.new(1, 0, 0, 0)
+    overlay.Position = UDim2.new(0, 0, 1, 4)
+    overlay.BackgroundColor3 = BG2
+    overlay.BorderSizePixel = 0
+    overlay.ClipsDescendants = true
+    overlay.Visible = false
+    overlay.ZIndex = 60
+    overlay.Parent = frame
+    local lc = Instance.new("UICorner"); lc.CornerRadius = UDim.new(0,8); lc.Parent = overlay
+    local ls = Instance.new("UIStroke"); ls.Color = TC; ls.Thickness = 1; ls.Transparency = 0.4; ls.Parent = overlay
+    local ll = Instance.new("UIListLayout"); ll.Padding = UDim.new(0,2); ll.SortOrder = Enum.SortOrder.LayoutOrder; ll.Parent = overlay
     local lpad = Instance.new("UIPadding")
     lpad.PaddingTop = UDim.new(0, 4)
     lpad.PaddingBottom = UDim.new(0, 4)
     lpad.PaddingLeft = UDim.new(0, 4)
     lpad.PaddingRight = UDim.new(0, 4)
-    lpad.Parent = list
+    lpad.Parent = overlay
 
     local open = false
-    local rowH = 28
+    local rowH = 30
+    local totalH = (#options * (rowH + 2)) + 8
+
     for i, opt in ipairs(options) do
-        local o = Instance.new("TextButton")
-        o.Size = UDim2.new(1, 0, 0, rowH)
-        o.BackgroundColor3 = BG3
-        o.Text = opt
-        o.TextColor3 = WH
-        o.Font = Enum.Font.GothamSemibold
-        o.TextSize = 11
-        o.BorderSizePixel = 0
-        o.LayoutOrder = i
-        o.ZIndex = 51
-        o.AutoButtonColor = false
-        o.Parent = list
-        local oc = Instance.new("UICorner"); oc.CornerRadius = UDim.new(0,6); oc.Parent = o
-        o.MouseEnter:Connect(function()
-            TweenService:Create(o, TweenInfo.new(0.1), {BackgroundColor3=Color3.fromRGB(60,35,100)}):Play()
+        local o2 = Instance.new("TextButton")
+        o2.Size = UDim2.new(1, 0, 0, rowH)
+        o2.BackgroundColor3 = BG3
+        o2.Text = opt
+        o2.TextColor3 = WH
+        o2.Font = Enum.Font.GothamSemibold
+        o2.TextSize = 11
+        o2.BorderSizePixel = 0
+        o2.LayoutOrder = i
+        o2.ZIndex = 61
+        o2.AutoButtonColor = false
+        o2.Parent = overlay
+        local oc = Instance.new("UICorner"); oc.CornerRadius = UDim.new(0,6); oc.Parent = o2
+        o2.MouseEnter:Connect(function()
+            TweenService:Create(o2, TweenInfo.new(0.1), {BackgroundColor3=Color3.fromRGB(60,35,100)}):Play()
         end)
-        o.MouseLeave:Connect(function()
-            TweenService:Create(o, TweenInfo.new(0.1), {BackgroundColor3=BG3}):Play()
+        o2.MouseLeave:Connect(function()
+            TweenService:Create(o2, TweenInfo.new(0.1), {BackgroundColor3=BG3}):Play()
         end)
         local function sel()
             cur.Text = tostring(opt)
             cur.TextColor3 = TC
             open = false
-            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
-            task.delay(0.16, function() list.Visible = false end)
+            TweenService:Create(overlay, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
+            task.delay(0.16, function() overlay.Visible = false end)
             if onChange then pcall(onChange, opt) end
         end
-        o.MouseButton1Click:Connect(sel)
-        o.TouchTap:Connect(sel)
+        o2.MouseButton1Click:Connect(sel)
+        o2.TouchTap:Connect(sel)
     end
 
     local function toggleList()
         open = not open
         if open then
-            local total = (#options * (rowH + 2)) + 8
-            list.Visible = true
-            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,total)}):Play()
+            overlay.Visible = true
+            TweenService:Create(overlay, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,totalH)}):Play()
         else
-            TweenService:Create(list, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
-            task.delay(0.16, function() list.Visible = false end)
+            TweenService:Create(overlay, TweenInfo.new(0.15), {Size=UDim2.new(1,0,0,0)}):Play()
+            task.delay(0.16, function() overlay.Visible = false end)
         end
     end
     btn.MouseButton1Click:Connect(toggleList)
     btn.TouchTap:Connect(toggleList)
+
+    return {
+        Get = function() return cur.Text end,
+        Set = function(_, v) cur.Text = tostring(v) end,
+    }
 end
 
 local updateContent = function()
@@ -3051,11 +3354,11 @@ local updateContent = function()
                 pcall(xz)
             end)
             criarSlider("Vel. Fly", 16, 250, function() return T.flySpeed end, function(v) T.flySpeed = v end, 1)
-            criarSep("MUNDO")
-            criarToggle("Sempre Dia", function() return T.alwaysDay end, function(v)
-                T.alwaysDay = v
-                pcall(o.applyWorld)
+            -- GHOST BLOQUEADO
+            criarToggle("Ghost Mode (Bloqueado)", function() return false end, function(v)
+                T.ghostEnabled = false
             end)
+            criarSep("MUNDO")
             criarToggle("Fullbright", function() return T.fullbright end, function(v)
                 T.fullbright = v
                 pcall(o.applyWorld)
@@ -3064,7 +3367,7 @@ local updateContent = function()
                 T.noLag = v
                 pcall(o.applyWorld)
             end)
-            rTextLbl.Text = "PLAYER - Jogador\n\nWalkSpeed, JumpPower,\nNoclip, Fly,\nMundo."
+            rTextLbl.Text = "PLAYER - Jogador\n\nWalkSpeed:\n  Aumenta a velocidade de corrida.\n\nJumpPower:\n  Aumenta a forca do pulo. Padrao = 50.\n\nNoclip:\n  Atravessa paredes.\n\nFly:\n  Voa com WASD.\n  Space = subir | Ctrl = descer\n\nGhost Mode:\n  DESATIVADO nesta versao.\n\nFullbright:\n  Mundo claro sem sombras e nevoa.\n\nNo Lag:\n  Desliga sombras/blur/sunrays pra ganhar FPS."
 
         elseif activeTab == "ESP" then
             rTitle.Text = "ESP"
@@ -3084,7 +3387,7 @@ local updateContent = function()
             criarToggle("Seta fora da tela", function() return T.arrow end, function(v) T.arrow = v end)
             criarToggle("Times", function() return T.teamTag end, function(v) T.teamTag = v end)
             criarSlider("Distancia maxima", 100, 5000, function() return T.maxDistance end, function(v) T.maxDistance = v end, 50)
-            rTextLbl.Text = "ESP - Ver Jogadores\n\nStaff = VERMELHO\nAmigos = AZUL\nNormais = ROXO"
+            rTextLbl.Text = "ESP - Ver Jogadores\n\nCaixa 2D:\n  Retangulo em volta do jogador.\n\nCaixa 3D:\n  Arestas 3D da caixa.\n\nNome:\n  Nome do jogador.\n\nDistancia:\n  Metros de distancia ate voce.\n\nItem na mao:\n  Nome da arma/item equipada.\n\nEsqueleto:\n  Linhas do corpo (ossos).\n\nHighlight:\n  Marca o jogador com cor solida.\n\nTracer:\n  Linha da sua tela ate o alvo.\n\nSeta fora da tela:\n  Seta quando ele sai da tela.\n\nTimes:\n  Mostra o time do jogador."
 
         elseif activeTab == "AIMBOT" then
             rTitle.Text = "AIMBOT"
@@ -3107,12 +3410,29 @@ local updateContent = function()
             criarToggle("Wall Check", function() return T.aimbotWallCheck end, function(v) T.aimbotWallCheck = v end)
             criarToggle("Friend Check", function() return T.friendCheck end, function(v) T.friendCheck = v end)
             criarToggle("Staff Check", function() return T.adminCheck end, function(v) T.adminCheck = v end)
-            rTextLbl.Text = "AIMBOT - Mira Automatica\n\nLegit: puxa suave.\nRage: trava brutal.\n\nWall Check: nao puxa atras de parede.\n\nSuavidade:\n  1 = bem leve\n  50 = medio (recomendado)\n  100 = quase rage"
+            rTextLbl.Text = "AIMBOT - Mira Automatica\n\nModo Legit:\n  So mira quando voce tem arma equipada.\n\nModo Rage:\n  Mira SEMPRE, mesmo sem arma na mao.\n\nFOV:\n  Distancia maxima do centro da tela.\n\nSuavidade:\n  Menor = trava rapido.\n\nParte do Corpo:\n  Cabeca = headshot\n  Torso = body shot\n\nWall Check:\n  So mira em quem tem linha de visao.\n\nFriend/Staff Check:\n  Ignora amigos/staff."
 
         elseif activeTab == "WEAPONS" then
             rTitle.Text = "WEAPONS"
+            criarSep("BLOQUEADO")
+            local aviso = Instance.new("TextLabel")
+            aviso.Size = UDim2.new(1, 0, 0, isMobile and 60 or 50)
+            aviso.BackgroundColor3 = BG3
+            aviso.Text = "Todas as funcoes desta aba estao\nDESATIVADAS nesta versao."
+            aviso.TextColor3 = DIM
+            aviso.Font = Enum.Font.Gotham
+            aviso.TextSize = isMobile and 10 or 11
+            aviso.TextWrapped = true
+            aviso.TextYAlignment = Enum.TextYAlignment.Center
+            aviso.Parent = leftPanel
+            local ac = Instance.new("UICorner"); ac.CornerRadius = UDim.new(0,8); ac.Parent = aviso
+            local ap = Instance.new("UIPadding")
+            ap.PaddingTop = UDim.new(0,6); ap.PaddingBottom = UDim.new(0,6)
+            ap.PaddingLeft = UDim.new(0,8); ap.PaddingRight = UDim.new(0,8)
+            ap.Parent = aviso
+
             criarSep("TRACER")
-            criarToggle("Tracer Neon", function() return T.armaTracer end, function(v) T.armaTracer = v end, true)
+            criarToggle("Tracer Neon", function() return false end, function(v) T.armaTracer = false end)
             local coresTracer = {
                 {"Ciano", Color3.fromRGB(0,255,255)},
                 {"Verde", Color3.fromRGB(60,255,90)},
@@ -3155,54 +3475,80 @@ local updateContent = function()
                 btn.Parent = corGrid
                 local bc = Instance.new("UICorner"); bc.CornerRadius = UDim.new(0,6); bc.Parent = btn
                 local bs = Instance.new("UIStroke"); bs.Color = LINE; bs.Thickness = 1; bs.Parent = btn
+                -- BLOQUEADO
+                local function aplicar()
+                    T.armaTracer = false
+                end
+                btn.MouseButton1Click:Connect(aplicar)
+                btn.TouchTap:Connect(aplicar)
             end
 
             criarSep("COLETAR ITENS")
-            criarToggle("Ativar Coleta Auto", function() return T.autoColetaEnabled end, function(v)
-                if v then
-                    if o.startAutoColeta then o.startAutoColeta() end
-                else
-                    if o.stopAutoColeta then o.stopAutoColeta() end
-                end
-            end)
+            criarToggle("Ativar Coleta Auto", function() return false end, function(v) T.autoColetaEnabled = false end)
             criarSlider("Velocidade TP", 20, 160, function() return T.itemTeleportSpeed end, function(v) T.itemTeleportSpeed = v end, 5)
             criarSlider("Cooldown (ms)", 10, 200, function() return math.floor(T.autoColetaCooldown * 100) end, function(v) T.autoColetaCooldown = v / 100 end, 5)
-            criarToggle("Mostrar HUD de itens", function() return T.coletaHudEnabled end, function(v)
-                T.coletaHudEnabled = v
-                if o.setColetaHudVisible then o.setColetaHudVisible(v) end
-            end)
-            rTextLbl.Text = "WEAPONS - Armas\n\nColetar Itens: auto + HUD."
+            criarToggle("Mostrar HUD de itens", function() return false end, function(v) T.coletaHudEnabled = false end)
+            rTextLbl.Text = "WEAPONS - Armas\n\nTodas as funcoes desta aba\nestao DESATIVADAS nesta versao."
 
         elseif activeTab == "MISC" then
             rTitle.Text = "MISC"
-            criarToggle("Perfect Lockpick", function() return T.perfectLockpick end, function(v) T.perfectLockpick = v end, true)
-            criarToggle("2x Sorte (Gacha 2%)", function() return T.sorte2xEnabled end, function(v)
-                T.sorte2xEnabled = v
-            end, true)
+            criarToggle("Perfect Lockpick (Bloqueado)", function() return false end, function(v) T.perfectLockpick = false end)
+            criarToggle("2x Sorte (Bloqueado)", function() return false end, function(v) T.sorte2xEnabled = false end)
+            criarSep("CAMUFLAGEM")
+            criarToggle("Camuflar Nick (VETERANO.DEV)", function() return T.camuflarNickEnabled end, function(v)
+                if o.setCamuflarNick then pcall(o.setCamuflarNick, v) end
+            end)
             criarSep("AUTO FARM")
-            criarToggle("Auto Farm Partes de Arma", function() return T.farmPartesEnabled end, function(v)
-                T.farmPartesEnabled = v
-            end, true)
+            criarToggle("Auto Farm Partes (Bloqueado)", function() return false end, function(v) T.farmPartesEnabled = false end)
             criarToggle("Auto Farm Lixeiro", function() return T.autoFarmLixeiroEnabled end, function(v)
                 if o.startLixeiro then o.startLixeiro(v) end
             end)
             criarSlider("Lixos por entrega", 1, 20, function() return T.autoFarmLixeiroQuantidade end, function(v) T.autoFarmLixeiroQuantidade = v end, 1)
-            criarToggle("Auto Farm Pesca", function() return T.autoFarmPescaEnabled end, function(v)
-                if o.startPesca then o.startPesca(v) end
-            end, true)
+            criarToggle("Auto Farm Pesca (Bloqueado)", function() return false end, function(v) T.autoFarmPescaEnabled = false end)
             criarSep("ACOES")
             criarBotao("Curar", curar)
             criarBotao("Destravar Portas", destravar)
             criarBotao("Encher Municao", encherMunicao)
-            rTextLbl.Text = "MISC - Diversos\n\nAuto Lixeiro liberado."
+            rTextLbl.Text = "MISC - Diversos\n\nPerfect Lockpick:\n  DESATIVADO nesta versao.\n\n2x Sorte (Gacha):\n  DESATIVADO nesta versao.\n\nCamuflar Nick:\n  Substitui seu nome no inventario\n  por VETERANO.DEV.\n\nAuto Farm Partes:\n  DESATIVADO nesta versao.\n\nAuto Farm Lixeiro:\n  Pega lixo e entrega automaticamente.\n\nAuto Farm Pesca:\n  DESATIVADO nesta versao.\n\nAcoes Rapidas:\n  Curar = enche vida\n  Destravar = abre portas\n  Municao = 999 balas"
 
         elseif activeTab == "VEICULO" then
             rTitle.Text = "VEICULO"
-            criarSep("FUNCAO BLOQUEADA")
+            criarSep("BLOQUEADO")
+            local avisoV = Instance.new("TextLabel")
+            avisoV.Size = UDim2.new(1, 0, 0, isMobile and 60 or 50)
+            avisoV.BackgroundColor3 = BG3
+            avisoV.Text = "Todas as funcoes desta aba estao\nDESATIVADAS nesta versao."
+            avisoV.TextColor3 = DIM
+            avisoV.Font = Enum.Font.Gotham
+            avisoV.TextSize = isMobile and 10 or 11
+            avisoV.TextWrapped = true
+            avisoV.TextYAlignment = Enum.TextYAlignment.Center
+            avisoV.Parent = leftPanel
+            local avc = Instance.new("UICorner"); avc.CornerRadius = UDim.new(0,8); avc.Parent = avisoV
+            local avp = Instance.new("UIPadding")
+            avp.PaddingTop = UDim.new(0,6); avp.PaddingBottom = UDim.new(0,6)
+            avp.PaddingLeft = UDim.new(0,8); avp.PaddingRight = UDim.new(0,8)
+            avp.Parent = avisoV
+
+            criarToggle("Durabilidade HUD", function() return false end, function(v) T.durabilidadeHudEnabled = false end)
+            criarToggle("Cinto Automatico", function() return false end, function(v) T.autoCintoEnabled = false end)
+            criarSep("MOVIMENTO")
+            criarToggle("Noclip Car", function() return false end, function(v) T.noclipCarEnabled = false end)
+            criarToggle("VFly", function() return false end, function(v) T.vFlyEnabled = false end)
+            criarSlider("VFly Horiz", 20, 500, function() return T.vFlyHorizontalSpeed end, function(v) T.vFlyHorizontalSpeed = v end, 5)
+            criarSlider("VFly Vert", 10, 300, function() return T.vFlyVerticalSpeed end, function(v) T.vFlyVerticalSpeed = v end, 5)
+            criarSlider("Boost (%)", 100, 99900, function() return math.floor(T.boostFactor*100) end, function(v)
+                T.boostFactor = 1
+            end, 100)
+            rTextLbl.Text = "VEICULO - Carros\n\nTodas as funcoes desta aba\nestao DESATIVADAS nesta versao."
+
+        elseif activeTab == "GARAGEM" then
+            rTitle.Text = "GARAGEM"
+            criarSep("EM BREVE")
             local infoLbl = Instance.new("TextLabel")
-            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 100 or 80)
+            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 200 or 180)
             infoLbl.BackgroundColor3 = BG3
-            infoLbl.Text = "Essa aba e da versao completa."
+            infoLbl.Text = "Essa aba sera usada para puxar veiculos do jogo.\n\nEm breve:\n  ESP Car\n  Spawn de veiculos\n  Controle remoto"
             infoLbl.TextColor3 = DIM
             infoLbl.Font = Enum.Font.Gotham
             infoLbl.TextSize = isMobile and 10 or 11
@@ -3210,30 +3556,21 @@ local updateContent = function()
             infoLbl.TextYAlignment = Enum.TextYAlignment.Top
             infoLbl.Parent = leftPanel
             local infoCorner = Instance.new("UICorner"); infoCorner.CornerRadius = UDim.new(0,8); infoCorner.Parent = infoLbl
-            rTextLbl.Text = "VEICULO\n\nBloqueado."
-
-        elseif activeTab == "GARAGEM" then
-            rTitle.Text = "GARAGEM"
-            criarSep("EM BREVE")
-            local infoLbl = Instance.new("TextLabel")
-            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 60 or 50)
-            infoLbl.BackgroundColor3 = BG3
-            infoLbl.Text = "Em breve."
-            infoLbl.TextColor3 = DIM
-            infoLbl.Font = Enum.Font.Gotham
-            infoLbl.TextSize = isMobile and 10 or 11
-            infoLbl.TextWrapped = true
-            infoLbl.Parent = leftPanel
-            local infoCorner = Instance.new("UICorner"); infoCorner.CornerRadius = UDim.new(0,8); infoCorner.Parent = infoLbl
-            rTextLbl.Text = "GARAGEM\n\nEm breve."
+            local infoPad = Instance.new("UIPadding")
+            infoPad.PaddingTop = UDim.new(0,6)
+            infoPad.PaddingLeft = UDim.new(0,8)
+            infoPad.PaddingRight = UDim.new(0,8)
+            infoPad.PaddingBottom = UDim.new(0,6)
+            infoPad.Parent = infoLbl
+            rTextLbl.Text = "GARAGEM - Veiculos\n\nEssa aba sera usada pra puxar\nveiculos do jogo.\n\nEm breve:\n  ESP Car\n  Spawn de veiculos\n  Controle remoto"
 
         elseif activeTab == "CONFIG" then
             rTitle.Text = "CONFIG"
-            criarSep("SOBRE")
+            criarSep("SOBRE A VETERANO TEAM")
             local infoLbl = Instance.new("TextLabel")
-            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 150 or 130)
+            infoLbl.Size = UDim2.new(1, 0, 0, isMobile and 210 or 190)
             infoLbl.BackgroundColor3 = BG3
-            infoLbl.Text = "VETERANO TEAM\n\nDiscord: @veterano.dev"
+            infoLbl.Text = "VETERANO TEAM\n\nUma equipe especializada em desenvolvimento de cheats para jogos de RP na plataforma Roblox.\n\nNossos projetos sao focados em:\n  - Sistemas de bypass avancados\n  - Menus personalizados\n  - Automacoes inteligentes\n  - Otimizacao de performance\n\nDiscord: @veterano.dev"
             infoLbl.TextColor3 = DIM
             infoLbl.Font = Enum.Font.Gotham
             infoLbl.TextSize = isMobile and 9 or 10
@@ -3245,11 +3582,11 @@ local updateContent = function()
             infoPad.PaddingTop = UDim.new(0,8); infoPad.PaddingLeft = UDim.new(0,10)
             infoPad.PaddingRight = UDim.new(0,10); infoPad.PaddingBottom = UDim.new(0,8)
             infoPad.Parent = infoLbl
-            local infoStroke = Instance.new("UIStroke"); infoStroke.Color = TC; infoStroke.Thickness = 1; infoStroke.Transparency = 0.5; infoStroke.Parent = infoLbl
 
             criarSep("MONITORAR STAFF")
             criarToggle("Ativar Monitor Staff", function() return T.monitorarStaff end, function(v)
                 T.monitorarStaff = v
+                if v then Xz("Monitor Staff ATIVADO") else Xz("Monitor Staff desativado") end
             end)
 
             criarSep("GERENCIAR")
@@ -3262,31 +3599,53 @@ local updateContent = function()
                 T.spoofJumpPower = 90
                 T.flySpeed = 60
                 T.maxDistance = P
+                T.vFlyHorizontalSpeed = 60
+                T.vFlyVerticalSpeed = 30
                 T.itemTeleportSpeed = 65
                 T.autoColetaCooldown = 0.35
                 T.aimbotMode = "Legit"
                 T.aimbotBodyPart = "Cabeca"
+                T.armaTracerCor = "Ciano"
                 pcall(o.applyWorld)
                 pcall(Nz)
                 pcall(xz)
                 stopAimbot()
-                if o.stopAutoColeta then pcall(o.stopAutoColeta) end
-                if o.setColetaHudVisible then pcall(o.setColetaHudVisible, false) end
+                if o.setCamuflarNick then pcall(o.setCamuflarNick, false) end
+                Xz("Menu resetado.")
                 updateContent()
             end)
             criarBotao("Rejoin (Servidor)", function()
                 pcall(function()
                     TeleportService:Teleport(game.PlaceId, LocalPlayer)
                 end)
+                Xz("Rejoinando...")
             end)
             criarBotao("Rejoin (Place)", function()
                 pcall(function()
                     TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
                 end)
+                Xz("Rejoinando ao place...")
             end)
             criarBotao("Fechar Menu", function() screenGui.Enabled = false end)
 
-            rTextLbl.Text = "CONFIG\n\nMonitor Staff, Resetar, Rejoin."
+            criarSep("INFO")
+            local infoLbl2 = Instance.new("TextLabel")
+            infoLbl2.Size = UDim2.new(1, 0, 0, isMobile and 70 or 60)
+            infoLbl2.BackgroundColor3 = BG3
+            infoLbl2.Text = "Build: vt-team-v6\nTecla do menu: K\nFly: F | Noclip: N"
+            infoLbl2.TextColor3 = DIM
+            infoLbl2.Font = Enum.Font.Gotham
+            infoLbl2.TextSize = isMobile and 9 or 10
+            infoLbl2.TextWrapped = true
+            infoLbl2.TextYAlignment = Enum.TextYAlignment.Top
+            infoLbl2.Parent = leftPanel
+            local ic2 = Instance.new("UICorner"); ic2.CornerRadius = UDim.new(0,8); ic2.Parent = infoLbl2
+            local ip2 = Instance.new("UIPadding")
+            ip2.PaddingTop = UDim.new(0,6); ip2.PaddingLeft = UDim.new(0,8)
+            ip2.PaddingRight = UDim.new(0,8); ip2.PaddingBottom = UDim.new(0,6)
+            ip2.Parent = infoLbl2
+
+            rTextLbl.Text = "CONFIG - Configuracoes\n\nMonitor Staff:\n  Mostra quantos staffs online.\n\nResetar Menu:\n  Desliga tudo e volta ao padrao.\n\nRejoin (Servidor):\n  Entra em outro servidor.\n\nRejoin (Place):\n  Entra no MESMO servidor.\n\nFechar Menu:\n  Esconde o menu.\n\nAtalhos:\n  K = abrir/fechar menu\n  F = ativar fly\n  N = ativar noclip"
         end
     end)
 end
@@ -3377,6 +3736,26 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
+function Xz(msg)
+    local toast = Instance.new("TextLabel")
+    toast.Size = UDim2.new(0, 260, 0, 30)
+    toast.Position = UDim2.new(0.5, -130, 1, -50)
+    toast.BackgroundColor3 = BG3
+    toast.TextColor3 = DIM
+    toast.Font = Enum.Font.Gotham
+    toast.TextSize = 11
+    toast.Text = tostring(msg)
+    toast.BorderSizePixel = 0
+    toast.ZIndex = 999
+    toast.Parent = container
+    local tc = Instance.new("UICorner"); tc.CornerRadius = UDim.new(0,8); tc.Parent = toast
+    task.delay(3, function()
+        TweenService:Create(toast, TweenInfo.new(0.3), {BackgroundTransparency=1, TextTransparency=1}):Play()
+        task.wait(0.4)
+        toast:Destroy()
+    end)
+end
+
 UserInputService.InputBegan:Connect(function(input, gp)
     if gp then return end
     if input.KeyCode == T.menuKeybind then
@@ -3395,7 +3774,7 @@ end)
 updateContent()
 
 C.__VETERANO_SINTONIA_WINDOW = screenGui
-C.__VETERANO_SINTONIA_BUILD = "vt-team-v7-free"
+C.__VETERANO_SINTONIA_BUILD = "vt-team-v6"
 C.__VETERANO_SINTONIA_CLEANUP = function()
     o.destroyed = true
     C.__VETERANO_SINTONIA_RUNTIME = nil
@@ -3406,6 +3785,12 @@ C.__VETERANO_SINTONIA_CLEANUP = function()
     o.connections = {}
     for plr in pairs(T.bundles) do qF(T.bundles[plr]); T.bundles[plr] = nil end
     stopAimbot()
+    if o.restaurarArmas then pcall(o.restaurarArmas) end
+    if o.destruirDurabilidade then pcall(o.destruirDurabilidade) end
+    if o.restaurarNoclipCar then pcall(o.restaurarNoclipCar) end
+    if o.restaurarGacha then pcall(o.restaurarGacha) end
+    if o.stopGhost then pcall(o.stopGhost) end
+    if o.setCamuflarNick then pcall(o.setCamuflarNick, false) end
     pcall(function() screenGui:Destroy() end)
     pcall(function()
         local g = parentGui:FindFirstChild("VeteranoStaffHUD")
@@ -3413,4 +3798,4 @@ C.__VETERANO_SINTONIA_CLEANUP = function()
     end)
 end
 
-print("[VETERANO TEAM] Versao GRATIS carregada")
+print("[VETERANO TEAM | SINTONIA RP V2] Carregado (v6)")
